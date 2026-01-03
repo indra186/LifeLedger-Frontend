@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_gray_bg"
+    android:padding="24dp">
+
+    <!-- Header -->
+    <ImageView
+        android:id="@+id/btn_back"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:src="@drawable/ic_launcher_foreground"
+        app:tint="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="24dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Back" />
+
+    <TextView
+        android:id="@+id/tv_header_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Savings Goals"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/btn_back"
+        app:layout_constraintBottom_toBottomOf="@id/btn_back"/>
+
+    <ImageView
+        android:id="@+id/btn_menu"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:src="@drawable/ic_more_vert"
+        app:tint="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/btn_back"
+        android:layout_marginTop="24dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Menu" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="24dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@id/tv_header_title"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="24dp">
+
+            <!-- Hero Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_total_savings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="8dp"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_header_gradient"
+                    android:padding="24dp">
+
+                    <TextView
+                        android:id="@+id/tv_total_saved_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Total Saved"
+                        android:textColor="#CCFFFFFF"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/tv_total_saved_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="$12,100"
+                        android:textColor="@color/white"
+                        android:textSize="36sp"
+                        android:textStyle="bold"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_total_saved_label"/>
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@android:drawable/arrow_up_float"
+                        app:tint="@color/white"
+                        android:id="@+id/icon_trend"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_total_saved_amount"
+                        android:layout_marginTop="16dp"
+                        android:contentDescription="Trending Up"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="$17,000 total goal"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:layout_marginStart="8dp"
+                        app:layout_constraintStart_toEndOf="@id/icon_trend"
+                        app:layout_constraintTop_toTopOf="@id/icon_trend"
+                        app:layout_constraintBottom_toBottomOf="@id/icon_trend"/>
+
+                    <!-- Circle Icon on Right -->
+                    <View
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:background="@drawable/circle_shape_gray"
+                        android:backgroundTint="#33FFFFFF"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+                    
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_goals" 
+                        app:tint="@color/white"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginEnd="16dp"
+                        android:contentDescription="Target"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Active Goals Header -->
+            <TextView
+                android:id="@+id/tv_active_goals"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Active Goals"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_marginTop="32dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/card_total_savings"/>
+
+            <TextView
+                android:id="@+id/btn_add_goal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+ Add Goal"
+                android:textColor="@color/brand_purple"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBaseline_toBaselineOf="@id/tv_active_goals"/>
+
+            <!-- List Item 1: Emergency Fund -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_goal_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/tv_active_goals">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:id="@+id/img_goal_1"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="@drawable/bg_social_button" 
+                        android:backgroundTint="#F5F5F5"
+                        android:padding="10dp"
+                        android:src="@drawable/ic_security" 
+                        app:tint="@color/black"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:contentDescription="Icon"/>
+
+                    <TextView
+                        android:id="@+id/tv_title_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Emergency Fund"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:layout_marginStart="16dp"
+                        app:layout_constraintStart_toEndOf="@id/img_goal_1"
+                        app:layout_constraintTop_toTopOf="@id/img_goal_1"/>
+
+                    <TextView
+                        android:id="@+id/tv_sub_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="$8,500 of $10,000"
+                        android:textColor="@color/gray"
+                        android:textSize="14sp"
+                        android:layout_marginTop="4dp"
+                        app:layout_constraintStart_toStartOf="@id/tv_title_1"
+                        app:layout_constraintTop_toBottomOf="@id/tv_title_1"/>
+
+                    <!-- Badge -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="85%"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/brand_purple"
+                        android:background="@drawable/rounded_edittext"
+                        android:backgroundTint="#F3E5F5"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="4dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_sub_1"/>
+
+                    <ProgressBar
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="8dp"
+                        android:progress="85"
+                        android:progressTint="@color/brand_purple"
+                        android:progressBackgroundTint="#F0F0F0"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintTop_toBottomOf="@id/img_goal_1"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- List Item 2: Vacation to Japan -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_goal_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/card_goal_1">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:id="@+id/img_goal_2"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="@drawable/bg_social_button"
+                        android:backgroundTint="#F5F5F5"
+                        android:padding="10dp"
+                        android:src="@drawable/ic_transportation"
+                        app:tint="@color/black"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:contentDescription="Icon"/>
+
+                    <TextView
+                        android:id="@+id/tv_title_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Vacation to Japan"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:layout_marginStart="16dp"
+                        app:layout_constraintStart_toEndOf="@id/img_goal_2"
+                        app:layout_constraintTop_toTopOf="@id/img_goal_2"/>
+
+                    <TextView
+                        android:id="@+id/tv_sub_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="$2,400 of $5,000"
+                        android:textColor="@color/gray"
+                        android:textSize="14sp"
+                        android:layout_marginTop="4dp"
+                        app:layout_constraintStart_toStartOf="@id/tv_title_2"
+                        app:layout_constraintTop_toBottomOf="@id/tv_title_2"/>
+
+                    <!-- Badge -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="48%"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/warm_pink"
+                        android:background="@drawable/rounded_edittext"
+                        android:backgroundTint="#FFEBEE"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="4dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_sub_2"/>
+
+                    <ProgressBar
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="8dp"
+                        android:progress="48"
+                        android:progressTint="@color/warm_pink"
+                        android:progressBackgroundTint="#F0F0F0"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintTop_toBottomOf="@id/img_goal_2"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- List Item 3: New Laptop -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_goal_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/card_goal_2">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:id="@+id/img_goal_3"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="@drawable/bg_social_button"
+                        android:backgroundTint="#F5F5F5"
+                        android:padding="10dp"
+                        android:src="@drawable/ic_shopping"
+                        app:tint="@color/black"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:contentDescription="Icon"/>
+
+                    <TextView
+                        android:id="@+id/tv_title_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="New Laptop"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:layout_marginStart="16dp"
+                        app:layout_constraintStart_toEndOf="@id/img_goal_3"
+                        app:layout_constraintTop_toTopOf="@id/img_goal_3"/>
+
+                    <TextView
+                        android:id="@+id/tv_sub_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="$1,200 of $2,000"
+                        android:textColor="@color/gray"
+                        android:textSize="14sp"
+                        android:layout_marginTop="4dp"
+                        app:layout_constraintStart_toStartOf="@id/tv_title_3"
+                        app:layout_constraintTop_toBottomOf="@id/tv_title_3"/>
+
+                    <!-- Badge -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="60%"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/warm_orange"
+                        android:background="@drawable/rounded_edittext"
+                        android:backgroundTint="#FFF3E0"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="4dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_sub_3"/>
+
+                    <ProgressBar
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="8dp"
+                        android:progress="60"
+                        android:progressTint="@color/warm_orange"
+                        android:progressBackgroundTint="#F0F0F0"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintTop_toBottomOf="@id/img_goal_3"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:padding="16dp">
+
+    <!-- Header -->
+    <ImageView
+        android:id="@+id/btn_back"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_back"
+        app:tint="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/back_content_description" />
+
+    <TextView
+        android:id="@+id/tv_header_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_goal"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/btn_back"
+        app:layout_constraintBottom_toBottomOf="@id/btn_back"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="24dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@id/tv_header_title"
+        app:layout_constraintBottom_toTopOf="@id/btn_save_goal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="24dp">
+
+            <!-- Goal Name -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Goal Name"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="16sp"/>
+
+            <EditText
+                android:id="@+id/et_goal_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="e.g. New Car"
+                android:padding="12dp"
+                android:background="@android:drawable/edit_text"
+                android:layout_marginTop="8dp"/>
+
+            <!-- Target Amount -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Target Amount"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginTop="24dp"/>
+
+            <EditText
+                android:id="@+id/et_target_amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="$0.00"
+                android:inputType="numberDecimal"
+                android:padding="12dp"
+                android:background="@android:drawable/edit_text"
+                android:layout_marginTop="8dp"/>
+
+            <!-- Initial Amount (Optional) -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Initial Saved Amount (Optional)"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginTop="24dp"/>
+
+            <EditText
+                android:id="@+id/et_initial_amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="$0.00"
+                android:inputType="numberDecimal"
+                android:padding="12dp"
+                android:background="@android:drawable/edit_text"
+                android:layout_marginTop="8dp"/>
+
+            <!-- Target Date -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Target Date"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginTop="24dp"/>
+
+            <TextView
+                android:id="@+id/tv_target_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Select Date"
+                android:padding="12dp"
+                android:background="@android:drawable/edit_text"
+                android:layout_marginTop="8dp"
+                android:drawableEnd="@android:drawable/ic_menu_my_calendar"
+                android:gravity="center_vertical"/>
+
+            <!-- Icon Selection (Simplified) -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Icon"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginTop="24dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_security"
+                    app:tint="@color/black"
+                    android:background="@drawable/bg_social_button"
+                    android:padding="12dp"
+                    android:layout_marginEnd="16dp"
+                    android:contentDescription="Shield Icon"/>
+
+                 <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_transportation"
+                    app:tint="@color/gray"
+                    android:background="@drawable/bg_social_button"
+                    android:backgroundTint="#F5F5F5"
+                    android:padding="12dp"
+                    android:layout_marginEnd="16dp"
+                    android:contentDescription="Plane Icon"/>
+
+                 <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_entertainment"
+                    app:tint="@color/gray"
+                    android:background="@drawable/bg_social_button"
+                    android:backgroundTint="#F5F5F5"
+                    android:padding="12dp"
+                    android:contentDescription="Computer Icon"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btn_save_goal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save Goal"
+        android:backgroundTint="@color/brand_purple"
+        android:textColor="@color/white"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

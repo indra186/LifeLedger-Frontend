@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Untitled</string>
+    <string name="dashboard_title">Dashboard</string>
+    <string name="add_task_title">Add Task</string>
+    <string name="payment_title">Payment</string>
+    <string name="welcome_message">Welcome back</string>
+
+    <!-- Onboarding Strings -->
+    <string name="onboarding_finance_title">Track Your Finances</string>
+    <string name="onboarding_finance_desc">Manage accounts, budgets, and expenses in one beautiful place</string>
+    <string name="onboarding_habits_title">Build Better Habits</string>
+    <string name="onboarding_habits_desc">Track habits, health, and daily routines with ease</string>
+    <string name="onboarding_goals_title">Achieve Your Goals</string>
+    <string name="onboarding_goals_desc">Set goals, track progress, and celebrate milestones</string>
+    <string name="next">Next</string>
+    <string name="get_started">Get Started</string>
+    <string name="have_account">Already have an account? </string>
+    <string name="sign_in">Sign in</string>
+
+    <!-- Signup Strings -->
+    <string name="create_account">Create Account</string>
+    <string name="signup_subtitle">Start your journey with us</string>
+    <string name="join_message">Join LifeLedger and start your journey</string>
+    <string name="full_name">Full Name</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="accept_terms">I agree to the Terms of Service</string>
+    <string name="terms_agreement">I agree to the Terms of Service and Privacy</string>
+    <string name="sign_up_btn">Sign Up</string>
+    <string name="create_account_btn">Create Account</string>
+    <string name="john_doe_placeholder">John Doe</string>
+    <string name="email_placeholder">john@example.com</string>
+    <string name="already_have_account">Already have an account?</string>
+    <string name="login">Login</string>
+
+    <!-- OTP Strings -->
+    <string name="enter_otp">Enter Verification Code</string>
+    <string name="otp_sent_msg">We\'ve sent a code to your registered number</string>
+    <string name="resend_otp">Resend OTP</string>
+    <string name="verify">Verify</string>
+    <string name="verify_email">Verify Your Email</string>
+    <string name="otp_sent_to">We\'ve sent a code to</string>
+    <string name="didnt_receive_code">Didn\'t receive the code?</string>
+    <string name="resend_code">Resend Code</string>
+    <string name="verify_continue">Verify &amp; Continue</string>
+
+    <!-- Login Strings -->
+    <string name="welcome_back">Welcome Back</string>
+    <string name="login_subtitle">Sign in to continue your journey</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="login_btn">Sign In</string>
+    <string name="or_continue_with">Or continue with</string>
+    <string name="google">Google</string>
+    <string name="apple">Apple</string>
+    <string name="dont_have_account">Don\'t have an account? </string>
+    <string name="sign_up">Sign up</string>
+
+    <!-- Dashboard Strings -->
+    <string name="welcome_back_comma">Welcome back,</string>
+    <string name="total_balance">Total Balance</string>
+    <string name="balance_placeholder">$24,580.50</string>
+    <string name="growth_this_month">+12.5% this month</string>
+    <string name="quick_stats">Quick Stats</string>
+    <string name="expenses">Expenses</string>
+    <string name="habits">Habits</string>
+    <string name="active_goals">Active Goals</string>
+    <string name="view_all">View All</string>
+    <string name="emergency_fund">Emergency Fund</string>
+    <string name="goal_progress_text">$8,500 of $10,000</string>
+    <string name="todays_focus">Today\'s Focus</string>
+    <string name="morning_workout">Morning workout</string>
+    <string name="workout_time">7:00 AM - 8:00 AM</string>
+    <string name="review_budget">Review budget</string>
+    <string name="finance">Finance</string>
+    
+    <!-- Finance Strings -->
+    <string name="financial_goals">Financial Goals</string>
+    <string name="net_worth">Net Worth</string>
+    <string name="this_month">This Month</string>
+    <string name="plus_1240">+$1,240</string>
+    <string name="mon">Mon</string>
+    <string name="tue">Tue</string>
+    <string name="wed">Wed</string>
+    <string name="thu">Thu</string>
+    <string name="fri">Fri</string>
+    <string name="sat">Sat</string>
+    <string name="sun">Sun</string>
+    <string name="accounts">Accounts</string>
+    <string name="budgets">Budgets</string>
+    <string name="reports">Reports</string>
+    <string name="recent_transactions">Recent Transactions</string>
+    <string name="grocery_store">Grocery Store</string>
+    <string name="today_time">Today, 2:30 PM</string>
+    <string name="minus_8540">-$85.40</string>
+    <string name="salary_deposit">Salary Deposit</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="plus_4200">+$4,200</string>
+    <string name="netflix_subscription">Netflix Subscription</string>
+    <string name="two_days_ago">2 days ago</string>
+    <string name="minus_1599">-$15.99</string>
+    <string name="send">Send</string>
+    <string name="pay">Pay</string>
+    <string name="top_up">Top Up</string>
+    <string name="more">More</string>
+    <string name="transactions">Transactions</string>
+    <string name="salary_received">Salary Received</string>
+
+    <!-- Budgets Strings -->
+    <string name="budget_details">Budget Details</string>
+    <string name="total_budget">Total Budget</string>
+    <string name="total_budget_val">$1,750</string>
+    <string name="spent_val">Spent: $1,500</string>
+    <string name="remaining_val">$250 remaining</string>
+    <string name="category_budgets">Category Budgets</string>
+    <string name="add_new">+ Add New</string>
+    
+    <!-- Budget Categories -->
+    <string name="food_dining">Food &amp; Dining</string>
+    <string name="food_val">$680 of $800</string>
+    <string name="transportation">Transportation</string>
+    <string name="transport_val">$220 of $300</string>
+    <string name="entertainment">Entertainment</string>
+    <string name="entertainment_val">$180 of $150</string>
+    <string name="shopping">Shopping</string>
+    <string name="shopping_val">$420 of $500</string>
+    
+    <!-- Create Budget Strings -->
+    <string name="create_budget_title">Create Budget</string>
+    <string name="select_category">Select Category</string>
+    <string name="healthcare">Healthcare</string>
+    <string name="education">Education</string>
+    <string name="housing">Housing</string>
+    <string name="utilities">Utilities</string>
+    <string name="monthly_limit">Monthly Limit</string>
+    <string name="limit_placeholder">0.00</string>
+    <string name="budget_period">Budget Period</string>
+    <string name="monthly">Monthly</string>
+    <string name="alert_message">Alert me when reaching 80%</string>
+    <string name="alert_desc">Get notified before exceeding budget</string>
+    <string name="btn_create_budget">Create Budget</string>
+
+    <!-- Add Transaction Strings -->
+    <string name="add_transaction_title">Add Transaction</string>
+    <string name="expense">Expense</string>
+    <string name="income">Income</string>
+    <string name="amount">Amount</string>
+    <string name="category">Category</string>
+    <string name="food">Food</string>
+    <string name="transport">Transport</string>
+    <string name="bills">Bills</string>
+    <string name="health">Health</string>
+    <string name="other">Other</string>
+    <string name="description">Description</string>
+    <string name="desc_hint">What was this for?</string>
+    <string name="date">Date</string>
+    <string name="date_hint">mm/dd/yyyy</string>
+    <string name="account">Account</string>
+    <string name="chase_checking">Chase Checking</string>
+    <string name="btn_add_transaction">Add Transaction</string>
+    <string name="add_transaction_btn">Add Transaction</string>
+
+    <!-- Existing strings... -->
+    <string name="add_transaction">Add Transaction</string>
+
+    <!-- All Transactions Strings -->
+    <string name="all_transactions_title">All Transactions</string>
+    <string name="filter">Filter</string>
+    <string name="gas_station">Gas Station</string>
+    <string name="minus_4500">-$45.00</string>
+    <string name="three_days_ago">3 days ago</string>
+    <string name="restaurant">Restaurant</string>
+    <string name="minus_6750">-$67.50</string>
+    <string name="four_days_ago">4 days ago</string>
+
+    <!-- Notifications Strings -->
+    <string name="notifications">Notifications</string>
+    <string name="today">Today</string>
+    <string name="daily_goal_reached">Daily Goal Reached</string>
+    <string name="task_reminder">Task Reminder</string>
+    <string name="notifications_title">Notifications</string>
+    <string name="budget_alert_title">Budget Alert</string>
+    <string name="budget_alert_desc">You\'ve saved 20% on groceries this month!</string>
+    <string name="habit_completed_title">Habit Completed</string>
+    <string name="habit_completed_desc">Morning workout streak: 7 days!</string>
+    <string name="bill_reminder_title">Bill Reminder</string>
+    <string name="bill_reminder_desc">Netflix subscription due in 3 days</string>
+    <string name="goal_progress_title">Goal Progress</string>
+    <string name="goal_progress_desc">Emergency fund is 85% complete</string>
+
+    <!-- Reports (Insights) Strings -->
+    <string name="report_title">January 2025 Report</string>
+    <string name="monthly_overview">Monthly Overview</string>
+    <string name="income_val">$4.2K</string>
+    <string name="expenses_val">$3.2K</string>
+    <string name="saved">Saved</string>
+    <string name="saved_val">$960</string>
+    <string name="report_trend">12% better than last month</string>
+    <string name="export_pdf">Export PDF</string>
+    <string name="share">Share</string>
+    <string name="top_spending_categories">Top Spending Categories</string>
+    <string name="food_dining_val">$680</string>
+    <string name="transport_val_report">$420</string>
+    <string name="shopping_val_report">$380</string>
+    <string name="entertainment_val_report">$280</string>
+    <string name="daily_spending_pattern">Daily Spending Pattern</string>
+    <string name="key_insights">Key Insights</string>
+    
+    <!-- Lifestyle Strings -->
+    <string name="lifestyle">Lifestyle</string>
+    <string name="todays_progress">Today\'s Progress</string>
+    <string name="progress_val_lifestyle">12/15</string>
+    <string name="progress_percent">80%</string>
+    <string name="motivation_msg">Great job! Keep up the momentum</string>
+    <string name="tasks">Tasks</string>
+    <string name="active_habits">Active Habits</string>
+    <string name="streak_7">7 day streak</string>
+    <string name="read_30_min">Read 30 Minutes</string>
+    <string name="streak_3">3 day streak</string>
+    <string name="todays_tasks">Today\'s Tasks</string>
+    <string name="team_meeting">Team meeting</string>
+    <string name="meeting_time">10:00 AM</string>
+    <string name="grocery_shopping">Grocery shopping</string>
+    <string name="indicator">Indicator</string>
+    <string name="completed">Completed</string>
+    <string name="reading">Reading</string>
+    
+    <!-- Habits Strings -->
+    <string name="habit_completion">Habit Completion</string>
+    <string name="your_habits">Your Habits</string>
+    <string name="habits_title">Habits</string>
+    <string name="todays_progress_val">2/4</string>
+    <string name="habit_motivation">Keep going! You\'re doing great</string>
+    <string name="all_habits">All Habits</string>
+    <string name="meditation">Meditation</string>
+    <string name="streak_12">12 day streak</string>
+    <string name="drink_water">Drink 8 Glasses Water</string>
+    <string name="streak_5">5 day streak</string>
+
+    <!-- Create Habit Strings -->
+    <string name="create_habit_title">Create Habit</string>
+    <string name="habit_name">Habit Name</string>
+    <string name="habit_name_hint">e.g., Morning Workout</string>
+    <string name="choose_icon">Choose Icon</string>
+    <string name="frequency">Frequency</string>
+    <string name="daily">Daily</string>
+    <string name="weekly">Weekly</string>
+    <string name="custom">Custom</string>
+    <string name="goal">Goal</string>
+    <string name="goal_placeholder">1</string>
+    <string name="times_per_day">times per day</string>
+    <string name="reminder">Reminder</string>
+    <string name="time_placeholder">09:00</string>
+    <string name="send_daily_reminders">Send daily reminders</string>
+    <string name="reminder_desc">Get notified to complete your habit</string>
+    <string name="btn_create_habit">Create Habit</string>
+    <string name="save_habit_btn">Save Habit</string>
+    
+    <!-- Tasks Strings -->
+    <string name="todays_tasks_title">Today\'s Tasks</string>
+    <string name="tasks_completed">Tasks Completed</string>
+    <string name="tasks_remaining">3 tasks remaining for today</string>
+    <string name="all_tasks">All Tasks</string>
+    <string name="add_task">Add Task</string>
+    <string name="team_meeting_time">10:00 AM</string>
+    <string name="review_budget_time">2:00 PM</string>
+    <string name="grocery_time">5:00 PM</string>
+    <string name="call_dentist">Call dentist</string>
+    <string name="no_time_set">No time set</string>
+
+    <!-- Add Task Strings -->
+    <string name="task_title">Task Title</string>
+    <string name="enter_task_title">Enter task title</string>
+    <string name="desc_details">Add details about your task...</string>
+    <string name="date_and_time">Date &amp; Time</string>
+    <string name="select_date">Select date</string>
+    <string name="choose">Choose</string>
+    <string name="select_time">Select time</string>
+    <string name="min_15">15 min</string>
+    <string name="min_30">30 min</string>
+    <string name="hour_1">1 hour</string>
+    <string name="priority">Priority</string>
+    <string name="high">High</string>
+    <string name="medium">Medium</string>
+    <string name="low">Low</string>
+    <string name="work">Work</string>
+    <string name="personal">Personal</string>
+    <string name="repeat">Repeat</string>
+    <string name="no_repeat">No repeat</string>
+    <string name="attachments">Attachments</string>
+    <string name="add_attachment">Add attachment</string>
+    <string name="cancel">Cancel</string>
+    <string name="create_task">Create Task</string>
+    
+    <!-- Goals Strings -->
+    <string name="goals">Goals</string>
+    <string name="create_new_goal">Create a New Goal</string>
+    <string name="track_progress_msg">Track your progress and achieve your dreams</string>
+    <string name="add_goal">Add Goal</string>
+    <string name="save_for_vacation">Save for Vacation</string>
+    <string name="target_date">Target Date: Dec 2025</string>
+    <string name="lose_weight">Lose Weight</string>
+    <string name="target_weight">Target: 70 kg</string>
+
+    <!-- Health Strings -->
+    <string name="great_job">Great Job!</string>
+    <string name="health_status_msg">You\'re doing great! Keep it up.</string>
+    <string name="connect_wearable">Connect Wearable Device</string>
+    <string name="health_metrics_title">Health Metrics</string>
+    <string name="health_score">Health Score</string>
+    <string name="health_score_val">85</string>
+    <string name="health_motivation">Great! You\'re staying active</string>
+    <string name="steps">Steps</string>
+    <string name="steps_val">8,542</string>
+    <string name="steps_trend">+12%</string>
+    <string name="heart_rate">Heart Rate</string>
+    <string name="heart_rate_val">72 bpm</string>
+    <string name="heart_rate_status">Normal</string>
+    <string name="weekly_activity">Weekly Activity</string>
+    <string name="todays_metrics">Today\'s Metrics</string>
+    <string name="add_entry">Add Entry</string>
+    <string name="water_intake">Water Intake</string>
+    <string name="water_intake_val">6 of 8 glasses</string>
+    <string name="water_percent">75%</string>
+    <string name="sleep">Sleep</string>
+    <string name="sleep_val">7h 30m last night</string>
+    <string name="sleep_percent">94%</string>
+    
+    <!-- Add Health Entry Strings -->
+    <string name="add_health_entry_title">Add Health Entry</string>
+    <string name="select_metric">Select Metric</string>
+    <string name="water">Water</string>
+    <string name="value">Value</string>
+    <string name="enter_value">Enter value</string>
+    <string name="notes_optional">Notes (Optional)</string>
+    <string name="notes_hint">Add any notes...</string>
+    <string name="save_entry">Save Entry</string>
+
+    <!-- Payment Strings -->
+    <string name="premium_subscription">Premium Subscription</string>
+    <string name="unlock_features">Unlock all features and premium content</string>
+    <string name="monthly_subscription">Monthly subscription</string>
+    <string name="payment_method">Payment Method</string>
+    <string name="credit_card">Credit Card</string>
+    <string name="paypal">PayPal</string>
+    <string name="apple_pay">Apple Pay</string>
+    <string name="card_details">Card Details</string>
+    <string name="card_number">Card Number</string>
+    <string name="card_hint">1234 5678 9012 3456</string>
+    <string name="expiry_date">Expiry Date</string>
+    <string name="expiry_hint">MM/YY</string>
+    <string name="cvv">CVV</string>
+    <string name="cvv_hint">123</string>
+    <string name="cardholder_name">Cardholder Name</string>
+    <string name="cardholder_hint">John Doe</string>
+    <string name="billing_address">Billing Address</string>
+    <string name="country">Country</string>
+    <string name="united_states">United States</string>
+    <string name="zip_code">ZIP Code</string>
+    <string name="zip_hint">12345</string>
+    <string name="total">Total</string>
+    <string name="complete_payment">Complete Payment</string>
+    <string name="price_59">59.99</string>
+    <string name="unlimited_access">Unlimited access to all content</string>
+    <string name="ad_free">Ad-free experience</string>
+    <string name="priority_support">Priority customer support</string>
+    <string name="back_content_description">Go back</string>
+    <string name="Add_New_Metric">Add New Metric</string>
+    <string name="_72_bpm">72 bpm</string>
+    <string name="normal">Normal</string>
+
+    <!-- Missing strings for habits fragment -->
+    <string name="completion_rate_85">85%</string>
+    <string name="completion_rate_increase">+5% from last week</string>
+    <string name="habit_time_morning">07:00 AM • Daily</string>
+    <string name="habit_time_water">Every 2 hours</string>
+    <string name="habit_time_reading">09:00 PM • Daily</string>
+    <string name="indicator_icon_desc">Indicator icon</string>
+    <string name="fitness_icon_desc">Fitness icon</string>
+    <string name="health_icon_desc">Health icon</string>
+    <string name="book_icon_desc">Book icon</string>
+</resources>

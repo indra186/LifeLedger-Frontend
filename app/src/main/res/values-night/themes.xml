@@ -1,0 +1,33 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.UntitledApp" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your dark theme here. -->
+        <item name="colorPrimary">@color/brand_purple</item>
+        <item name="colorPrimaryVariant">@color/brand_dark_purple</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/brand_fuchsia</item>
+        <item name="colorSecondaryVariant">@color/brand_dark_purple</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">#121212</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <!-- Background -->
+        <item name="android:windowBackground">#121212</item>
+    </style>
+    
+    <style name="Widget.App.Card" parent="Widget.Material3.CardView.Elevated">
+        <item name="cardBackgroundColor">#1E1E1E</item>
+        <item name="cardCornerRadius">24dp</item>
+        <item name="cardElevation">2dp</item>
+        <item name="strokeWidth">0dp</item>
+    </style>
+    
+    <style name="Widget.App.Card.Pastel" parent="Widget.App.Card">
+        <item name="cardCornerRadius">16dp</item>
+        <item name="cardElevation">0dp</item>
+        <!-- In dark mode, pastel cards should be darker or retain color but with dark content. 
+             Ideally we map these to dark-appropriate colors in colors.xml, but for now specific dark colors. -->
+        <item name="cardBackgroundColor">#2C2C2C</item> 
+    </style>
+</resources>

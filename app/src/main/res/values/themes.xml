@@ -1,0 +1,30 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.UntitledApp" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <item name="colorPrimary">@color/brand_purple</item>
+        <item name="colorPrimaryVariant">@color/brand_dark_purple</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/brand_fuchsia</item>
+        <item name="colorSecondaryVariant">@color/brand_dark_purple</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/light_gray_bg</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <!-- Background -->
+        <item name="android:windowBackground">@color/light_gray_bg</item>
+    </style>
+    
+    <style name="Widget.App.Card" parent="Widget.Material3.CardView.Elevated">
+        <item name="cardBackgroundColor">@color/white</item>
+        <item name="cardCornerRadius">24dp</item>
+        <item name="cardElevation">2dp</item>
+        <item name="strokeWidth">0dp</item>
+    </style>
+    
+    <style name="Widget.App.Card.Pastel" parent="Widget.App.Card">
+        <item name="cardCornerRadius">16dp</item>
+        <item name="cardElevation">0dp</item>
+    </style>
+</resources>

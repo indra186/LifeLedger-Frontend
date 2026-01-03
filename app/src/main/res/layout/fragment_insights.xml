@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_gray_bg"
+    android:padding="24dp">
+
+    <!-- Header -->
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_launcher_foreground"
+        app:tint="@color/black"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="24dp"/>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/report_title"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toTopOf="@id/iv_back"
+        app:layout_constraintBottom_toBottomOf="@id/iv_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Monthly Overview Card -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="4dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_budget_card_gradient"
+                    android:padding="24dp">
+
+                    <TextView
+                        android:id="@+id/tv_overview_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/monthly_overview"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <LinearLayout
+                        android:id="@+id/stats_row"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="24dp"
+                        app:layout_constraintTop_toBottomOf="@id/tv_overview_title">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+                            <TextView
+                                android:text="@string/income"
+                                android:textColor="#CCFFFFFF"
+                                android:textSize="12sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                            <TextView
+                                android:text="@string/income_val"
+                                android:textColor="@color/white"
+                                android:textSize="20sp"
+                                android:textStyle="bold"
+                                android:layout_marginTop="4dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+                        
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+                            <TextView
+                                android:text="@string/expenses"
+                                android:textColor="#CCFFFFFF"
+                                android:textSize="12sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                            <TextView
+                                android:text="@string/expenses_val"
+                                android:textColor="@color/white"
+                                android:textSize="20sp"
+                                android:textStyle="bold"
+                                android:layout_marginTop="4dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+                        
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+                            <TextView
+                                android:text="@string/saved"
+                                android:textColor="#CCFFFFFF"
+                                android:textSize="12sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                            <TextView
+                                android:text="@string/saved_val"
+                                android:textColor="@color/white"
+                                android:textSize="20sp"
+                                android:textStyle="bold"
+                                android:layout_marginTop="4dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="24dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/stats_row">
+                        
+                         <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@android:drawable/arrow_up_float"
+                            app:tint="@color/white"/>
+                            
+                         <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/report_trend"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:layout_marginStart="4dp"/>
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Action Buttons -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:layout_marginTop="24dp">
+
+                <Button
+                    android:id="@+id/btn_export"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_weight="1"
+                    android:text="@string/export_pdf"
+                    android:textAllCaps="false"
+                    android:textStyle="bold"
+                    android:textColor="#1976D2"
+                    android:backgroundTint="#E3F2FD"
+                    app:icon="@android:drawable/stat_sys_download"
+                    app:iconTint="#1976D2"
+                    android:layout_marginEnd="8dp"
+                    app:cornerRadius="12dp"/>
+                    
+                <Button
+                    android:id="@+id/btn_share"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_weight="1"
+                    android:text="@string/share"
+                    android:textAllCaps="false"
+                    android:textStyle="bold"
+                    android:textColor="#9C27B0"
+                    android:backgroundTint="#F3E5F5"
+                    app:icon="@android:drawable/ic_menu_share"
+                    app:iconTint="#9C27B0"
+                    android:layout_marginStart="8dp"
+                    app:cornerRadius="12dp"/>
+            </LinearLayout>
+
+            <!-- Top Spending Categories -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/top_spending_categories"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="32dp"/>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="@color/white">
+                
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="24dp">
+                    
+                    <!-- Item 1 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="24dp">
+                         <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="🍔" 
+                            android:textSize="20sp"/>
+                         <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/food_dining"
+                            android:textColor="@color/dark_gray_text"
+                            android:textSize="16sp"
+                            android:layout_marginStart="16dp"/>
+                         <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/food_dining_val"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"/>
+                    </LinearLayout>
+                    
+                    <!-- Item 2 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="24dp">
+                         <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="🚗" 
+                            android:textSize="20sp"/>
+                         <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/transportation"
+                            android:textColor="@color/dark_gray_text"
+                            android:textSize="16sp"
+                            android:layout_marginStart="16dp"/>
+                         <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/transport_val_report"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"/>
+                    </LinearLayout>
+                    
+                    <!-- Item 3 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="24dp">
+                         <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="🛍️" 
+                            android:textSize="20sp"/>
+                         <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/shopping"
+                            android:textColor="@color/dark_gray_text"
+                            android:textSize="16sp"
+                            android:layout_marginStart="16dp"/>
+                         <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/shopping_val_report"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"/>
+                    </LinearLayout>
+                    
+                    <!-- Item 4 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+                         <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="🎬" 
+                            android:textSize="20sp"/>
+                         <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/entertainment"
+                            android:textColor="@color/dark_gray_text"
+                            android:textSize="16sp"
+                            android:layout_marginStart="16dp"/>
+                         <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/entertainment_val_report"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"/>
+                    </LinearLayout>
+                    
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Daily Spending Pattern -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/daily_spending_pattern"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="32dp"/>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="@color/white">
+                
+                <!-- Chart Placeholder -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="24dp"
+                    android:orientation="horizontal"
+                    android:gravity="bottom"
+                    android:weightSum="7">
+                    
+                     <!-- Mon -->
+                    <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:orientation="vertical" android:gravity="bottom|center_horizontal">
+                         <View android:layout_width="8dp" android:layout_height="40dp" android:background="@drawable/bg_otp_box" android:backgroundTint="#EEE" app:layout_constraintVertical_bias="1.0"/>
+                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/mon" android:textSize="10sp" android:layout_marginTop="8dp"/>
+                    </LinearLayout>
+                     <!-- Tue -->
+                    <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:orientation="vertical" android:gravity="bottom|center_horizontal">
+                         <View android:layout_width="8dp" android:layout_height="60dp" android:background="@drawable/bg_otp_box" android:backgroundTint="#EEE"/>
+                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/tue" android:textSize="10sp" android:layout_marginTop="8dp"/>
+                    </LinearLayout>
+                     <!-- Wed -->
+                    <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:orientation="vertical" android:gravity="bottom|center_horizontal">
+                         <View android:layout_width="8dp" android:layout_height="30dp" android:background="@drawable/bg_otp_box" android:backgroundTint="#EEE"/>
+                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/wed" android:textSize="10sp" android:layout_marginTop="8dp"/>
+                    </LinearLayout>
+                     <!-- Thu -->
+                    <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:orientation="vertical" android:gravity="bottom|center_horizontal">
+                         <View android:layout_width="8dp" android:layout_height="80dp" android:background="@drawable/bg_otp_box" android:backgroundTint="#EEE"/>
+                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/thu" android:textSize="10sp" android:layout_marginTop="8dp"/>
+                    </LinearLayout>
+                     <!-- Fri -->
+                    <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:orientation="vertical" android:gravity="bottom|center_horizontal">
+                         <View android:layout_width="8dp" android:layout_height="50dp" android:background="@drawable/bg_otp_box" android:backgroundTint="#EEE"/>
+                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/fri" android:textSize="10sp" android:layout_marginTop="8dp"/>
+                    </LinearLayout>
+                     <!-- Sat -->
+                    <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:orientation="vertical" android:gravity="bottom|center_horizontal">
+                         <View android:layout_width="8dp" android:layout_height="90dp" android:background="@drawable/bg_otp_box" android:backgroundTint="@color/brand_purple"/>
+                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/sat" android:textSize="10sp" android:layout_marginTop="8dp"/>
+                    </LinearLayout>
+                     <!-- Sun -->
+                    <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:orientation="vertical" android:gravity="bottom|center_horizontal">
+                         <View android:layout_width="8dp" android:layout_height="40dp" android:background="@drawable/bg_otp_box" android:backgroundTint="#EEE"/>
+                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/sun" android:textSize="10sp" android:layout_marginTop="8dp"/>
+                    </LinearLayout>
+                    
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/key_insights"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="24dp"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

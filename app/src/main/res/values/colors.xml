@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Brand Colors from Figma -->
+    <color name="brand_dark_purple">#A020F0</color>
+    <color name="brand_fuchsia">#E02DFF</color>
+    
+    <!-- Warm Colors -->
+    <color name="warm_orange">#FF512F</color>
+    <color name="warm_pink">#DD2476</color>
+    
+    <!-- Pastel Accents -->
+    <color name="pastel_pink">#FFE0F0</color>
+    <color name="pastel_lavender">#E6E6FA</color>
+    <color name="pastel_mint">#B2DFDB</color>
+
+    <!-- Splash Screen Colors -->
+    <color name="splash_gradient_start">#4facfe</color> <!-- Light Blue -->
+    <color name="splash_gradient_end">#764ba2</color>   <!-- Purple -->
+
+    <!-- Base Colors -->
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="gray">#888888</color>
+
+    <!-- Legacy mappings for compatibility -->
+    <color name="purple_200">@color/pastel_lavender</color>
+    <color name="purple_500">@color/brand_purple</color>
+    <color name="purple_700">@color/brand_dark_purple</color>
+    <color name="teal_200">#03DAC5</color>
+    <color name="teal_700">#018786</color>
+    
+    <!-- Gradients -->
+    <color name="gradient_start">@color/warm_orange</color>
+    <color name="gradient_end">@color/warm_pink</color>
+    <color name="income_green">#4CAF50</color>
+    <color name="light_gray_bg">#F5F7FA</color>
+    <color name="dark_gray_text">#757575</color>
+    <color name="title_black">#212121</color>
+    <color name="expense_red">#FF5252</color>
+    <color name="brand_purple">#6200EE</color>
+    
+    <!-- Light Pastels for Finance Cards -->
+    <color name="light_blue_bg">#E3F2FD</color>
+    <color name="light_purple_bg">#F3E5F5</color>
+    <color name="light_green_bg">#E8F5E9</color>
+    <color name="icon_red_bg">#FFEBEE</color>
+    <color name="icon_green_bg">#E8F5E9</color>
+</resources>

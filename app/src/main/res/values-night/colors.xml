@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Inverted Base Colors for Dark Mode -->
+    <!-- "white" is used as background, so it becomes dark -->
+    <color name="white">#121212</color>
+    <!-- "black" is used as text, so it becomes light -->
+    <color name="black">#FFFFFF</color>
+    <color name="gray">#B0B0B0</color>
+
+    <!-- Backgrounds -->
+    <color name="light_gray_bg">#1E1E1E</color>
+    
+    <!-- Text -->
+    <color name="dark_gray_text">#E0E0E0</color>
+    <color name="title_black">#FFFFFF</color>
+
+    <!-- Pastels (darkened for cards) -->
+    <color name="light_blue_bg">#152436</color> <!-- Dark Blue -->
+    <color name="light_purple_bg">#2A1635</color> <!-- Dark Purple -->
+    <color name="light_green_bg">#18291B</color> <!-- Dark Green -->
+    <color name="icon_red_bg">#351A1A</color>
+    <color name="icon_green_bg">#1B3E20</color>
+    
+    <!-- Keep brand colors vivid but maybe slightly adjusted if needed. For now keeping defaults implicitly or via colors.xml fallback if not overridden -->
+</resources>
