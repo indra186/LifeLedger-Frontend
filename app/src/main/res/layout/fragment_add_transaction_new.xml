@@ -12,11 +12,11 @@
         android:id="@+id/iv_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_launcher_foreground"
+        android:src="@drawable/ic_arrow_back"
+        android:padding="8dp"
         app:tint="@color/black"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="24dp"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_title"
@@ -62,7 +62,9 @@
                     android:textStyle="bold"
                     android:backgroundTint="@color/expense_red"
                     android:layout_marginEnd="8dp"
-                    app:cornerRadius="12dp"/>
+                    app:cornerRadius="12dp"
+                    android:textColor="@android:color/white"
+                    />
 
                 <Button
                     android:id="@+id/btn_income"
@@ -70,12 +72,13 @@
                     android:layout_height="56dp"
                     android:layout_weight="1"
                     android:text="@string/income"
-                    android:textColor="@color/black"
                     android:textAllCaps="false"
                     android:textStyle="bold"
-                    android:backgroundTint="#F5F5F5"
+                    android:backgroundTint="@color/toggle_unselected"
                     android:layout_marginStart="8dp"
-                    app:cornerRadius="12dp"/>
+                    app:cornerRadius="12dp"
+                    android:textColor="@color/black"
+                    />
             </LinearLayout>
 
             <TextView
@@ -150,7 +153,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/shopping"
+                        android:text="@string/entertainment"
                         android:gravity="center"
                         android:padding="12dp"
                         android:background="@drawable/bg_edit_text"
@@ -167,7 +170,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/bills"
+                        android:text="@string/shopping"
                         android:gravity="center"
                         android:padding="12dp"
                         android:background="@drawable/bg_edit_text"
@@ -177,7 +180,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/health"
+                        android:text="@string/healthcare"
                         android:gravity="center"
                         android:padding="12dp"
                         android:background="@drawable/bg_edit_text"
@@ -187,12 +190,39 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/other"
+                        android:text="@string/education"
                         android:gravity="center"
                         android:padding="12dp"
                         android:background="@drawable/bg_edit_text"
                         android:textStyle="bold"
                         android:layout_marginStart="4dp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/housing"
+                        android:gravity="center"
+                        android:padding="12dp"
+                        android:background="@drawable/bg_edit_text"
+                        android:textStyle="bold"
+                        android:layout_marginEnd="4dp"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/others"
+                        android:gravity="center"
+                        android:padding="12dp"
+                        android:background="@drawable/bg_edit_text"
+                        android:textStyle="bold"
+                        android:layout_marginHorizontal="4dp"/>
+
                 </LinearLayout>
             </LinearLayout>
 

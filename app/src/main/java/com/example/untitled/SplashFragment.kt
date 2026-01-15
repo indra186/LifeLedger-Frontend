@@ -1,5 +1,6 @@
 package com.example.untitled
 
+import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -10,6 +11,7 @@ import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.untitled.databinding.FragmentSplashBinding
+import com.example.untitled.network.RetrofitClient
 
 class SplashFragment : Fragment() {
 
@@ -36,11 +38,20 @@ class SplashFragment : Fragment() {
         binding.appTitle.startAnimation(textAnim)
         binding.appSubtitle.startAnimation(textAnim)
 
-        // Delay for 2.5 seconds (to allow animations to finish) then navigate to Intro
+        // Delay for 2.5 seconds (to allow animations to finish) then navigate based on login status
         Handler(Looper.getMainLooper()).postDelayed({
             // Check if fragment is still attached to avoid crashes if user exits quickly
             if (isAdded) {
-                findNavController().navigate(R.id.action_splashFragment_to_introFragment)
+                val sharedPreferences = requireActivity().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+                val token = sharedPreferences.getString("token", null)
+
+                if (token.isNullOrEmpty()) {
+                    findNavController().navigate(R.id.action_splashFragment_to_introFragment)
+                } else {
+                    // Set the token for API requests
+                    RetrofitClient.setAuthToken(token)
+                    findNavController().navigate(R.id.action_splashFragment_to_dashboardFragment)
+                }
             }
         }, 2500)
     }

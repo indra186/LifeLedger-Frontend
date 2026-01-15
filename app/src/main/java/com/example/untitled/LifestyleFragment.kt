@@ -14,6 +14,7 @@ class LifestyleFragment : Fragment() {
 
     private var _binding: FragmentLifestyleBinding? = null
     private val binding get() = _binding!!
+    private var progressAnimator: ObjectAnimator? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,34 +29,36 @@ class LifestyleFragment : Fragment() {
 
         // Animate the progress bar slowly
         val progressBar = binding.pbDailyProgress
-        val animation = ObjectAnimator.ofInt(progressBar, "progress", 0, 80)
-        animation.duration = 2000 // 2 seconds
-        animation.interpolator = DecelerateInterpolator()
-        animation.start()
+        progressAnimator = ObjectAnimator.ofInt(progressBar, "progress", 0, 80).apply {
+            duration = 2000 // 2 seconds
+            interpolator = DecelerateInterpolator()
+            start()
+        }
 
         binding.cardHabits.setOnClickListener {
-            findNavController().navigate(R.id.action_lifestyleFragment_to_habitsFragment)
+            if (isAdded) findNavController().navigate(R.id.action_lifestyleFragment_to_habitsFragment)
         }
 
         binding.cardTasks.setOnClickListener {
-            findNavController().navigate(R.id.action_lifestyleFragment_to_tasksFragment)
+            if (isAdded) findNavController().navigate(R.id.action_lifestyleFragment_to_tasksFragment)
         }
 
         binding.cardHealth.setOnClickListener {
-            findNavController().navigate(R.id.action_lifestyleFragment_to_healthFragment)
+            if (isAdded) findNavController().navigate(R.id.action_lifestyleFragment_to_healthFragment)
         }
 
         binding.tvViewAllHabits.setOnClickListener {
-             findNavController().navigate(R.id.action_lifestyleFragment_to_habitsFragment)
+             if (isAdded) findNavController().navigate(R.id.action_lifestyleFragment_to_habitsFragment)
         }
         
         binding.tvViewAllTasks.setOnClickListener {
-             findNavController().navigate(R.id.action_lifestyleFragment_to_tasksFragment)
+             if (isAdded) findNavController().navigate(R.id.action_lifestyleFragment_to_tasksFragment)
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+        progressAnimator?.cancel()
         _binding = null
     }
 }

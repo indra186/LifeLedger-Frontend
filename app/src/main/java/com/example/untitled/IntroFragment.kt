@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -32,17 +33,17 @@ class IntroFragment : Fragment() {
             OnboardingItem(
                 title = getString(R.string.onboarding_finance_title),
                 description = getString(R.string.onboarding_finance_desc),
-                imageResId = R.drawable.ic_finance // Replaced placeholder
+                imageResId = R.drawable.ic_finance 
             ),
             OnboardingItem(
                 title = getString(R.string.onboarding_habits_title),
                 description = getString(R.string.onboarding_habits_desc),
-                imageResId = R.drawable.ic_habits // Replaced placeholder
+                imageResId = R.drawable.ic_habits 
             ),
             OnboardingItem(
                 title = getString(R.string.onboarding_goals_title),
                 description = getString(R.string.onboarding_goals_desc),
-                imageResId = R.drawable.ic_goals // Replaced placeholder
+                imageResId = R.drawable.ic_goals 
             )
         )
 
@@ -68,11 +69,15 @@ class IntroFragment : Fragment() {
                 findNavController().navigate(R.id.action_introFragment_to_signupFragment)
             }
         }
+        
+        // Handle Skip button click
+        view.findViewById<TextView>(R.id.btn_skip).setOnClickListener {
+            findNavController().navigate(R.id.action_introFragment_to_signupFragment)
+        }
 
         view.findViewById<View>(R.id.tv_sign_in).setOnClickListener {
-            // Navigate to Login instead of Signup
-             findNavController().navigate(R.id.action_introFragment_to_signupFragment) 
-             // Ideally this should go to a LoginFragment if one exists or handle it inside SignupFragment
+            // Navigate to Login
+             findNavController().navigate(R.id.action_introFragment_to_loginFragment)
         }
     }
 

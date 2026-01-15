@@ -4,17 +4,30 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
+import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.untitled.adapters.HabitsAdapter
 import com.example.untitled.databinding.FragmentHabitsBinding
-import com.google.android.material.card.MaterialCardView
+import com.example.untitled.viewmodels.HabitsViewModel
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class HabitsFragment : Fragment() {
 
     private var _binding: FragmentHabitsBinding? = null
     private val binding get() = _binding!!
+    private lateinit var habitsAdapter: HabitsAdapter
+    
+    private lateinit var viewModel: HabitsViewModel
+    
+    private lateinit var pbLoading: ProgressBar
+    private lateinit var layoutEmptyState: LinearLayout
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,43 +39,45 @@ class HabitsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        
+        viewModel = ViewModelProvider(this)[HabitsViewModel::class.java]
+        
+        pbLoading = view.findViewById(R.id.pb_loading)
+        layoutEmptyState = view.findViewById(R.id.layout_empty_state)
+
+        binding.btnBack.setOnClickListener {
+            if (isAdded) findNavController().navigateUp()
+        }
 
         binding.btnAddHabit.setOnClickListener {
-            findNavController().navigate(R.id.action_habitsFragment_to_createHabitFragment)
+            if (isAdded) findNavController().navigate(R.id.action_habitsFragment_to_createHabitFragment)
         }
         
-        setupHabitInteraction(binding.habitCard1, binding.habitCheckbox1)
-        setupHabitInteraction(binding.habitCard2, binding.habitCheckbox2)
-        setupHabitInteraction(binding.habitCard3, binding.habitCheckbox3)
+        // Setup RecyclerView
+        habitsAdapter = HabitsAdapter(emptyList()) { habit ->
+             // Handle checking habit (logic to be added to VM if needed, or just toast for now)
+             Toast.makeText(context, "Habit checked: ${habit.title}", Toast.LENGTH_SHORT).show()
+        }
+        binding.rvHabits.layoutManager = LinearLayoutManager(context)
+        binding.rvHabits.adapter = habitsAdapter
+        
+        observeHabits()
     }
 
-    private fun setupHabitInteraction(card: MaterialCardView, checkbox: CheckBox) {
-        val clickListener = View.OnClickListener {
-            // Change color to blue (light_blue_bg or brand_purple if preferred, let's use a nice blue)
-            // User requested "blue". I'll use a color resource if available or parse color.
-            // Using a resource color "light_blue_bg" for background tint might be good, but user said "blue".
-            // Let's use #E3F2FD (light blue) or similar.
-            
-            card.setCardBackgroundColor(android.graphics.Color.parseColor("#E3F2FD"))
-            checkbox.isChecked = true
-            
-            // Disappear after a delay? Or immediately?
-            // "disappear" -> set visibility to GONE.
-            // "get a popup that completed"
-            
-            Toast.makeText(context, "Habit Completed!", Toast.LENGTH_SHORT).show()
-            
-            card.animate()
-                .alpha(0f)
-                .setDuration(500)
-                .withEndAction {
-                    card.visibility = View.GONE
+    private fun observeHabits() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.habits.collectLatest { habits ->
+                pbLoading.visibility = View.GONE
+                if (habits.isEmpty()) {
+                    binding.rvHabits.visibility = View.GONE
+                    layoutEmptyState.visibility = View.VISIBLE
+                } else {
+                    binding.rvHabits.visibility = View.VISIBLE
+                    layoutEmptyState.visibility = View.GONE
+                    habitsAdapter.updateHabits(habits)
                 }
-                .start()
+            }
         }
-
-        card.setOnClickListener(clickListener)
-        checkbox.setOnClickListener(clickListener)
     }
 
     override fun onDestroyView() {

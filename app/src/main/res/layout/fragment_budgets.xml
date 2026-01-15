@@ -6,53 +6,66 @@
     android:layout_height="match_parent"
     android:background="@color/light_gray_bg"
     android:padding="24dp">
-
-    <!-- Header -->
-    <ImageView
-        android:id="@+id/iv_back"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:src="@drawable/ic_launcher_foreground"
-        app:tint="@color/black"
+    
+    <!-- Top Toolbar (Removed Extra Header) -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:title=""
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="24dp"
-        android:background="?attr/selectableItemBackgroundBorderless"/>
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <TextView
-        android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/budgets"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        app:layout_constraintTop_toTopOf="@id/iv_back"
-        app:layout_constraintBottom_toBottomOf="@id/iv_back"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
-    <ImageView
-        android:id="@+id/iv_more"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:src="@android:drawable/ic_menu_more"
-        app:tint="@color/black"
-        app:layout_constraintTop_toTopOf="@id/iv_back"
-        app:layout_constraintBottom_toBottomOf="@id/iv_back"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:background="?attr/selectableItemBackgroundBorderless"/>
+            <ImageButton
+                android:id="@+id/iv_back"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/bg_circle_button"
+                android:src="@drawable/ic_arrow_back"
+                app:tint="@color/black"
+                android:padding="8dp"
+                android:contentDescription="Back" />
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/budgets"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                 /> <!-- Balance the back button space -->
+                 
+             <ImageView
+                android:id="@+id/iv_more"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@android:drawable/ic_menu_more"
+                app:tint="@color/black"
+                android:background="?attr/selectableItemBackgroundBorderless"/>
+        </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
 
     <!-- Total Budget Card -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card_total_budget"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         app:cardCornerRadius="24dp"
         app:cardElevation="4dp"
         app:cardBackgroundColor="@color/white"
-        app:layout_constraintTop_toBottomOf="@id/tv_title">
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -98,6 +111,7 @@
                 app:layout_constraintEnd_toEndOf="parent"/>
 
             <TextView
+                android:id="@+id/tv_spent_val"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/spent_val"
@@ -108,6 +122,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_total_budget_val" />
 
             <TextView
+                android:id="@+id/tv_remaining_val"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/remaining_val"
@@ -145,38 +160,55 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/tv_category_budgets"
         app:layout_constraintBottom_toBottomOf="@id/tv_category_budgets"/>
+        
+    <!-- Loading Indicator -->
+    <ProgressBar
+        android:id="@+id/pb_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:layout_constraintTop_toBottomOf="@id/tv_category_budgets"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"/>
 
-    <!-- Budgets List -->
-    <ScrollView
+    <!-- Empty State -->
+    <LinearLayout
+        android:id="@+id/layout_empty_state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginTop="32dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/tv_category_budgets"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:src="@drawable/ic_launcher_foreground"
+            app:tint="@color/gray" />
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No budgets set"
+            android:textColor="@color/gray"
+            android:textSize="16sp"
+            android:layout_marginTop="8dp"/>
+    </LinearLayout>
+
+    <!-- Budgets RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_budgets"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_budget_category"
         app:layout_constraintTop_toBottomOf="@id/tv_category_budgets"
-        app:layout_constraintBottom_toBottomOf="parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="16dp">
-
-            <!-- Item 1: Food -->
-            <include layout="@layout/item_budget_category"
-                android:id="@+id/item_food"/>
-                
-            <!-- Item 2: Transport -->
-            <include layout="@layout/item_budget_category"
-                android:id="@+id/item_transport"/>
-                
-            <!-- Item 3: Entertainment -->
-            <include layout="@layout/item_budget_category"
-                android:id="@+id/item_entertainment"/>
-                
-            <!-- Item 4: Shopping -->
-            <include layout="@layout/item_budget_category"
-                android:id="@+id/item_shopping"/>
-
-        </LinearLayout>
-    </ScrollView>
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

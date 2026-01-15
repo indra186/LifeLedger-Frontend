@@ -201,14 +201,14 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/utilities"
+                        android:text="@string/others"
                         android:textColor="@color/black"
                         android:textStyle="bold"
                         android:gravity="center_vertical"
                         android:background="@drawable/bg_edit_text"
                         android:padding="16dp"
                         android:layout_marginStart="8dp"
-                        app:drawableStartCompat="@drawable/ic_utilities"
+                        app:drawableStartCompat="@drawable/ic_others"
                         android:drawablePadding="8dp"
                         app:drawableTint="@null"/>
                 </LinearLayout>

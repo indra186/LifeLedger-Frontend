@@ -16,6 +16,11 @@
             app:destination="@id/introFragment"
             app:popUpTo="@id/splashFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_splashFragment_to_dashboardFragment"
+            app:destination="@id/nav_dashboard"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -26,6 +31,11 @@
         <action
             android:id="@+id/action_introFragment_to_signupFragment"
             app:destination="@id/signupFragment"
+            app:popUpTo="@id/introFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_introFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
             app:popUpTo="@id/introFragment"
             app:popUpToInclusive="true" />
     </fragment>
@@ -67,6 +77,11 @@
             android:id="@+id/action_otpFragment_to_dashboardFragment"
             app:destination="@id/nav_dashboard"
             app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_otp_to_login"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/otpFragment"
             app:popUpToInclusive="true" />
     </fragment>
 

@@ -1,28 +1,48 @@
 package com.example.untitled.models
 
+import com.google.gson.annotations.SerializedName
+
 data class LoginRequest(
     val email: String,
-    val pass: String
+    @SerializedName("password") val password: String
 )
 
 data class LoginResponse(
-    val token: String,
-    val userId: String,
-    val name: String,
-    val email: String
+    val success: Boolean,
+    val message: String,
+    val data: LoginData?
+)
+
+data class LoginData(
+    @SerializedName("user_id")
+    val userId: Int,
+
+    @SerializedName("auth_token")
+    val authToken: String
+)
+
+data class UserData(
+    val token: String?,
+    @SerializedName("id") val userId: String?,
+    val name: String?,
+    val email: String?
 )
 
 data class SignupRequest(
     val name: String,
     val email: String,
-    val pass: String
+    @SerializedName("password") val pass: String
 )
-
 data class SignupResponse(
     val success: Boolean,
     val message: String,
-    val userId: String?
+    val data: SignupData?
 )
+
+data class SignupData(
+    val email: String
+)
+
 
 data class SendOtpRequest(
     val email: String

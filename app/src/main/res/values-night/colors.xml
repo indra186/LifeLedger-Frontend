@@ -20,6 +20,15 @@
     <color name="light_green_bg">#18291B</color> <!-- Dark Green -->
     <color name="icon_red_bg">#351A1A</color>
     <color name="icon_green_bg">#1B3E20</color>
+
+    <!-- Missing Colors (Night Mode) -->
+    <color name="light_orange_bg">#3E2723</color> <!-- Dark Brown/Orange -->
+    <color name="gradient_start">#FF7043</color> <!-- Keep vivid for gradient -->
+    <color name="gradient_end">#FFB74D</color> <!-- Keep vivid for gradient -->
     
-    <!-- Keep brand colors vivid but maybe slightly adjusted if needed. For now keeping defaults implicitly or via colors.xml fallback if not overridden -->
+    <!-- Legacy Material Colors -->
+    <color name="purple_500">#AB47BC</color> <!-- Lighter purple for dark mode visibility -->
+    <color name="teal_700">#26A69A</color> <!-- Lighter teal for dark mode visibility -->
+    <color name="toggle_unselected">#1E1E1E</color>
+
 </resources>

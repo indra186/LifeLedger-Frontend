@@ -1,48 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Brand Colors from Figma -->
-    <color name="brand_dark_purple">#A020F0</color>
-    <color name="brand_fuchsia">#E02DFF</color>
+    <!-- Warm Theme Palette (Mandatory Update) -->
     
-    <!-- Warm Colors -->
-    <color name="warm_orange">#FF512F</color>
-    <color name="warm_pink">#DD2476</color>
-    
-    <!-- Pastel Accents -->
-    <color name="pastel_pink">#FFE0F0</color>
-    <color name="pastel_lavender">#E6E6FA</color>
-    <color name="pastel_mint">#B2DFDB</color>
+    <!-- Primary: Warm Orange / Coral -->
+    <color name="primary_warm">#FF7043</color>
+    <color name="primary_warm_dark">#D84315</color>
+    <color name="primary_warm_light">#FFCCBC</color>
 
-    <!-- Splash Screen Colors -->
-    <color name="splash_gradient_start">#4facfe</color> <!-- Light Blue -->
-    <color name="splash_gradient_end">#764ba2</color>   <!-- Purple -->
+    <!-- Secondary: Soft Peach / Amber -->
+    <color name="secondary_warm">#FFECB3</color>
+    <color name="secondary_warm_dark">#FFB74D</color>
+    <color name="secondary_warm_light">#FFF8E1</color>
 
-    <!-- Base Colors -->
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="gray">#888888</color>
+    <!-- Accent: Muted Brown / Warm Pink -->
+    <color name="accent_brown">#8D6E63</color>
+    <color name="accent_pink">#F48FB1</color>
 
-    <!-- Legacy mappings for compatibility -->
-    <color name="purple_200">@color/pastel_lavender</color>
-    <color name="purple_500">@color/brand_purple</color>
-    <color name="purple_700">@color/brand_dark_purple</color>
-    <color name="teal_200">#03DAC5</color>
-    <color name="teal_700">#018786</color>
+    <!-- Backgrounds -->
+    <color name="background_light">#FAFAFA</color> <!-- Off-white -->
+    <color name="background_beige">#FFF8E1</color> <!-- Light Beige -->
+    <color name="background_dark">#121212</color>
+
+    <!-- Surfaces -->
+    <color name="surface_light">#FFFFFF</color>
+    <color name="surface_dark">#1E1E1E</color>
+
+    <!-- Text Colors -->
+    <color name="text_primary_light">#212121</color>
+    <color name="text_secondary_light">#757575</color>
+    <color name="text_primary_dark">#E0E0E0</color>
+    <color name="text_secondary_dark">#B0B0B0</color>
+
+    <!-- Semantic Colors -->
+    <color name="success">#66BB6A</color>
+    <color name="error">#EF5350</color>
+    <color name="warning">#FFA726</color>
+    <color name="info">#29B6F6</color>
+
+    <!-- Base -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="gray">#808080</color>
+    <color name="transparent">#00000000</color>
+
+    <!-- Legacy Compatibility (Mapped to New Theme) -->
+    <color name="brand_purple">@color/primary_warm</color>
+    <color name="brand_dark_purple">@color/primary_warm_dark</color>
+    <color name="brand_fuchsia">@color/accent_pink</color>
+    <color name="warm_orange">@color/primary_warm</color>
+    <color name="warm_pink">@color/accent_pink</color>
     
-    <!-- Gradients -->
-    <color name="gradient_start">@color/warm_orange</color>
-    <color name="gradient_end">@color/warm_pink</color>
-    <color name="income_green">#4CAF50</color>
-    <color name="light_gray_bg">#F5F7FA</color>
-    <color name="dark_gray_text">#757575</color>
-    <color name="title_black">#212121</color>
-    <color name="expense_red">#FF5252</color>
-    <color name="brand_purple">#6200EE</color>
+    <color name="light_gray_bg">@color/background_light</color>
+    <color name="dark_gray_text">@color/text_secondary_light</color>
+    <color name="title_black">@color/text_primary_light</color>
     
-    <!-- Light Pastels for Finance Cards -->
-    <color name="light_blue_bg">#E3F2FD</color>
-    <color name="light_purple_bg">#F3E5F5</color>
-    <color name="light_green_bg">#E8F5E9</color>
+    <color name="income_green">@color/success</color>
+    <color name="expense_red">@color/error</color>
+
+    <!-- Card Backgrounds -->
+    <color name="card_bg_light">@color/surface_light</color>
+    <color name="card_bg_dark">@color/surface_dark</color>
+
+    <!-- Missing Colors -->
+    <color name="light_orange_bg">#FFF3E0</color>
+    <color name="gradient_start">#FF7043</color>
+    <color name="gradient_end">#FFB74D</color>
     <color name="icon_red_bg">#FFEBEE</color>
     <color name="icon_green_bg">#E8F5E9</color>
+    
+    <!-- Lifestyle Page Specific Colors -->
+    <color name="light_purple_bg">#F3E5F5</color>
+    <color name="light_green_bg">#E8F5E9</color>
+    <color name="light_blue_bg">#E3F2FD</color>
+    
+    <!-- Legacy Material Colors -->
+    <color name="purple_500">#9C27B0</color>
+    <color name="teal_700">#00796B</color>
+    <color name="toggle_unselected">#F5F5F5</color>
+
 </resources>

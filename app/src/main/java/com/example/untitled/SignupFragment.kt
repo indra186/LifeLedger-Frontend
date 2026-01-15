@@ -60,14 +60,24 @@ class SignupFragment : Fragment() {
                     call: Call<SignupResponse>,
                     response: Response<SignupResponse>
                 ) {
-                    if (response.isSuccessful && response.body() != null) {
-                        val signupResponse = response.body()!!
-                        if (signupResponse.success) {
-                            Toast.makeText(context, signupResponse.message, Toast.LENGTH_SHORT).show()
-                            // Navigate to OTP fragment or Login
-                            findNavController().navigate(R.id.action_signupFragment_to_otpFragment)
-                        } else {
-                             Toast.makeText(context, signupResponse.message, Toast.LENGTH_SHORT).show()
+                    if (!isAdded) return
+
+                    if (response.isSuccessful) {
+                        val signupResponse = response.body()
+                        if (signupResponse != null && signupResponse.success) {
+                            val email = signupResponse.data!!.email
+
+                            val bundle = Bundle()
+                            bundle.putString("email", email)
+
+                            findNavController().navigate(
+                                R.id.action_signupFragment_to_otpFragment,
+                                bundle
+                            )
+                        }
+                        else {
+                             val msg = signupResponse?.message ?: "Registration failed"
+                             Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
                         }
                     } else {
                         Toast.makeText(context, "Registration failed: ${response.code()}", Toast.LENGTH_SHORT).show()
@@ -76,6 +86,7 @@ class SignupFragment : Fragment() {
                 }
 
                 override fun onFailure(call: Call<SignupResponse>, t: Throwable) {
+                    if (!isAdded) return
                     Toast.makeText(context, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
                     Log.e("SignupFailure", t.message ?: "Unknown error")
                 }

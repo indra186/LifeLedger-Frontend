@@ -23,7 +23,7 @@ class NotificationsFragment : Fragment() {
         
         // Handle back button click
         view.findViewById<ImageView>(R.id.btn_back).setOnClickListener {
-            findNavController().popBackStack()
+            if (isAdded) findNavController().popBackStack()
         }
     }
 }

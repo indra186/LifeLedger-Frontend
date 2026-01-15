@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "233757232148",
+    "project_id": "lifeledger-cfdfc",
+    "storage_bucket": "lifeledger-cfdfc.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:233757232148:android:e2c8b3f4775074f1e86b01",
+        "android_client_info": {
+          "package_name": "com.simats.LifeLedger"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9RjMyWzCrwYKx3JSk86VulmzrQHEgc3A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

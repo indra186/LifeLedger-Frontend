@@ -1,15 +1,14 @@
 package com.example.untitled
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -28,6 +27,7 @@ class OtpFragment : Fragment() {
     private lateinit var etOtp4: EditText
     private lateinit var etOtp5: EditText
     private lateinit var etOtp6: EditText
+    private var userEmail: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +38,9 @@ class OtpFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Retrieve email passed from SignupFragment
+        userEmail = arguments?.getString("email")
 
         etOtp1 = view.findViewById(R.id.et_otp_1)
         etOtp2 = view.findViewById(R.id.et_otp_2)
@@ -56,30 +59,35 @@ class OtpFragment : Fragment() {
                 return@setOnClickListener
             }
 
-            // In a real scenario, you'd get the email passed from the previous fragment
-            val email = "user@example.com" // TODO: Get email from arguments
+            val emailToVerify = userEmail ?: "user@example.com" 
 
-            val request = VerifyOtpRequest(email = email, otp = otpCode)
+            val request = VerifyOtpRequest(email = emailToVerify, otp = otpCode)
             
             RetrofitClient.instance.verifyOtp(request).enqueue(object : Callback<VerifyOtpResponse> {
                 override fun onResponse(
                     call: Call<VerifyOtpResponse>,
                     response: Response<VerifyOtpResponse>
                 ) {
-                    if (response.isSuccessful && response.body() != null) {
-                         val verifyResponse = response.body()!!
-                         if (verifyResponse.success) {
+                    if (!isAdded) return
+
+                    if (response.isSuccessful) {
+                         val verifyResponse = response.body()
+                         if (verifyResponse != null && verifyResponse.success) {
                              Toast.makeText(context, verifyResponse.message, Toast.LENGTH_SHORT).show()
-                             findNavController().navigate(R.id.action_otpFragment_to_dashboardFragment)
+                             
+                             // Navigate to login
+                             findNavController().navigate(R.id.action_otp_to_login)
                          } else {
-                             Toast.makeText(context, verifyResponse.message, Toast.LENGTH_SHORT).show()
+                             val msg = verifyResponse?.message ?: "Verification failed"
+                             Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
                          }
                     } else {
-                        Toast.makeText(context, "Verification failed", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Verification failed: ${response.code()}", Toast.LENGTH_SHORT).show()
                     }
                 }
 
                 override fun onFailure(call: Call<VerifyOtpResponse>, t: Throwable) {
+                    if (!isAdded) return
                     Toast.makeText(context, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
                 }
             })

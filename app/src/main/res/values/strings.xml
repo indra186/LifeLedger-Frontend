@@ -14,6 +14,7 @@
     <string name="onboarding_goals_title">Achieve Your Goals</string>
     <string name="onboarding_goals_desc">Set goals, track progress, and celebrate milestones</string>
     <string name="next">Next</string>
+    <string name="skip">Skip</string>
     <string name="get_started">Get Started</string>
     <string name="have_account">Already have an account? </string>
     <string name="sign_in">Sign in</string>
@@ -116,9 +117,9 @@
     <string name="add_new">+ Add New</string>
     
     <!-- Budget Categories -->
-    <string name="food_dining">Food &amp; Dining</string>
+    <string name="food_dining">Food</string>
     <string name="food_val">$680 of $800</string>
-    <string name="transportation">Transportation</string>
+    <string name="transportation">Transport</string>
     <string name="transport_val">$220 of $300</string>
     <string name="entertainment">Entertainment</string>
     <string name="entertainment_val">$180 of $150</string>
@@ -131,7 +132,7 @@
     <string name="healthcare">Healthcare</string>
     <string name="education">Education</string>
     <string name="housing">Housing</string>
-    <string name="utilities">Utilities</string>
+    <string name="others">Others</string>
     <string name="monthly_limit">Monthly Limit</string>
     <string name="limit_placeholder">0.00</string>
     <string name="budget_period">Budget Period</string>

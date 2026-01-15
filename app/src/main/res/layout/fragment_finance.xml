@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light_gray_bg">
+    android:background="@color/background_light">
 
     <!-- Header Background -->
     <View
@@ -57,7 +57,7 @@
                 android:layout_marginTop="24dp"
                 app:cardCornerRadius="24dp"
                 app:cardElevation="4dp"
-                app:cardBackgroundColor="@color/white"
+                app:cardBackgroundColor="@color/surface_light"
                 app:layout_constraintTop_toBottomOf="@id/tv_title">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -70,7 +70,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/total_balance"
-                        android:textColor="@color/gray"
+                        android:textColor="@color/text_secondary_light"
                         android:textSize="12sp"
                         android:letterSpacing="0.05"
                         android:textAllCaps="true"
@@ -82,7 +82,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="$12,500.00"
-                        android:textColor="@color/black"
+                        android:textColor="@color/text_primary_light"
                         android:textSize="32sp"
                         android:textStyle="bold"
                         android:fontFamily="sans-serif-black"
@@ -111,12 +111,12 @@
                                     android:layout_width="16dp"
                                     android:layout_height="16dp"
                                     android:src="@drawable/ic_finance" 
-                                    app:tint="@color/income_green"/>
+                                    app:tint="@color/success"/>
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/income"
-                                    android:textColor="@color/gray"
+                                    android:textColor="@color/text_secondary_light"
                                     android:textSize="12sp"
                                     android:layout_marginStart="4dp"/>
                             </LinearLayout>
@@ -125,7 +125,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="$4,200"
                                 android:textStyle="bold"
-                                android:textColor="@color/black"
+                                android:textColor="@color/text_primary_light"
                                 android:textSize="16sp"
                                 android:layout_marginTop="4dp"/>
                         </LinearLayout>
@@ -133,7 +133,7 @@
                         <View
                             android:layout_width="1dp"
                             android:layout_height="32dp"
-                            android:background="#E0E0E0"
+                            android:background="@color/text_secondary_dark"
                             android:layout_marginHorizontal="24dp"
                             android:layout_gravity="center_vertical"/>
 
@@ -150,12 +150,12 @@
                                     android:layout_width="16dp"
                                     android:layout_height="16dp"
                                     android:src="@drawable/ic_finance" 
-                                    app:tint="@color/expense_red"/>
+                                    app:tint="@color/error"/>
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/expense"
-                                    android:textColor="@color/gray"
+                                    android:textColor="@color/text_secondary_light"
                                     android:textSize="12sp"
                                     android:layout_marginStart="4dp"/>
                             </LinearLayout>
@@ -164,7 +164,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="$1,500"
                                 android:textStyle="bold"
-                                android:textColor="@color/black"
+                                android:textColor="@color/text_primary_light"
                                 android:textSize="16sp"
                                 android:layout_marginTop="4dp"/>
                         </LinearLayout>
@@ -176,7 +176,7 @@
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:src="@drawable/ic_finance" 
-                        app:tint="@color/brand_purple"
+                        app:tint="@color/primary_warm"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"/>
@@ -207,9 +207,9 @@
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:src="@drawable/ic_wallet"
-                        app:tint="@color/brand_purple"
+                        app:tint="@color/primary_warm"
                         android:background="@drawable/bg_social_button"
-                        android:backgroundTint="@color/white"
+                        android:backgroundTint="@color/surface_light"
                         android:padding="12dp"
                         android:elevation="2dp"/>
                     <TextView
@@ -218,7 +218,7 @@
                         android:text="@string/accounts"
                         android:textSize="12sp"
                         android:layout_marginTop="8dp"
-                        android:textColor="@color/black"/>
+                        android:textColor="@color/text_primary_light"/>
                 </LinearLayout>
 
                 <!-- Budgets -->
@@ -233,9 +233,9 @@
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:src="@drawable/ic_finance"
-                        app:tint="@color/brand_purple"
+                        app:tint="@color/primary_warm"
                         android:background="@drawable/bg_social_button"
-                        android:backgroundTint="@color/white"
+                        android:backgroundTint="@color/surface_light"
                         android:padding="12dp"
                         android:elevation="2dp"/>
                     <TextView
@@ -244,7 +244,7 @@
                         android:text="@string/budgets"
                         android:textSize="12sp"
                         android:layout_marginTop="8dp"
-                        android:textColor="@color/black"/>
+                        android:textColor="@color/text_primary_light"/>
                 </LinearLayout>
 
                 <!-- Reports -->
@@ -259,9 +259,9 @@
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:src="@drawable/ic_pie_chart"
-                        app:tint="@color/brand_purple"
+                        app:tint="@color/primary_warm"
                         android:background="@drawable/bg_social_button"
-                        android:backgroundTint="@color/white"
+                        android:backgroundTint="@color/surface_light"
                         android:padding="12dp"
                         android:elevation="2dp"/>
                     <TextView
@@ -270,7 +270,7 @@
                         android:text="@string/reports"
                         android:textSize="12sp"
                         android:layout_marginTop="8dp"
-                        android:textColor="@color/black"/>
+                        android:textColor="@color/text_primary_light"/>
                 </LinearLayout>
 
             </LinearLayout>
@@ -285,7 +285,7 @@
                 android:text="@string/transactions"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:textColor="@color/black"
+                android:textColor="@color/text_primary_light"
                 app:layout_constraintTop_toBottomOf="@+id/actions_container"
                 app:layout_constraintStart_toStartOf="parent"/>
 
@@ -294,7 +294,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/view_all"
-                android:textColor="@color/brand_purple"
+                android:textColor="@color/primary_warm"
                 android:textStyle="bold"
                 android:layout_marginEnd="24dp"
                 android:padding="8dp"
@@ -323,9 +323,9 @@
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:src="@drawable/ic_finance"
-                        app:tint="#F44336"
+                        app:tint="@color/error"
                         android:background="@drawable/bg_social_button"
-                        android:backgroundTint="#FFEBEE"
+                        android:backgroundTint="@color/secondary_warm_light"
                         android:padding="10dp"/>
 
                     <LinearLayout
@@ -339,14 +339,14 @@
                             android:layout_height="wrap_content"
                             android:text="Netflix Subscription"
                             android:textStyle="bold"
-                            android:textColor="@color/black"
+                            android:textColor="@color/text_primary_light"
                             android:textSize="16sp"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Entertainment • Today"
                             android:textSize="12sp"
-                            android:textColor="@color/gray"/>
+                            android:textColor="@color/text_secondary_light"/>
                     </LinearLayout>
 
                     <TextView
@@ -354,14 +354,14 @@
                         android:layout_height="wrap_content"
                         android:text="-$12.99"
                         android:textStyle="bold"
-                        android:textColor="@color/black"
+                        android:textColor="@color/text_primary_light"
                         android:textSize="16sp"/>
                 </LinearLayout>
                 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="#F0F0F0"/>
+                    android:background="@color/text_secondary_dark"/>
 
                 <!-- Item 2 -->
                 <LinearLayout
@@ -375,9 +375,9 @@
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:src="@drawable/ic_finance"
-                        app:tint="#4CAF50"
+                        app:tint="@color/success"
                         android:background="@drawable/bg_social_button"
-                        android:backgroundTint="#E8F5E9"
+                        android:backgroundTint="@color/secondary_warm_light"
                         android:padding="10dp"/>
 
                     <LinearLayout
@@ -391,14 +391,14 @@
                             android:layout_height="wrap_content"
                             android:text="Salary Deposit"
                             android:textStyle="bold"
-                            android:textColor="@color/black"
+                            android:textColor="@color/text_primary_light"
                             android:textSize="16sp"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Income • Yesterday"
                             android:textSize="12sp"
-                            android:textColor="@color/gray"/>
+                            android:textColor="@color/text_secondary_light"/>
                     </LinearLayout>
 
                     <TextView
@@ -406,7 +406,7 @@
                         android:layout_height="wrap_content"
                         android:text="+$3,500.00"
                         android:textStyle="bold"
-                        android:textColor="@color/income_green"
+                        android:textColor="@color/success"
                         android:textSize="16sp"/>
                 </LinearLayout>
 
