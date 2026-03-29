@@ -64,11 +64,31 @@ interface ApiService {
     fun createBudget(@Body request: CreateBudgetRequest): Call<CreateBudgetResponse>
 
     // Transactions
-    @GET("transactions_list.php")
-    fun getTransactions(@Query("user_id") userId: String): Call<TransactionsResponse>
 
-    @POST("transaction_save.php")
-    fun addTransaction(@Body request: AddTransactionRequest): Call<AddTransactionResponse>
+    // Transactions
+    @GET("transactions_get.php")
+    fun getTransactions(
+        @Query("user_id") userId: String
+    ): Call<TransactionsResponse>
+
+    @POST("transaction_add.php")
+    fun addTransaction(
+        @Body request: AddTransactionRequest
+    ): Call<AddTransactionResponse>
+
+    @GET("transaction_get_single.php")
+    fun getTransaction(
+        @Query("id") id: Int
+    ): Call<TransactionDetailResponse>
+    @POST("payment_process.php")
+    fun processPayment(
+        @Body request: PaymentRequest
+    ): Call<GenericResponse>
+
+
+
+//    @POST("transaction_save.php")
+//    fun addTransaction(@Body request: AddTransactionRequest): Call<AddTransactionResponse>
 
     // Health - Add this if you want to sync health data to server later
     /*

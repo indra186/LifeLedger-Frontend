@@ -41,7 +41,7 @@ class AddTransactionViewModel(application: Application) : AndroidViewModel(appli
                     amount = amount,
                     type = type,
                     category = category,
-                    date = if (date.contains("-")) date else "2023-01-01",
+                    date = date,
                     notes = notes
                 )
                 repository.insertTransaction(transaction)

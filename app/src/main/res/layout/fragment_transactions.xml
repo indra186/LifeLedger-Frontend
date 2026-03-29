@@ -14,10 +14,13 @@
         android:layout_height="32dp"
         android:src="@drawable/ic_back"
         app:tint="@color/black"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="8dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="24dp"
-        android:background="?attr/selectableItemBackgroundBorderless"/>
+        android:layout_marginTop="24dp" />
 
     <TextView
         android:id="@+id/tv_title"
@@ -126,15 +129,17 @@
     <!-- Transactions RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_transactions"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="24dp"
         android:paddingBottom="80dp"
         android:clipToPadding="false"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_transaction"
         app:layout_constraintTop_toBottomOf="@id/filter_container"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:listitem="@layout/item_transaction" />
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_add_transaction"

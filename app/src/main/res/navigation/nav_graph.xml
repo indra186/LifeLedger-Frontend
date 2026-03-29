@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/splashFragment">
+    <action
+        android:id="@+id/action_global_transactionDetailFragment"
+        app:destination="@id/transactionDetailFragment" />
 
     <!-- Onboarding -->
     <fragment
@@ -173,7 +176,14 @@
         android:id="@+id/transactionDetailFragment"
         android:name="com.example.untitled.TransactionDetailFragment"
         android:label="Transaction Detail"
-        tools:layout="@layout/fragment_transaction_detail" />
+        tools:layout="@layout/fragment_transaction_detail">
+
+        <argument
+            android:name="tx_id"
+            app:argType="integer" />
+
+    </fragment>
+
 
     <fragment
         android:id="@+id/addTransactionFragment"
