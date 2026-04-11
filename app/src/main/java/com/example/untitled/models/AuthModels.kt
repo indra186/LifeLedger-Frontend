@@ -31,7 +31,7 @@ data class UserData(
 data class SignupRequest(
     val name: String,
     val email: String,
-    @SerializedName("password") val pass: String
+    val password: String
 )
 data class SignupResponse(
     val success: Boolean,

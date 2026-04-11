@@ -1,7 +1,6 @@
 package com.example.untitled.network
 
 import com.example.untitled.models.*
-import com.google.gson.JsonElement
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.Body
@@ -13,7 +12,7 @@ interface ApiService {
     
     // Auth
     @POST("login.php")
-    fun login(@Body request: LoginRequest): Call<ResponseBody> 
+    fun login(@Body request: LoginRequest): Call<ResponseBody>
 
     @POST("register.php")
     fun signup(@Body request: SignupRequest): Call<SignupResponse>
@@ -30,11 +29,18 @@ interface ApiService {
 
 
     // Goals
+    @GET("goal_get.php")
+    fun getGoalDetail(
+        @Query("id") goalId: Int
+    ): Call<GoalDetailResponse>
     @GET("goals_list.php")
     fun getGoals(@Query("user_id") userId: String): Call<GoalsResponse>
 
     @POST("goal_save.php")
     fun addGoal(@Body request: AddGoalRequest): Call<AddGoalResponse>
+
+    @POST("goal_delete.php")
+    fun deleteGoal(@Body request: DeleteGoalRequest): Call<GenericResponse>
 
     // Tasks
     @GET("tasks_list.php")
@@ -64,11 +70,31 @@ interface ApiService {
     fun createBudget(@Body request: CreateBudgetRequest): Call<CreateBudgetResponse>
 
     // Transactions
-    @GET("transactions_list.php")
-    fun getTransactions(@Query("user_id") userId: String): Call<TransactionsResponse>
 
-    @POST("transaction_save.php")
-    fun addTransaction(@Body request: AddTransactionRequest): Call<AddTransactionResponse>
+    // Transactions
+    @GET("transactions_get.php")
+    fun getTransactions(
+        @Query("user_id") userId: String
+    ): Call<TransactionsResponse>
+
+    @POST("transaction_add.php")
+    fun addTransaction(
+        @Body request: AddTransactionRequest
+    ): Call<AddTransactionResponse>
+
+    @GET("transaction_get_single.php")
+    fun getTransaction(
+        @Query("id") id: Int
+    ): Call<TransactionDetailResponse>
+    @POST("payment_process.php")
+    fun processPayment(
+        @Body request: PaymentRequest
+    ): Call<GenericResponse>
+
+
+
+//    @POST("transaction_save.php")
+//    fun addTransaction(@Body request: AddTransactionRequest): Call<AddTransactionResponse>
 
     // Health - Add this if you want to sync health data to server later
     /*
@@ -83,6 +109,20 @@ interface ApiService {
 
     @POST("account_add.php")
     fun addAccount(@Body request: AddAccountRequest): Call<AddAccountResponse>
+    @POST("goal_add_progress.php")
+    fun addGoalProgress(
+        @Body request: AddGoalProgressRequest
+    ): Call<GenericResponse>
+
+    @GET("goal_progress_list.php")
+    fun getGoalHistory(
+        @Query("goal_id") goalId: Int
+    ): Call<GoalHistoryResponse>
+
+//    @POST("goal_save.php")
+//    fun addGoal(
+//        @Body request: AddGoalRequest
+//    ): Call<AddGoalResponse>
 
 
 }

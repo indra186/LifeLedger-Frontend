@@ -9,11 +9,15 @@ import androidx.navigation.fragment.findNavController
 import com.example.untitled.databinding.FragmentPremiumBinding
 
 class PremiumFragment : Fragment() {
+
     private var _binding: FragmentPremiumBinding? = null
     private val binding get() = _binding!!
 
+    private var isPlanSelected = false
+
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentPremiumBinding.inflate(inflater, container, false)
@@ -22,15 +26,46 @@ class PremiumFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        
-        // Allow clicking either the pricing card or the hero card to go to payment
+
+        // Back button
+        binding.ivBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
+        // Pricing card selection
         binding.cardPricing.setOnClickListener {
-            findNavController().navigate(R.id.action_premiumFragment_to_paymentFragment)
+
+            // 1️⃣ Mark selected (border appears)
+            binding.cardPricing.isSelected = true
+
+            // 2️⃣ Let UI render selection (VERY IMPORTANT)
+            binding.cardPricing.postDelayed({
+
+                val bundle = Bundle().apply {
+                    putInt("amount", 99)
+                    putString("plan", "Annual")
+                }
+
+                findNavController().navigate(
+                    R.id.action_premiumFragment_to_paymentFragment,
+                    bundle
+                )
+
+            }, 120) // 100–150ms is ideal
         }
-        
-        binding.cardHero.setOnClickListener {
-             findNavController().navigate(R.id.action_premiumFragment_to_paymentFragment)
+
+    }
+
+    private fun navigateToPayment() {
+        val bundle = Bundle().apply {
+            putInt("amount", 99)
+            putString("plan", "Annual")
         }
+
+        findNavController().navigate(
+            R.id.action_premiumFragment_to_paymentFragment,
+            bundle
+        )
     }
 
     override fun onDestroyView() {

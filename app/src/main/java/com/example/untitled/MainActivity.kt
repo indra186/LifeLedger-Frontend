@@ -18,37 +18,31 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
 
-        // Toolbar setup removed as requested to remove extra headers
-
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
 
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+
+        // ✅ CORRECT WAY
         bottomNav.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            when (destination.id) {
-                // Top-level screens: Show Bottom Nav
-                R.id.nav_dashboard,
-                R.id.nav_finance,
-                R.id.nav_lifestyle,
-                R.id.nav_profile -> {
-                    bottomNav.visibility = View.VISIBLE
-                }
-                // Auth/Splash screens: Hide Bottom Nav
-                R.id.splashFragment,
-                R.id.introFragment,
-                R.id.loginFragment,
-                R.id.signupFragment,
-                R.id.otpFragment -> {
-                    bottomNav.visibility = View.GONE
-                }
-                // All other screens: Hide Bottom Nav
-                else -> {
-                    bottomNav.visibility = View.GONE
-                }
-            }
+            bottomNav.visibility =
+                if (destination.id in listOf(
+                        R.id.nav_dashboard,
+                        R.id.nav_finance,
+                        R.id.nav_lifestyle,
+                        R.id.nav_profile
+                    )
+                ) View.VISIBLE else View.GONE
         }
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            android.util.Log.d("NAV_DEST", destination.label.toString())
+        }
+
     }
 }
+
+
+

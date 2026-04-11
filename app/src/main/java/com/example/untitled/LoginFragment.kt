@@ -51,17 +51,19 @@ class LoginFragment : Fragment() {
             }
 
             val request = LoginRequest(email, password)
+            Log.d("LOGIN_DEBUG", "Request -> Email: $email Password: $password")
 
             RetrofitClient.instance.login(request).enqueue(object : Callback<ResponseBody> {
                 override fun onResponse(
                     call: Call<ResponseBody>,
                     response: Response<ResponseBody>
                 ) {
+                    Log.d("LOGIN_DEBUG", "HTTP Code: ${response.code()}")
                     if (!isAdded) return
 
                     if (response.isSuccessful && response.body() != null) {
                         val responseBodyString = response.body()!!.string()
-                        Log.d("LoginFragment", "Raw response: $responseBodyString")
+                        Log.d("LOGIN_DEBUG", "Raw response: $responseBodyString")
 
                         try {
                             // Check if response is a JSON object
@@ -113,11 +115,13 @@ class LoginFragment : Fragment() {
                         // Handle non-200 responses
                         val errorBody = response.errorBody()?.string() ?: "Unknown error"
                         Toast.makeText(context, "Login failed: $errorBody (${response.code()})", Toast.LENGTH_LONG).show()
-                        Log.e("LoginError", "Code: ${response.code()}, Body: $errorBody")
+                        Log.e("LOGIN_DEBUG", "Error Code: ${response.code()}")
+                        Log.e("LOGIN_DEBUG", "Error Body: $errorBody")
                     }
                 }
 
                 override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    Log.e("LOGIN_DEBUG", "Failure: ${t.message}", t)
                     if (isAdded) {
                         Toast.makeText(context, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
                         Log.e("LoginFailure", t.message ?: "Unknown error")

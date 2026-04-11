@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.untitled.models.SignupRequest
 import com.example.untitled.models.SignupResponse
 import com.example.untitled.network.RetrofitClient
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -53,7 +54,7 @@ class SignupFragment : Fragment() {
                 return@setOnClickListener
             }
 
-            val request = SignupRequest(name = name, email = email, pass = password)
+            val request = SignupRequest(name, email, password)
 
             RetrofitClient.instance.signup(request).enqueue(object : Callback<SignupResponse> {
                 override fun onResponse(

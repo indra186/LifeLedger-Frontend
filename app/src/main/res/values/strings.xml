@@ -125,7 +125,9 @@
     <string name="entertainment_val">$180 of $150</string>
     <string name="shopping">Shopping</string>
     <string name="shopping_val">$420 of $500</string>
-    
+    <string name="transaction_date">Transaction Date</string>
+    <string name="created_at">Created At</string>
+
     <!-- Create Budget Strings -->
     <string name="create_budget_title">Create Budget</string>
     <string name="select_category">Select Category</string>
@@ -369,6 +371,7 @@
     <string name="Add_New_Metric">Add New Metric</string>
     <string name="_72_bpm">72 bpm</string>
     <string name="normal">Normal</string>
+
 
     <!-- Missing strings for habits fragment -->
     <string name="completion_rate_85">85%</string>

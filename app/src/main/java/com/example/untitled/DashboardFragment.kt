@@ -73,15 +73,22 @@ class DashboardFragment : Fragment() {
                         // Goal
                         if (data.goals.isNotEmpty()) {
                             val goal = data.goals[0]
+
+                            binding.cardGoal.visibility = View.VISIBLE
+
                             binding.tvGoalName.text = goal.title
 
-                            val percent =
-                                ((goal.current_amount / goal.target_amount) * 100).toInt()
-
+                            val percent = ((goal.current_amount / goal.target_amount) * 100).toInt()
                             binding.progressBarGoal.progress = percent
                             binding.tvGoalPercent.text = "$percent%"
                             binding.tvGoalProgress.text =
                                 "${goal.current_amount.toInt()} of ${goal.target_amount.toInt()}"
+
+                        } else {
+                            // 👇 THIS IS IMPORTANT
+                            binding.cardGoal.visibility = View.GONE
+
+                            Toast.makeText(context, "No goals yet. Create one!", Toast.LENGTH_SHORT).show()
                         }
 
                     } else {

@@ -15,7 +15,16 @@ data class Goal(
 data class GoalsResponse(
     val success: Boolean,
     val message: String,
-    val data: List<Goal>?
+    val data: GoalsData
+)
+data class GoalDetailResponse(
+    val success: Boolean,
+    val message: String,
+    val data: Goal
+)
+
+data class GoalsData(
+    val goals: List<Goal>
 )
 
 data class AddGoalRequest(
@@ -24,11 +33,34 @@ data class AddGoalRequest(
     val target_amount: Double,
     @SerializedName("target_date")
     val deadline: String?,
-    val initial_amount: Double?
+    val current_amount: Double?
+)
+data class AddGoalProgressRequest(
+    val goal_id: Int,
+    val amount: Double,
+    val account_id: Int
 )
 
 data class AddGoalResponse(
     val success: Boolean,
     val message: String,
     val goal_id: String?
+)
+data class GoalHistoryResponse(
+    val success: Boolean,
+    val data: GoalHistoryData
+)
+
+data class GoalHistoryData(
+    val goal_id: Int,
+    val progress: List<GoalProgress>
+)
+
+data class GoalProgress(
+    val id: Int,
+    val amount_added: Double,
+    val date_added: String
+)
+data class DeleteGoalRequest(
+    val goal_id: Int
 )

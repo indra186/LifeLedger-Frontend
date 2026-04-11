@@ -2,6 +2,7 @@ package com.example.untitled
 
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +22,8 @@ class AddGoalFragment : Fragment() {
     private lateinit var etGoalName: EditText
     private lateinit var etTargetAmount: EditText
     private lateinit var tvTargetDate: TextView
+    private lateinit var etIntialAmount: EditText
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,6 +40,8 @@ class AddGoalFragment : Fragment() {
         etGoalName = view.findViewById(R.id.et_goal_name)
         etTargetAmount = view.findViewById(R.id.et_target_amount)
         tvTargetDate = view.findViewById(R.id.tv_target_date)
+        etIntialAmount = view.findViewById(R.id.et_initial_amount)
+
 
         setupObservers(view)
 
@@ -71,10 +76,15 @@ class AddGoalFragment : Fragment() {
             val goalName = etGoalName.text.toString().trim()
             val amountStr = etTargetAmount.text.toString().trim()
             val date = tvTargetDate.text.toString()
+            val intialAmountStr = etIntialAmount.text.toString().trim()
+            val intialAmount = intialAmountStr.toDoubleOrNull() ?: 0.0
+
 
             val amount = amountStr.toDoubleOrNull() ?: 0.0
-            
-            viewModel.saveGoal(goalName, amount, date)
+
+            viewModel.saveGoal(goalName, amount, intialAmount, date)
+            Log.d("GOAL_DEBUG", "Save clicked")
+            Log.d("GOAL_DEBUG", "Name=$goalName Amount=$amount Intial Amount=$intialAmount Date=$date")
         }
     }
 

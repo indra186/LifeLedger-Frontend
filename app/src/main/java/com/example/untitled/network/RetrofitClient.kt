@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
 
-    private const val BASE_URL = "http://10.0.2.2/lifeledger/"
+    private const val BASE_URL = "http://192.168.2.112/lifeledger/"
 
     private var authToken: String? = null
     private var retrofit: Retrofit? = null
@@ -31,6 +31,7 @@ object RetrofitClient {
             val request = chain.request().newBuilder()
                 .addHeader("Authorization", "Bearer ${authToken ?: ""}")
                 .addHeader("Accept", "application/json")
+                .addHeader("Content-Type", "application/json")   // ADD THIS
                 .build()
             chain.proceed(request)
         }
