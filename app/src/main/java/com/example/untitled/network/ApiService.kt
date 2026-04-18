@@ -112,7 +112,7 @@ interface ApiService {
     @POST("goal_add_progress.php")
     fun addGoalProgress(
         @Body request: AddGoalProgressRequest
-    ): Call<GenericResponse>
+    ): Call<GoalProgressResponse>
 
     @GET("goal_progress_list.php")
     fun getGoalHistory(

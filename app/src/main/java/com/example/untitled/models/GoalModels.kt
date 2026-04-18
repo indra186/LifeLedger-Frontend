@@ -64,3 +64,13 @@ data class GoalProgress(
 data class DeleteGoalRequest(
     val goal_id: Int
 )
+data class GoalProgressResponse(
+    val success: Boolean,
+    val message: String,
+    val data: GoalProgressData?
+)
+
+data class GoalProgressData(
+    val used_amount: Double,
+    val extra_amount: Double
+)

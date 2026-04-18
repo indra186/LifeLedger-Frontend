@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -65,6 +66,7 @@ class GoalsFragment : Fragment() {
                 R.id.action_goalsFragment_to_goalDetailFragment,
                 bundle
             )
+            Toast.makeText(requireContext(), "Clicked ${goal.title}", Toast.LENGTH_SHORT).show()
         }
         binding.rvGoals.layoutManager = LinearLayoutManager(context)
         binding.rvGoals.adapter = goalsAdapter
