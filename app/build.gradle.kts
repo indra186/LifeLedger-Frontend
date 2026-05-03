@@ -7,6 +7,18 @@ plugins {
 android {
     namespace = "com.example.untitled"
     compileSdk = 34
+    packaging {
+        resources {
+            excludes += setOf(
+                "META-INF/INDEX.LIST",
+                "META-INF/DEPENDENCIES",
+                "META-INF/LICENSE",
+                "META-INF/LICENSE.txt",
+                "META-INF/NOTICE",
+                "META-INF/NOTICE.txt"
+            )
+        }
+    }
 
     defaultConfig {
         applicationId = "com.example.untitled"
@@ -34,6 +46,7 @@ android {
     buildFeatures {
         viewBinding = true
     }
+
 }
 
 dependencies {

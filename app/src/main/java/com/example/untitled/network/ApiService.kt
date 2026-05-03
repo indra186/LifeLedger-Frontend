@@ -119,6 +119,27 @@ interface ApiService {
         @Query("goal_id") goalId: Int
     ): Call<GoalHistoryResponse>
 
+
+    @POST("send_feedback.php")
+    fun sendFeedback(
+        @Body request: AgentFeedbackRequest
+    ): Call<GenericResponse>
+
+    @GET("get_strategy_score.php")
+    fun getStrategyScore(
+        @Query("strategy") strategy: String
+    ): Call<StrategyScoreResponse>
+
+
+    @POST("ai_agent.php")
+    fun getAIDecision(
+        @Body request: OpenAIRequest
+    ): Call<OpenAIResponse>
+
+    @GET("get_tasks.php")
+    fun getTasks(
+        @Query("goal_id") goalId: Int
+    ): Call<TaskResponse>
 //    @POST("goal_save.php")
 //    fun addGoal(
 //        @Body request: AddGoalRequest

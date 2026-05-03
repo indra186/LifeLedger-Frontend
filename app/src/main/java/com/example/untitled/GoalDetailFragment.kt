@@ -1,35 +1,48 @@
 package com.example.untitled
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.untitled.adapters.GoalHistoryAdapter
 import com.example.untitled.databinding.FragmentGoalDetailBinding
 import com.example.untitled.models.*
 import com.example.untitled.network.RetrofitClient
+import com.example.untitled.utils.AgentEngine
+import com.example.untitled.utils.AgentRunner
+import com.example.untitled.utils.GoalCalculator
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import android.widget.EditText
-import android.widget.Spinner
-import android.widget.Button
-import androidx.navigation.fragment.findNavController
+import com.example.untitled.utils.InsightEngine
+import com.example.untitled.utils.RecoveryPlanner
+import android.os.Handler
+import android.os.Looper
 
 class GoalDetailFragment : Fragment() {
 
     private var _binding: FragmentGoalDetailBinding? = null
     private val binding get() = _binding!!
 
-    // 🔥 STEP 1: goalId
+    //  STEP 1: goalId
     private var goalId: Int = -1
     private var currentGoal: Goal? = null
+    private var lastStrategy: String = "UNKNOWN"
+    private var lastGoalInsight: GoalInsight? = null
+    private var lastFinalInsight: FinalInsight? = null
+    private var isOptimizing = false
 
-    // 🔥 STEP 2: adapter
+    //  STEP 2: adapter
     private lateinit var historyAdapter: GoalHistoryAdapter
 
     override fun onCreateView(
@@ -87,7 +100,13 @@ class GoalDetailFragment : Fragment() {
                 .show()
         }
         binding.btnOptimize.setOnClickListener {
+
+            if (isOptimizing) return@setOnClickListener
+
+            isOptimizing = true
+
             checkDataAndOptimize()
+            Log.d("AI_UI", "Optimize clicked for goalId: $goalId")
         }
 
     }
@@ -97,31 +116,7 @@ class GoalDetailFragment : Fragment() {
 
         return prefs.getString("userId", "") ?: ""
     }
-    private fun calculateGoalBasedSaving(history: List<GoalProgress>): Double {
 
-        if (history.isEmpty()) return 0.0
-
-        val sdf = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault())
-
-        return try {
-            val sorted = history.sortedBy { it.date_added }
-
-            val first = sdf.parse(sorted.first().date_added)
-            val last = sdf.parse(sorted.last().date_added)
-
-            val diff = last.time - first.time
-            val days = diff / (1000 * 60 * 60 * 24)
-
-            if (days <= 0) return 0.0
-
-            val total = history.sumOf { it.amount_added }
-
-            (total / days) * 30 // monthly avg
-
-        } catch (e: Exception) {
-            0.0
-        }
-    }
     private fun checkDataAndOptimize() {
 
         RetrofitClient.instance.getTransactions(getUserId())
@@ -243,300 +238,94 @@ class GoalDetailFragment : Fragment() {
                 }
             })
     }
+
     private fun calculateFinalInsight(
         goal: Goal,
         history: List<GoalProgress>,
         transactions: List<TransactionItem>,
         totalBalance: Double
     ) {
-        val remaining = goal.target_amount - goal.current_amount
+        val finalInsight = InsightEngine.generate(goal, history, transactions)
+        lastFinalInsight = finalInsight
 
-        if (remaining <= 0) {
-            showResultDialogCompleted(goal)
-            return
-        }
-
-        val sdf = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault())
-
-        val daysLeft: Int = if (goal.deadline != null) {
-            try {
-                val deadlineDate = sdf.parse(goal.deadline)!!
-                val now = java.util.Date()
-                val diff = deadlineDate.time - now.time
-                (diff / (1000 * 60 * 60 * 24)).toInt()
-            } catch (e: Exception) {
-                -1
-            }
-        } else -1
-// ✅ 🔥 ADD HERE (DEADLINE PASSED LOGIC)
-        if (daysLeft < 0) {
-
-            val dailyActual = calculateDailySaving(history)
-            val delayDays = kotlin.math.abs(daysLeft)
-
-            val recoveryDays = when {
-                dailyActual <= 0 -> 30
-                delayDays <= 3 -> 7
-                delayDays <= 10 -> 14
-                else -> (remaining / dailyActual).toInt().coerceIn(7, 30)
-            }
-
-            val dailyNeeded = remaining / recoveryDays
-            val gap = dailyNeeded - dailyActual
-
-            val message = if (dailyActual >= dailyNeeded) {
-                """
-❌ Deadline Passed
-
-Remaining: ₹${remaining.toInt()}
-
-💡 Recovery Plan:
-You can recover in $recoveryDays days
-
-👉 Save ₹${dailyNeeded.toInt()}/day
-"""
-            } else {
-                """
-❌ Deadline Passed
-
-Remaining: ₹${remaining.toInt()}
-
-🚨 Recovery Plan ($recoveryDays days):
-
-Required: ₹${dailyNeeded.toInt()}/day  
-You save: ₹${dailyActual.toInt()}/day  
-
-⚠ Short by ₹${gap.toInt()}/day  
-
-👉 Suggestions:
-• Extend deadline  
-• Reduce expenses  
-• Increase income
-"""
-            }
-
-            binding.tvAiContent.text = message.trimIndent()
-            return
-        }
-        // 🔥 🚨 STEP 0: SHORT TERM (WEEKEND / <=7 DAYS)
-        if (daysLeft in 1..7) {
-
-            val dailyRequired = remaining / daysLeft
-            val dailyActual = calculateDailySaving(history)
-
-            val message = when {
-                dailyActual >= dailyRequired -> {
-                    """
-🎯 Short-Term Goal
-
-Required: ₹${dailyRequired.toInt()}/day  
-You are saving: ₹${dailyActual.toInt()}/day  
-
-✅ You can achieve this goal
-"""
-                }
-                else -> {
-                    val gap = (dailyRequired - dailyActual)
-
-                    """
-🚨 Short-Term Goal
-
-Required: ₹${dailyRequired.toInt()}/day  
-You are saving: ₹${dailyActual.toInt()}/day  
-
-⚠ You may fall short by ₹${gap.toInt()}/day  
-👉 Try reducing expenses or extend deadline
-"""
-                }
-            }
-
-            binding.tvAiContent.text = message.trimIndent()
-            return
-        }
-
-        // 🔥 NORMAL LOGIC CONTINUES BELOW
-
-        val isShortTerm = daysLeft in 1..30
-
-        val requiredSaving: Double? = if (daysLeft > 0) {
-            when {
-                daysLeft <= 30 -> remaining / daysLeft
-                else -> {
-                    val monthsLeft = daysLeft / 30.0
-                    remaining / monthsLeft
-                }
-            }
-        } else null
-
-        val transactionSaving = calculateMonthlySavings(transactions)
-
-        val goalSaving = if (isShortTerm) {
-            calculateDailySaving(history)
-        } else {
-            calculateGoalBasedSaving(history)
-        }
-
-        val actualSaving = when {
-            goalSaving > 0 -> goalSaving
-            transactionSaving > 0 -> transactionSaving
-            else -> totalBalance * 0.3
-        }
-
-        val realSaving = when {
-            daysLeft in 0..3 && requiredSaving != null -> requiredSaving
-            requiredSaving != null && actualSaving > 0 -> minOf(actualSaving, requiredSaving)
-            actualSaving > 0 -> actualSaving
-            else -> 0.0
-        }
-
-        val months = if (realSaving > 0) (remaining / realSaving) else -1.0
-        val days = (months * 30).toInt()
-
-        val confidence = getConfidence(transactions)
         val lastDate = transactions.maxByOrNull { it.tx_date }?.tx_date
         val lastUpdated = getLastUpdatedText(lastDate)
 
-        showResultDialog(
-            goal.title,
-            months,
-            days,
-            realSaving,
-            confidence,
-            lastUpdated,
-            goal.deadline
-        )
+        renderInsight(finalInsight,goal,history.size,lastUpdated)
     }
-    private fun calculateDailySaving(history: List<GoalProgress>): Double {
-
-        if (history.isEmpty()) return 0.0
-
-        val sdf = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault())
-
-        return try {
-            val sorted = history.sortedBy { it.date_added }
-
-            val first = sdf.parse(sorted.first().date_added)
-            val last = sdf.parse(sorted.last().date_added)
-
-            val diff = last.time - first.time
-            val days = (diff / (1000 * 60 * 60 * 24)).coerceAtLeast(1)
-
-            val total = history.sumOf { it.amount_added }
-
-            total / days   // DAILY average
-        } catch (e: Exception) {
-            0.0
-        }
-    }
-    private fun showResultDialogCompleted(goal: Goal) {
-
-        binding.tvAiContent.text = """
-🎉 Goal Completed!
-
-You have successfully reached your goal: ${goal.title}
-
-You're financially on track 🚀
-""".trimIndent()
-    }
-    private fun calculateMonthlySavings(list: List<TransactionItem>): Double {
-
-        if (list.isEmpty()) return 0.0
-
-        val income = list
-            .filter { it.type == "income" }
-            .sumOf { it.amount }
-
-        val expense = list
-            .filter { it.type == "expense" }
-            .sumOf { it.amount }
-
-        val net = income - expense
-
-        // Assume data spans 1 month (simple version)
-        return if (net > 0) net else 0.0
-    }
-    private fun getConfidence(list: List<TransactionItem>): String {
-
-        val lastDateStr = list.maxByOrNull { it.tx_date }?.tx_date ?: return "LOW"
-
-        return try {
-            val sdf = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault())
-
-            val lastDate = sdf.parse(lastDateStr) ?: return "LOW"
-            val now = java.util.Date()
-
-            val diff = now.time - lastDate.time
-            val days = diff / (1000 * 60 * 60 * 24)
-
-            when {
-                days <= 1 -> "HIGH"
-                days <= 3 -> "MEDIUM"
-                else -> "LOW"
-            }
-
-        } catch (e: Exception) {
-            "LOW"
-        }
-    }
-    private fun showResultDialog(
-        title: String,
-        months: Double,
-        days: Int,
-        monthlySaving: Double,
-        confidence: String,
-        lastUpdated: String,
-        deadline: String?
+    @SuppressLint("SetTextI18n")
+    private fun renderInsight(
+        final: FinalInsight,
+        goal: Goal,
+        historySize: Int,
+        lastUpdated: String
     ) {
-        val timeText = when {
-            months == 0.0 -> "Goal achieved 🎉"
-            months < 0 -> "Not enough data"
-            months < 1 -> "$days days"
-            else -> "${"%.1f".format(months)} months"
-        }
-        val deadlineMessage = if (deadline != null) {
-            try {
-                val sdf = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault())
-                val deadlineDate = sdf.parse(deadline)!!
-                val now = java.util.Date()
 
-                val diff = deadlineDate.time - now.time
-                val daysLeft = (diff / (1000 * 60 * 60 * 24)).toInt()
+        val g = final.goalInsight
+        val f = final.financeInsight
+        val r = final.recoveryPlan
+        lastGoalInsight = g
 
-                when {
-                    daysLeft < 0 -> "❌ Deadline passed! Adjust your goal"
-                    daysLeft == 0 -> "⚠ Deadline is TODAY"
-                    daysLeft in 1..3 -> "🚨 Urgent: Only $daysLeft days left"
-                    daysLeft in 4..7 -> "⚠ Only $daysLeft days left"
-                    daysLeft < days -> "⚠ You may miss your deadline"
-                    else -> "✅ On track"
-                }
+        val trendText = if (historySize < 4) "Not enough data" else g.trend.toString()
 
-            } catch (e: Exception) {
-                ""
-            }
-        } else ""
-        val savingText = when {
-            deadline != null && days <= 30 -> {
-                "₹${monthlySaving.toInt()}/day"
-            }
-            else -> {
-                "₹${monthlySaving.toInt()}/month"
-            }
-        }
+        if (g.state == GoalState.COMPLETED) {
+            binding.tvAiContent.text = """
+🎉 Goal Completed Early!
 
-        binding.tvAiContent.text = """
-📊 Goal Insight: $title
+You saved ₹${goal.current_amount}
 
-Recommended saving: $savingText
+🏆 Strong financial discipline
 
-Time to goal: $timeText
-
-$deadlineMessage
-
-Confidence: $confidence
+Confidence: ${final.confidence}
 Last updated: $lastUpdated
 """.trimIndent()
+            return
+        }
+
+        val message = """
+📊 Goal Insight
+
+Required: ₹${g.requiredPerDay.toInt()}/day  
+You save: ₹${g.actualPerDay.toInt()}/day  
+
+${final.risk}
+${final.spendingImpact}
+
+🛠 Recovery Plan:
+${r.suggestion}
+
+🧠 Behavior: ${final.behavior}
+📈 Trend: $trendText
+
+💣 Top Spending: ${f.topCategory}
+₹${f.topCategorySpend.toInt()}
+
+Confidence: ${final.confidence}
+Last updated: $lastUpdated
+""".trimIndent()
+
+        binding.tvAiContent.text = message
+
+// 🔥 STEP 1: CREATE TASKS
+        AgentEngine.runAgent(
+            final.goalInsight,
+            final.financeInsight,
+            final.recoveryPlan,
+            RetrofitClient.instance
+        ) {
+            // nothing needed
+        }
+        Log.d("AI_UI", "Rendering insight: $final")
+
+// 🔥 STEP 2: FETCH TASKS
+        Handler(Looper.getMainLooper()).postDelayed({
+            AgentRunner.fetchTasks(goalId, RetrofitClient.instance) {
+                binding.tvAiContent.append("\n\n$it")
+            }
+        }, 3000)
+        isOptimizing = false
     }
+
     private fun getLastUpdatedText(date: String?): String {
 
         if (date == null) return "Unknown"
@@ -665,19 +454,6 @@ Last updated: $lastUpdated
 
                         spinner.adapter = adapter
 
-//                        btnAdd.setOnClickListener {
-//
-//                            val amount = etAmount.text.toString().toDoubleOrNull()
-//
-//                            if (amount == null || amount <= 0) {
-//                                Toast.makeText(context, "Enter valid amount", Toast.LENGTH_SHORT).show()
-//                                return@setOnClickListener
-//                            }
-//
-//                            val selectedAccount = accounts[spinner.selectedItemPosition]
-//
-//                            addContribution(amount, selectedAccount.id, dialog)
-//                        }
                         btnAdd.setOnClickListener {
 
                             val inputAmount = etAmount.text.toString().toDoubleOrNull()
@@ -709,6 +485,7 @@ Last updated: $lastUpdated
                             val selectedAccount = accounts[spinner.selectedItemPosition]
 
                             addContribution(finalAmount, selectedAccount.id, dialog)
+
                         }
                     }
                 }
@@ -736,6 +513,56 @@ Last updated: $lastUpdated
                     response: Response<GoalProgressResponse>
                 ) {
                     if (response.isSuccessful && response.body()?.success == true) {
+                        // 🔥 STEP 1: get latest insight again
+                        RetrofitClient.instance.getTransactions(getUserId())
+                            .enqueue(object : Callback<TransactionsResponse> {
+
+                                override fun onResponse(
+                                    call: Call<TransactionsResponse>,
+                                    response: Response<TransactionsResponse>
+                                ) {
+                                    if (response.isSuccessful && response.body()?.success == true) {
+
+                                        val transactions = response.body()?.data ?: emptyList()
+
+                                        val goal = currentGoal ?: return
+                                        RetrofitClient.instance.getGoalHistory(goalId)
+                                            .enqueue(object : Callback<GoalHistoryResponse> {
+
+                                                override fun onResponse(
+                                                    call: Call<GoalHistoryResponse>,
+                                                    response: Response<GoalHistoryResponse>
+                                                ) {
+                                                    if (response.isSuccessful && response.body()?.success == true) {
+
+                                                        val history = response.body()!!.data.progress
+
+                                                        val insight = InsightEngine.generate(goal, history, transactions)
+
+                                                        // 🔥 THIS IS THE TRIGGER
+//                                                        AgentEngine.runAgent(
+//                                                            insight.goalInsight,
+//                                                            insight.financeInsight,
+//                                                            insight.recoveryPlan,
+//                                                            RetrofitClient.instance
+//                                                        ) {
+//                                                            // Optional UI update
+//                                                            binding.tvAiContent.append("\n\n🤖 New Task Created")
+//                                                        }
+                                                        val final = lastFinalInsight ?: return
+                                                        AgentRunner.fetchTasks(goalId, RetrofitClient.instance) {
+                                                            binding.tvAiContent.append("\n\n$it")
+                                                        }
+                                                    }
+                                                }
+
+                                                override fun onFailure(call: Call<GoalHistoryResponse>, t: Throwable) {}
+                                            })
+                                    }
+                                }
+
+                                override fun onFailure(call: Call<TransactionsResponse>, t: Throwable) {}
+                            })
 
                         val data = response.body()?.data
 
@@ -754,6 +581,15 @@ Last updated: $lastUpdated
 
                         loadHistory()
                         loadGoalDetails()
+                        // ✅ Get expected daily saving from insight
+                        val expected = lastGoalInsight?.requiredPerDay ?: 0.0
+                        val actual = amount
+
+                        sendFeedback(
+                            strategy = lastStrategy,
+                            actual = actual,
+                            expected = expected
+                        )
 
                     } else {
                         Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
@@ -763,6 +599,38 @@ Last updated: $lastUpdated
                 override fun onFailure(call: Call<GoalProgressResponse>, t: Throwable) {
                     Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
                 }
+            })
+    }
+    private fun generateMultiGoalInsights(
+        goals: List<Goal>,
+        historyMap: Map<String, List<GoalProgress>>,
+        transactions: List<TransactionItem>
+    ) {
+        val result = InsightEngine.generateMultiGoal(goals, historyMap, transactions)
+
+        result.allocation.forEach { (goal, amount) ->
+            android.util.Log.d("AI_ALLOC", "Goal -> ₹$amount/day")
+        }
+    }
+    private fun sendFeedback(strategy: String, actual: Double, expected: Double) {
+
+        val request = AgentFeedbackRequest(
+            goal_id = goalId.toString(),
+            strategy = strategy,
+            actual_saved = actual,
+            expected_saved = expected,
+            success = actual >= expected
+        )
+
+        RetrofitClient.instance.sendFeedback(request)
+            .enqueue(object : Callback<GenericResponse> {
+
+                override fun onResponse(
+                    call: Call<GenericResponse>,
+                    response: Response<GenericResponse>
+                ) {}
+
+                override fun onFailure(call: Call<GenericResponse>, t: Throwable) {}
             })
     }
     override fun onDestroyView() {

@@ -1,6 +1,7 @@
 package com.example.untitled.network
 
 import android.content.Context
+import android.util.Log
 import com.google.gson.GsonBuilder
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -10,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
 
-    private const val BASE_URL = "http://192.168.2.112/lifeledger/"
+    private const val BASE_URL = "http://192.168.2.100/lifeledger/"
 
     private var authToken: String? = null
     private var retrofit: Retrofit? = null
@@ -18,26 +19,42 @@ object RetrofitClient {
     fun init(context: Context) {
         val prefs = context.getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
         authToken = prefs.getString("token", null)
+
+        Log.d("TOKEN_DEBUG", "Loaded token = $authToken")
+
         buildRetrofit()
     }
 
     fun setAuthToken(token: String?) {
         authToken = token
-        buildRetrofit()   // REBUILD when token changes
+
+        Log.d("TOKEN_DEBUG", "Updated token = $authToken")
+
+        buildRetrofit()
     }
 
     private fun buildRetrofit() {
+
         val authInterceptor = Interceptor { chain ->
-            val request = chain.request().newBuilder()
-                .addHeader("Authorization", "Bearer ${authToken ?: ""}")
-                .addHeader("Accept", "application/json")
-                .addHeader("Content-Type", "application/json")   // ADD THIS
-                .build()
-            chain.proceed(request)
+
+            val builder = chain.request().newBuilder()
+
+            // ✅ attach token ONLY if present
+            authToken?.let {
+                builder.addHeader("Authorization", "Bearer $it")
+            }
+
+            builder.addHeader("Accept", "application/json")
+            builder.addHeader("Content-Type", "application/json")
+
+            Log.d("TOKEN_DEBUG", "Sending token = $authToken")
+
+            chain.proceed(builder.build())
         }
 
-        val logging = HttpLoggingInterceptor()
-        logging.level = HttpLoggingInterceptor.Level.BODY
+        val logging = HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        }
 
         val client = OkHttpClient.Builder()
             .addInterceptor(authInterceptor)
@@ -47,14 +64,18 @@ object RetrofitClient {
         retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(client)
-            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
+            .addConverterFactory(
+                GsonConverterFactory.create(
+                    GsonBuilder().setLenient().create()
+                )
+            )
             .build()
     }
 
     val instance: ApiService
         get() {
             if (retrofit == null) {
-                buildRetrofit()
+                throw IllegalStateException("Retrofit not initialized")
             }
             return retrofit!!.create(ApiService::class.java)
         }

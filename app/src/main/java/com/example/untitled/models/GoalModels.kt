@@ -9,6 +9,8 @@ data class Goal(
     val current_amount: Double,
     @SerializedName("target_date")
     val deadline: String?,
+    @SerializedName("created_at")
+    val created_at: String?,
     val status: String
 )
 
@@ -73,4 +75,36 @@ data class GoalProgressResponse(
 data class GoalProgressData(
     val used_amount: Double,
     val extra_amount: Double
+)
+data class GoalInsight(
+    val goalId: String,
+    val state: GoalState,
+    val requiredPerDay: Double,
+    val actualPerDay: Double,
+    val gap: Double,
+    val recoveryDays: Int,
+    val daysLeft: Int,
+    val remaining: Double,
+    val consistency: Double,
+    val trend: Trend,
+    val willMiss: Boolean,
+    val achievable: Boolean
+)
+enum class Trend {
+    UP, DOWN, STABLE
+}
+enum class GoalState {
+    COMPLETED,
+    OVERDUE,
+    URGENT,      // 0–3 days
+    SHORT_TERM,  // 4–7 days
+    NORMAL
+}
+enum class ConfidenceLevel {
+    HIGH, MEDIUM, LOW
+}
+data class MultiGoalInsight(
+    val prioritizedGoals: List<GoalInsight>,
+    val allocation: Map<GoalInsight, Double>,
+    val totalCapacity: Double
 )
