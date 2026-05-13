@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
     android:padding="24dp">
 
@@ -50,6 +51,16 @@
                 android:layout_marginTop="8dp"
                 app:layout_constraintTop_toBottomOf="@id/tv_goal_title"
                 app:layout_constraintStart_toStartOf="parent" />
+            <TextView
+                android:id="@+id/tv_goal_deadline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/gray"
+                android:layout_marginTop="4dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_goal_progress"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="Target Date: 12 Apr 2026" />
 
             <!-- PROGRESS BAR -->
             <ProgressBar

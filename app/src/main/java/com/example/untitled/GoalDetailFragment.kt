@@ -28,6 +28,7 @@ import com.example.untitled.utils.InsightEngine
 import com.example.untitled.utils.RecoveryPlanner
 import android.os.Handler
 import android.os.Looper
+import com.example.untitled.utils.MonthUtils
 
 class GoalDetailFragment : Fragment() {
 
@@ -119,8 +120,19 @@ class GoalDetailFragment : Fragment() {
 
     private fun checkDataAndOptimize() {
 
-        RetrofitClient.instance.getTransactions(getUserId())
-            .enqueue(object : Callback<TransactionsResponse> {
+        val calendar = java.util.Calendar.getInstance()
+
+        val month = calendar.get(java.util.Calendar.MONTH)
+        val year = calendar.get(java.util.Calendar.YEAR)
+
+        val (startDate, endDate) =
+            MonthUtils.getMonthDateRange(month, year)
+
+        RetrofitClient.instance.getTransactionsByMonth(
+            getUserId(),
+            startDate,
+            endDate
+        ).enqueue(object : Callback<TransactionsResponse> {
 
                 override fun onResponse(
                     call: Call<TransactionsResponse>,
@@ -374,6 +386,37 @@ Last updated: $lastUpdated
                         binding.tvGoalTitle.text = goal.title
                         binding.tvGoalProgress.text =
                             "₹${goal.current_amount} saved of ₹${goal.target_amount}"
+                        val deadline = goal.deadline
+
+                        binding.tvGoalDeadline.text = if (!deadline.isNullOrEmpty()) {
+
+                            try {
+
+                                val inputFormat =
+                                    java.text.SimpleDateFormat(
+                                        "yyyy-MM-dd",
+                                        java.util.Locale.getDefault()
+                                    )
+
+                                val outputFormat =
+                                    java.text.SimpleDateFormat(
+                                        "dd MMM yyyy",
+                                        java.util.Locale.getDefault()
+                                    )
+
+                                val date = inputFormat.parse(deadline)
+
+                                "Target Date: ${outputFormat.format(date!!)}"
+
+                            } catch (e: Exception) {
+
+                                "Target Date: $deadline"
+                            }
+
+                        } else {
+
+                            "No deadline set"
+                        }
 
                         val progress = if (goal.target_amount > 0) {
                             ((goal.current_amount / goal.target_amount) * 100).toInt()
@@ -514,8 +557,19 @@ Last updated: $lastUpdated
                 ) {
                     if (response.isSuccessful && response.body()?.success == true) {
                         // 🔥 STEP 1: get latest insight again
-                        RetrofitClient.instance.getTransactions(getUserId())
-                            .enqueue(object : Callback<TransactionsResponse> {
+                        val calendar = java.util.Calendar.getInstance()
+
+                        val month = calendar.get(java.util.Calendar.MONTH)
+                        val year = calendar.get(java.util.Calendar.YEAR)
+
+                        val (startDate, endDate) =
+                            MonthUtils.getMonthDateRange(month, year)
+
+                        RetrofitClient.instance.getTransactionsByMonth(
+                            getUserId(),
+                            startDate,
+                            endDate
+                        ).enqueue(object : Callback<TransactionsResponse> {
 
                                 override fun onResponse(
                                     call: Call<TransactionsResponse>,

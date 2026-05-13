@@ -75,7 +75,15 @@ class GoalsFragment : Fragment() {
     private fun setupObservers() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.goals.collectLatest { goals: List<Goal> ->
+
                 goalsAdapter.updateGoals(goals)
+
+                // goals count & All goals saved Amount
+                val totalSaved = goals.sumOf { it.current_amount }
+                val totalGoals = goals.size
+
+                binding.tvTotalSavedAmount.text = "₹${totalSaved.toInt()}"
+                binding.tvActiveGoalsCount.text = "$totalGoals Goals"
             }
         }
     }

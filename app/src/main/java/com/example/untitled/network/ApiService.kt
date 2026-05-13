@@ -60,8 +60,8 @@ interface ApiService {
     fun checkHabit(@Body request: CheckHabitRequest): Call<CheckHabitResponse>
 
     // Budgets
-    @GET("budgets_list.php")
-    fun getBudgets(): Call<BudgetsResponse>
+//    @GET("budgets_list.php")
+//    fun getBudgets(): Call<BudgetsResponse>
 //    @GET("budgets_list.php")
 //    fun getBudgets(): Call<ResponseBody>
 
@@ -72,10 +72,10 @@ interface ApiService {
     // Transactions
 
     // Transactions
-    @GET("transactions_get.php")
-    fun getTransactions(
-        @Query("user_id") userId: String
-    ): Call<TransactionsResponse>
+//    @GET("transactions_get.php")
+//    fun getTransactions(
+//        @Query("user_id") userId: String
+//    ): Call<TransactionsResponse>
 
     @POST("transaction_add.php")
     fun addTransaction(
@@ -140,6 +140,28 @@ interface ApiService {
     fun getTasks(
         @Query("goal_id") goalId: Int
     ): Call<TaskResponse>
+
+    @GET("budgets_list.php")
+    fun getBudgetsByMonth(
+        @Query("month") month: Int,
+        @Query("year") year: Int
+    ): Call<BudgetsResponse>
+
+    @GET("budget_available_months.php")
+    fun getAvailableBudgetMonths():
+            Call<AvailableMonthsResponse>
+    @GET("budget_transactions.php")
+    fun getBudgetTransactions(
+        @Query("category") category: String,
+        @Query("month") month: Int,
+        @Query("year") year: Int
+    ): Call<BudgetTransactionResponse>
+    @GET("transactions_get.php")
+    fun getTransactionsByMonth(
+        @Query("user_id") userId: String,
+        @Query("start_date") startDate: String,
+        @Query("end_date") endDate: String
+    ): Call<TransactionsResponse>
 //    @POST("goal_save.php")
 //    fun addGoal(
 //        @Body request: AddGoalRequest
