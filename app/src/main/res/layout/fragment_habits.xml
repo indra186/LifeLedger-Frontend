@@ -93,7 +93,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/completion_rate_85"
+                        android:id="@+id/tv_completion_percent"
+                        android:text="0%"
                         android:textSize="32sp"
                         android:textStyle="bold"
                         android:textColor="@color/black"

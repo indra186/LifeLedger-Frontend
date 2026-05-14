@@ -258,7 +258,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_marginStart="24dp"
-                android:text="@string/active_habits"
+                android:text="Today's Habits"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="@color/black"
@@ -279,156 +279,15 @@
                 app:layout_constraintTop_toTopOf="@+id/tv_habits_title"/>
 
             <!-- Habits List -->
-            <LinearLayout
-                android:id="@+id/habits_list"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_today_habits"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_marginHorizontal="24dp"
                 android:layout_marginTop="16dp"
-                app:layout_constraintTop_toBottomOf="@+id/tv_habits_title">
-
-                <!-- Item 1: Morning Workout -->
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="2dp"
-                    app:cardBackgroundColor="@color/white">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="16dp">
-                        
-                        <LinearLayout
-                             android:layout_width="match_parent"
-                             android:layout_height="wrap_content"
-                             android:orientation="horizontal"
-                             android:gravity="center_vertical">
-
-                            <ImageView
-                                android:layout_width="48dp"
-                                android:layout_height="48dp"
-                                android:src="@drawable/ic_fitness"
-                                app:tint="@color/white"
-                                android:background="@drawable/bg_social_button"
-                                android:backgroundTint="@color/light_blue_bg"
-                                android:padding="12dp"
-                                android:contentDescription="@string/morning_workout"/>
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:layout_marginStart="16dp"
-                                android:orientation="vertical">
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/morning_workout"
-                                    android:textStyle="bold"
-                                    android:textColor="@color/black"
-                                    android:textSize="16sp"/>
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/streak_7"
-                                    android:textSize="14sp"
-                                    android:textColor="@color/gray"/>
-                            </LinearLayout>
-
-                            <ImageView
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:src="@android:drawable/checkbox_on_background"
-                                app:tint="@color/income_green"
-                                android:contentDescription="@string/completed"/>
-                        </LinearLayout>
-                        
-                        <ProgressBar
-                            style="?android:attr/progressBarStyleHorizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="8dp"
-                            android:layout_marginTop="12dp"
-                            android:progress="70"
-                            android:progressTint="@color/warm_orange"
-                            android:progressBackgroundTint="#F0F0F0"/>
-                            
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-                
-                <!-- Item 2: Reading -->
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="2dp"
-                    app:cardBackgroundColor="@color/white">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="16dp">
-                        
-                        <LinearLayout
-                             android:layout_width="match_parent"
-                             android:layout_height="wrap_content"
-                             android:orientation="horizontal"
-                             android:gravity="center_vertical">
-
-                            <ImageView
-                                android:layout_width="48dp"
-                                android:layout_height="48dp"
-                                android:src="@drawable/ic_book"
-                                app:tint="@color/white"
-                                android:background="@drawable/bg_social_button"
-                                android:backgroundTint="@color/light_purple_bg"
-                                android:padding="12dp"
-                                android:contentDescription="@string/reading"/>
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:layout_marginStart="16dp"
-                                android:orientation="vertical">
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/read_30_min"
-                                    android:textStyle="bold"
-                                    android:textColor="@color/black"
-                                    android:textSize="16sp"/>
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/streak_3"
-                                    android:textSize="14sp"
-                                    android:textColor="@color/gray"/>
-                            </LinearLayout>
-                            
-                            <View
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:background="@drawable/indicator_inactive"/>
-                        </LinearLayout>
-                        
-                        <ProgressBar
-                            style="?android:attr/progressBarStyleHorizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="8dp"
-                            android:layout_marginTop="12dp"
-                            android:progress="30"
-                            android:progressTint="@color/warm_pink"
-                            android:progressBackgroundTint="#F0F0F0"/>
-                            
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-            </LinearLayout>
+                android:nestedScrollingEnabled="false"
+                tools:listitem="@layout/item_habit_row"
+                app:layout_constraintTop_toBottomOf="@id/tv_habits_title"/>
 
             <!-- Today's Tasks -->
             <TextView
@@ -441,7 +300,7 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="@color/black"
-                app:layout_constraintTop_toBottomOf="@+id/habits_list"
+                app:layout_constraintTop_toBottomOf="@+id/rv_today_habits"
                 app:layout_constraintStart_toStartOf="parent"/>
                 
             <TextView

@@ -11,9 +11,8 @@ object FinanceState {
     var selectedYear =
         Calendar.getInstance().get(Calendar.YEAR)
 
-    var firstTransactionMonth = -1
-
-    var firstTransactionYear = -1
+    var availableMonths: List<AvailableMonth> =
+        emptyList()
 }
 object BudgetState {
 

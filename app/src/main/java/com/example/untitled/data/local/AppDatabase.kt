@@ -18,7 +18,7 @@ import com.example.untitled.data.local.entities.*
         AccountEntity::class,
         JournalEntity::class
     ],
-    version = 5,
+    version = 9,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {

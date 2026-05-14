@@ -5,9 +5,26 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "habits")
 data class HabitEntity(
-    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
+
     val title: String,
-    val frequency: String, // "daily", "weekly"
+
+    val description: String = "",
+
+    val icon: String = "fitness",
+
+    val frequency: String,
+    val selectedDays: String = "",
+
+    val goalPerDay: Int = 1,
+
+    val goalUnit: String = "times",
+
+    val reminderTime: String? = null,
+
     val streak: Int = 0,
+
     val isCompletedToday: Boolean = false
 )

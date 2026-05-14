@@ -52,30 +52,84 @@ class HabitsFragment : Fragment() {
         binding.btnAddHabit.setOnClickListener {
             if (isAdded) findNavController().navigate(R.id.action_habitsFragment_to_createHabitFragment)
         }
-        
-        // Setup RecyclerView
-        habitsAdapter = HabitsAdapter(emptyList()) { habit ->
-             // Handle checking habit (logic to be added to VM if needed, or just toast for now)
-             Toast.makeText(context, "Habit checked: ${habit.title}", Toast.LENGTH_SHORT).show()
-        }
+
+        habitsAdapter =
+            HabitsAdapter(
+                emptyList(),
+                false,
+
+                { habit ->
+
+                    val bundle = Bundle()
+
+                    bundle.putInt(
+                        "habitId",
+                        habit.id
+                    )
+
+                    findNavController().navigate(
+                        R.id.habitDetailFragment,
+                        bundle
+                    )
+                },
+
+                { habit ->
+
+                    Toast.makeText(
+                        context,
+                        "Habit checked: ${habit.name}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            )
         binding.rvHabits.layoutManager = LinearLayoutManager(context)
         binding.rvHabits.adapter = habitsAdapter
+        viewModel.completion.observe(
+            viewLifecycleOwner
+        ) {
+
+            binding.tvCompletionPercent.text =
+                "$it%"
+        }
         
         observeHabits()
+        viewModel.fetchHabits()
     }
 
     private fun observeHabits() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.habits.collectLatest { habits ->
-                pbLoading.visibility = View.GONE
-                if (habits.isEmpty()) {
-                    binding.rvHabits.visibility = View.GONE
-                    layoutEmptyState.visibility = View.VISIBLE
-                } else {
-                    binding.rvHabits.visibility = View.VISIBLE
-                    layoutEmptyState.visibility = View.GONE
-                    habitsAdapter.updateHabits(habits)
-                }
+
+        viewModel.loading.observe(
+            viewLifecycleOwner
+        ) {
+
+            pbLoading.visibility =
+                if(it) View.VISIBLE
+                else View.GONE
+        }
+
+        viewModel.habits.observe(
+            viewLifecycleOwner
+        ) { habits ->
+
+            if(habits.isEmpty()) {
+
+                binding.rvHabits.visibility =
+                    View.GONE
+
+                layoutEmptyState.visibility =
+                    View.VISIBLE
+
+            } else {
+
+                binding.rvHabits.visibility =
+                    View.VISIBLE
+
+                layoutEmptyState.visibility =
+                    View.GONE
+
+                habitsAdapter.updateHabits(
+                    habits
+                )
             }
         }
     }

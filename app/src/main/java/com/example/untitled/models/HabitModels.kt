@@ -1,13 +1,18 @@
 package com.example.untitled.models
 
 data class Habit(
-    val id: String,
-    val title: String,
-    val frequency: String, // e.g., "daily", "weekly"
-    val completed_today: Boolean,
+    val id: Int,
+    val name: String,
+    val description: String,
+    val icon: String,
+    val frequency: String,
+    val selected_days: String?,
+    val goal_per_day: Int,
+    val goal_unit: String,
+    val reminder_time: String?,
+    val completed_today: Int,
     val streak: Int
 )
-
 data class HabitsResponse(
     val success: Boolean,
     val message: String,
@@ -15,15 +20,24 @@ data class HabitsResponse(
 )
 
 data class CreateHabitRequest(
-    val user_id: String,
-    val title: String,
-    val frequency: String
+    val habit_name: String,
+    val description: String,
+    val icon: String,
+    val frequency: String,
+    val selected_days: String,
+    val goal_per_day: Int,
+    val goal_unit: String,
+    val reminder_time: String?
 )
 
 data class CreateHabitResponse(
     val success: Boolean,
     val message: String,
-    val habit_id: String?
+    val data: HabitIdData?
+)
+
+data class HabitIdData(
+    val id: Int
 )
 
 data class CheckHabitRequest(

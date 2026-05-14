@@ -1,6 +1,7 @@
 package com.example.untitled.network
 
 import com.example.untitled.models.*
+import okhttp3.Response
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.Body
@@ -53,11 +54,9 @@ interface ApiService {
     @GET("habits_list.php")
     fun getHabits(@Query("user_id") userId: String): Call<HabitsResponse>
 
-    @POST("habit_save.php")
-    fun createHabit(@Body request: CreateHabitRequest): Call<CreateHabitResponse>
+//    @POST("habit_save.php")
+//    fun createHabit(@Body request: CreateHabitRequest): Call<CreateHabitResponse>
 
-    @POST("habit_check.php")
-    fun checkHabit(@Body request: CheckHabitRequest): Call<CheckHabitResponse>
 
     // Budgets
 //    @GET("budgets_list.php")
@@ -162,6 +161,22 @@ interface ApiService {
         @Query("start_date") startDate: String,
         @Query("end_date") endDate: String
     ): Call<TransactionsResponse>
+
+    @GET("available_transaction_months.php")
+    fun getAvailableTransactionMonths():
+            Call<AvailableMonthsResponse>
+
+    @POST("habit_create.php")
+    fun createHabit(
+        @Body request: CreateHabitRequest
+    ): Call<CreateHabitResponse>
+
+    @GET("habits_list.php")
+    fun getHabits(): Call<HabitsResponse>
+    @POST("habit_check.php")
+    fun checkHabit(
+        @Body request: CheckHabitRequest
+    ): Call<CheckHabitResponse>
 //    @POST("goal_save.php")
 //    fun addGoal(
 //        @Body request: AddGoalRequest

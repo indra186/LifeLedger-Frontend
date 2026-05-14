@@ -14,4 +14,17 @@ interface HabitDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertHabit(habit: HabitEntity): Long
+
+    @Query("""
+    SELECT * FROM habits
+    WHERE
+        frequency = 'daily'
+        OR (
+            frequency = 'custom'
+            AND selectedDays LIKE '%' || :today || '%'
+        )
+""")
+    fun getTodayHabits(
+        today: String
+    ): Flow<List<HabitEntity>>
 }

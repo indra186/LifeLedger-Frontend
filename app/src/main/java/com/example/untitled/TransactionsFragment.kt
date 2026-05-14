@@ -11,6 +11,7 @@ import com.example.untitled.adapters.TransactionsAdapter
 import com.example.untitled.databinding.FragmentTransactionsBinding
 import com.example.untitled.viewmodels.TransactionsApiViewModel
 import androidx.navigation.fragment.findNavController
+import com.example.untitled.models.AvailableMonthsResponse
 import com.example.untitled.models.TransactionsResponse
 import com.example.untitled.network.RetrofitClient
 import com.example.untitled.utils.MonthUtils
@@ -85,6 +86,7 @@ class TransactionsFragment : Fragment() {
         setupMonthSelector()
         updateMonthButtons()
         setupFilters()
+        loadAvailableMonths()
         loadTransactionsByMonth()
     }
     private fun loadTransactionsByMonth() {
@@ -126,6 +128,32 @@ class TransactionsFragment : Fragment() {
 
             }
         })
+    }
+    private fun loadAvailableMonths() {
+
+        RetrofitClient.instance
+            .getAvailableTransactionMonths()
+            .enqueue(object :
+                retrofit2.Callback<AvailableMonthsResponse> {
+
+                override fun onResponse(
+                    call: retrofit2.Call<AvailableMonthsResponse>,
+                    response: retrofit2.Response<AvailableMonthsResponse>
+                ) {
+
+                    FinanceState.availableMonths =
+                        response.body()?.data ?: emptyList()
+
+                    updateMonthButtons()
+                }
+
+                override fun onFailure(
+                    call: retrofit2.Call<AvailableMonthsResponse>,
+                    t: Throwable
+                ) {
+
+                }
+            })
     }
     private fun applyFilter() {
 
@@ -268,17 +296,25 @@ class TransactionsFragment : Fragment() {
 
         // PREVIOUS BUTTON
 
-        val isFirstMonth =
-            FinanceState.selectedMonth ==
-                    FinanceState.firstTransactionMonth &&
-                    FinanceState.selectedYear ==
-                    FinanceState.firstTransactionYear
+        val hasPreviousMonth =
+            FinanceState.availableMonths.any {
+
+                val month = it.month - 1
+                val year = it.year
+
+                year < FinanceState.selectedYear ||
+
+                        (
+                                year == FinanceState.selectedYear &&
+                                        month < FinanceState.selectedMonth
+                                )
+            }
 
         binding.btnPrevMonth.isEnabled =
-            !isFirstMonth
+            hasPreviousMonth
 
         binding.btnPrevMonth.alpha =
-            if (isFirstMonth) 0.3f else 1f
+            if (hasPreviousMonth) 1f else 0.3f
     }
     override fun onDestroyView() {
         super.onDestroyView()

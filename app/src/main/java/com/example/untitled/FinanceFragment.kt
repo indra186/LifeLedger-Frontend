@@ -13,6 +13,7 @@ import com.example.untitled.databinding.FragmentFinanceBinding
 import com.example.untitled.models.TransactionsResponse
 import com.example.untitled.network.RetrofitClient
 import androidx.navigation.fragment.findNavController
+import com.example.untitled.models.AvailableMonthsResponse
 import com.example.untitled.utils.MonthUtils
 import java.util.Calendar
 import com.example.untitled.utils.FinanceState
@@ -89,6 +90,7 @@ class FinanceFragment : Fragment() {
 
         setupMonthSelector()
         updateMonthButtons()
+        loadAvailableMonths()
         loadLatestTransactions()
         loadFinanceSummary()
         loadDashboardBalance()
@@ -149,22 +151,7 @@ class FinanceFragment : Fragment() {
             ) {
 
                 val list = response.body()?.data ?: emptyList()
-                if (list.isNotEmpty()) {
 
-                    val oldestTransaction =
-                        list.minByOrNull { it.tx_date }
-
-                    oldestTransaction?.let {
-
-                        val parts = it.tx_date.split("-")
-
-                        FinanceState.firstTransactionYear =
-                            parts[0].toInt()
-
-                        FinanceState.firstTransactionMonth =
-                            parts[1].toInt() - 1
-                    }
-                }
 
                 adapter.updateApiTransactions(list.take(4))
                 updateMonthButtons()
@@ -177,6 +164,32 @@ class FinanceFragment : Fragment() {
 
             }
         })
+    }
+    private fun loadAvailableMonths() {
+
+        RetrofitClient.instance
+            .getAvailableTransactionMonths()
+            .enqueue(object :
+                retrofit2.Callback<AvailableMonthsResponse> {
+
+                override fun onResponse(
+                    call: retrofit2.Call<AvailableMonthsResponse>,
+                    response: retrofit2.Response<AvailableMonthsResponse>
+                ) {
+
+                    FinanceState.availableMonths =
+                        response.body()?.data ?: emptyList()
+
+                    updateMonthButtons()
+                }
+
+                override fun onFailure(
+                    call: retrofit2.Call<AvailableMonthsResponse>,
+                    t: Throwable
+                ) {
+
+                }
+            })
     }
     private fun loadFinanceSummary() {
 
@@ -304,15 +317,26 @@ class FinanceFragment : Fragment() {
 
         // PREVIOUS BUTTON
 
-        val isFirstMonth =
-            FinanceState.selectedMonth == FinanceState.firstTransactionMonth &&
-                    FinanceState.selectedYear == FinanceState.firstTransactionYear
+        val hasPreviousMonth =
+            FinanceState.availableMonths.any {
+
+                val month = it.month - 1
+                val year = it.year
+
+                year < FinanceState.selectedYear ||
+
+                        (
+                                year == FinanceState.selectedYear &&
+                                        month < FinanceState.selectedMonth
+                                )
+            }
 
         binding.btnPrevMonth.isEnabled =
-            !isFirstMonth
+            hasPreviousMonth
 
         binding.btnPrevMonth.alpha =
-            if (isFirstMonth) 0.3f else 1f
+            if (hasPreviousMonth) 1f else 0.3f
+
     }
     override fun onDestroyView() {
         super.onDestroyView()
