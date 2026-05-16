@@ -8,6 +8,7 @@ import com.example.untitled.models.CheckHabitRequest
 import com.example.untitled.models.CheckHabitResponse
 import com.example.untitled.models.Habit
 import com.example.untitled.models.HabitsResponse
+import com.example.untitled.models.WeekHistoryResponse
 import com.example.untitled.network.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -43,7 +44,12 @@ class HabitsViewModel(
 
     val completion:
             LiveData<Int> = _completion
+    private val _weekHistory =
+        MutableLiveData<List<String>>()
 
+    val weekHistory:
+            LiveData<List<String>> =
+        _weekHistory
     fun fetchHabits() {
 
         _loading.value = true
@@ -163,6 +169,38 @@ class HabitsViewModel(
 
                 override fun onFailure(
                     call: Call<CheckHabitResponse>,
+                    t: Throwable
+                ) {
+
+                }
+            })
+    }
+    fun fetchWeekHistory(
+        habitId: Int
+    ) {
+
+        RetrofitClient.instance
+            .getHabitWeekHistory(habitId)
+            .enqueue(object :
+                Callback<WeekHistoryResponse> {
+
+                override fun onResponse(
+                    call: Call<WeekHistoryResponse>,
+                    response: Response<WeekHistoryResponse>
+                ) {
+
+                    if(
+                        response.isSuccessful &&
+                        response.body()?.success == true
+                    ) {
+
+                        _weekHistory.value =
+                            response.body()?.data
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<WeekHistoryResponse>,
                     t: Throwable
                 ) {
 

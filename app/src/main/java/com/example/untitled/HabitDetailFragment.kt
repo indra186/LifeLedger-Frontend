@@ -9,11 +9,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.untitled.databinding.FragmentHabitDetailBinding
 import com.example.untitled.viewmodels.HabitsViewModel
+import com.example.untitled.models.Habit
 
 class HabitDetailFragment : Fragment() {
 
     private var _binding:
             FragmentHabitDetailBinding? = null
+    private var weekHistoryData: List<String> = emptyList()
+    private var currentHabit: Habit? = null
 
     private val binding get() = _binding!!
 
@@ -60,8 +63,29 @@ class HabitDetailFragment : Fragment() {
                 "habitId"
             ) ?: -1
         viewModel.fetchHabits()
+        binding.tvWeekLoading.visibility =
+            View.VISIBLE
+
+        binding.layoutWeekHistory.visibility =
+            View.GONE
+        viewModel.fetchWeekHistory(
+            habitId
+        )
+        binding.tvWeekLoading.postDelayed({
+
+            if(isAdded) {
+
+                binding.tvWeekLoading.visibility =
+                    View.GONE
+
+                binding.layoutWeekHistory.visibility =
+                    View.VISIBLE
+            }
+
+        }, 600)
 
         observeHabit()
+        observeWeekHistory()
     }
 
     private fun observeHabit() {
@@ -76,6 +100,7 @@ class HabitDetailFragment : Fragment() {
                 }
 
             habit?.let {
+                currentHabit = it
 
                 binding.tvHabitName.text =
                     it.name
@@ -97,7 +122,7 @@ class HabitDetailFragment : Fragment() {
                         c.uppercase()
                     }
 
-                if(
+                if (
                     it.frequency == "custom"
                 ) {
 
@@ -108,13 +133,216 @@ class HabitDetailFragment : Fragment() {
                         it.selected_days
                 }
 
-                if(it.completed_today == 1) {
+                binding.tvStatus.visibility =
+                    View.VISIBLE
 
-                    binding.tvStatus.visibility =
-                        View.VISIBLE
+                if (it.completed_today == 1) {
+
+                    binding.tvStatus.text =
+                        "Completed Today"
+
+                    binding.tvStatus.setTextColor(
+                        resources.getColor(
+                            R.color.income_green,
+                            null
+                        )
+                    )
+
+                } else {
+
+                    binding.tvStatus.text =
+                        "Not done yet today"
+
+                    binding.tvStatus.setTextColor(
+                        resources.getColor(
+                            R.color.expense_red,
+                            null
+                        )
+                    )
                 }
 
                 setHabitIcon(it.icon)
+                renderWeekHistory()
+
+            }
+        }
+    }
+
+    private fun observeWeekHistory() {
+
+        viewModel.weekHistory.observe(
+            viewLifecycleOwner
+        ) { history ->
+
+            weekHistoryData = history
+
+            renderWeekHistory()
+        }
+    }
+
+
+    private fun renderWeekHistory() {
+
+        val habit = currentHabit ?: return
+
+
+
+        val formatter =
+            java.text.SimpleDateFormat(
+                "yyyy-MM-dd",
+                java.util.Locale.getDefault()
+            )
+
+        val completedDays =
+            weekHistoryData.map {
+
+                val date =
+                    formatter.parse(it)
+
+                java.text.SimpleDateFormat(
+                    "EEE",
+                    java.util.Locale.getDefault()
+                ).format(date!!)
+            }
+
+        val today =
+            java.text.SimpleDateFormat(
+                "EEE",
+                java.util.Locale.getDefault()
+            ).format(java.util.Date())
+
+        val dayViews = mapOf(
+
+            "Mon" to binding.tvMon,
+            "Tue" to binding.tvTue,
+            "Wed" to binding.tvWed,
+            "Thu" to binding.tvThu,
+            "Fri" to binding.tvFri,
+            "Sat" to binding.tvSat,
+            "Sun" to binding.tvSun
+        )
+
+        val dayOrder =
+            listOf(
+                "Mon",
+                "Tue",
+                "Wed",
+                "Thu",
+                "Fri",
+                "Sat",
+                "Sun"
+            )
+
+        val todayIndex =
+            dayOrder.indexOf(today)
+
+        dayOrder.forEachIndexed { index, day ->
+
+            val view =
+                dayViews[day] ?: return@forEachIndexed
+
+            view.alpha = 1f
+
+            if (
+                habit.frequency == "custom" &&
+                habit.selected_days?.contains(day) != true
+            ) {
+
+                setDayStatus(
+                    view,
+                    "disabled"
+                )
+
+                return@forEachIndexed
+            }
+
+            when {
+
+                completedDays.contains(day) -> {
+
+                    setDayStatus(
+                        view,
+                        "completed"
+                    )
+                }
+
+                index < todayIndex -> {
+
+                    setDayStatus(
+                        view,
+                        "missed"
+                    )
+                }
+
+                index == todayIndex -> {
+
+                    setDayStatus(
+                        view,
+                        "today_pending"
+                    )
+                }
+
+                else -> {
+
+                    setDayStatus(
+                        view,
+                        "future"
+                    )
+                }
+            }
+        }
+
+        binding.tvWeekLoading.visibility =
+            View.GONE
+
+        binding.layoutWeekHistory.visibility =
+            View.VISIBLE
+    }
+
+    private fun setDayStatus(
+        textView: android.widget.TextView,
+        state: String
+    ) {
+
+        when (state) {
+
+            "completed" -> {
+
+                textView.setBackgroundResource(
+                    R.drawable.bg_dot_green
+                )
+            }
+
+            "missed" -> {
+
+                textView.setBackgroundResource(
+                    R.drawable.bg_dot_red
+                )
+            }
+
+            "today_pending" -> {
+
+                textView.setBackgroundResource(
+                    R.drawable.bg_dot_outline
+                )
+            }
+
+            "future" -> {
+
+                textView.setBackgroundResource(
+                    R.drawable.bg_dot_neutral
+                )
+
+                textView.alpha = 0.35f
+            }
+
+            "disabled" -> {
+
+                textView.setBackgroundResource(
+                    R.drawable.bg_dot_disabled
+                )
+
+                textView.alpha = 0.15f
             }
         }
     }
@@ -123,7 +351,7 @@ class HabitDetailFragment : Fragment() {
         icon: String
     ) {
 
-        val drawable = when(icon) {
+        val drawable = when (icon) {
 
             "fitness" ->
                 R.drawable.ic_habit_fitness

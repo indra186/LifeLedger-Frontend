@@ -177,6 +177,11 @@ interface ApiService {
     fun checkHabit(
         @Body request: CheckHabitRequest
     ): Call<CheckHabitResponse>
+
+    @GET("habit_week_history.php")
+    fun getHabitWeekHistory(
+        @Query("habit_id") habitId: Int
+    ): Call<WeekHistoryResponse>
 //    @POST("goal_save.php")
 //    fun addGoal(
 //        @Body request: AddGoalRequest

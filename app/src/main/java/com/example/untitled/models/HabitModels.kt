@@ -49,3 +49,11 @@ data class CheckHabitResponse(
     val success: Boolean,
     val message: String
 )
+data class WeekHistoryResponse(
+
+    val success: Boolean,
+
+    val message: String,
+
+    val data: List<String>
+)
