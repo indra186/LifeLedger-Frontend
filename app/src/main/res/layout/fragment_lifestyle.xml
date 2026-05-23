@@ -102,34 +102,6 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tv_progress_val" />
 
-                    <!-- Circular Progress (Placeholder) -->
-
-                    <ProgressBar
-                        android:id="@+id/pb_daily_progress"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:background="@drawable/circle_shape_gray"
-                        android:indeterminate="false"
-                        android:max="100"
-                        android:progress="80"
-                        android:progressDrawable="@drawable/circular_progress_bar"
-                        app:layout_constraintBottom_toBottomOf="@id/tv_progress_val"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.0" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/progress_percent"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/black"
-                        app:layout_constraintTop_toTopOf="@id/pb_daily_progress"
-                        app:layout_constraintBottom_toBottomOf="@id/pb_daily_progress"
-                        app:layout_constraintStart_toStartOf="@id/pb_daily_progress"
-                        app:layout_constraintEnd_toEndOf="@id/pb_daily_progress"/>
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -302,6 +274,16 @@
                 android:textColor="@color/black"
                 app:layout_constraintTop_toBottomOf="@+id/rv_today_habits"
                 app:layout_constraintStart_toStartOf="parent"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_today_tasks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="16dp"
+                android:nestedScrollingEnabled="false"
+                tools:listitem="@layout/item_task_row"
+                app:layout_constraintTop_toBottomOf="@id/tv_tasks_title"/>
                 
             <TextView
                 android:id="@+id/tv_view_all_tasks"
@@ -316,101 +298,9 @@
                 app:layout_constraintBottom_toBottomOf="@+id/tv_tasks_title"
                 app:layout_constraintTop_toTopOf="@+id/tv_tasks_title"/>
                 
-             <!-- Task 1 -->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/card_task_1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="24dp"
-                android:layout_marginTop="16dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="2dp"
-                app:cardBackgroundColor="@color/white"
-                app:layout_constraintTop_toBottomOf="@+id/tv_tasks_title">
+             <!-- Tasks -->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
 
-                    <CheckBox
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:buttonTint="@color/gray" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_marginStart="16dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/team_meeting"
-                            android:textStyle="bold"
-                            android:textColor="@color/black"
-                            android:textSize="16sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/meeting_time"
-                            android:textColor="@color/gray"
-                            android:textSize="14sp" />
-                    </LinearLayout>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-            
-             <!-- Task 2 -->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/card_task_2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="24dp"
-                android:layout_marginTop="12dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="2dp"
-                app:cardBackgroundColor="@color/white"
-                app:layout_constraintTop_toBottomOf="@+id/card_task_1">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <CheckBox
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:buttonTint="@color/gray" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_marginStart="16dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/grocery_shopping"
-                            android:textStyle="bold"
-                            android:textColor="@color/black"
-                            android:textSize="16sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/finance"
-                            android:textColor="@color/gray"
-                            android:textSize="14sp" />
-                    </LinearLayout>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

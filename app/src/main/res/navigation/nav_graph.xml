@@ -369,7 +369,7 @@
         android:id="@+id/addTaskFragment"
         android:name="com.example.untitled.AddTaskFragment"
         android:label="Add Task"
-        tools:layout="@layout/fragment_add_task" />
+        tools:layout="@layout/fragment_task_add" />
 
     <fragment
         android:id="@+id/taskDetailFragment"

@@ -11,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
 
-    private const val BASE_URL = "http://192.168.2.105/lifeledger/"
+    private const val BASE_URL = "http://192.168.29.2/lifeledger/"
 
     private var authToken: String? = null
     private var retrofit: Retrofit? = null

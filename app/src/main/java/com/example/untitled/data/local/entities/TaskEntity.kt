@@ -9,6 +9,16 @@ data class TaskEntity(
     val title: String,
     val date: String?,
     val time: String?,
-    val category: String,
-    val isCompleted: Boolean = false
+    val isCompleted: Boolean = false,
+    val description: String = "",
+
+    val repeatType: String = "none",
+
+    val repeatDays: String? = null,
+
+    val priority: String = "medium",
+
+    val reminderEnabled: Boolean = false,
+
+    val attachmentUri: String? = null,
 )

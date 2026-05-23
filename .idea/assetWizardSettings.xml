@@ -311,7 +311,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialsymbolsoutlined/alarm/outline_alarm_24.xml" />
+                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/expand_more/baseline_expand_more_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -321,7 +321,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_habit_alarm" />
+                            <entry key="outputName" value="expand_more" />
                             <entry key="sourceFile" value="C:\mobile app" />
                           </map>
                         </option>

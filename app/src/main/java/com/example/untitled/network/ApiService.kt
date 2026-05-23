@@ -43,12 +43,12 @@ interface ApiService {
     @POST("goal_delete.php")
     fun deleteGoal(@Body request: DeleteGoalRequest): Call<GenericResponse>
 
-    // Tasks
-    @GET("tasks_list.php")
-    fun getTasks(@Query("user_id") userId: String): Call<TasksResponse>
-
-    @POST("task_save.php")
-    fun addTask(@Body request: AddTaskRequest): Call<AddTaskResponse>
+//    // Tasks
+//    @GET("tasks_list.php")
+//    fun getTasks(@Query("user_id") userId: String): Call<TasksResponse>
+//
+//    @POST("task_save.php")
+//    fun addTask(@Body request: AddTaskRequest): Call<AddTaskResponse>
 
     // Habits
     @GET("habits_list.php")
@@ -182,10 +182,23 @@ interface ApiService {
     fun getHabitWeekHistory(
         @Query("habit_id") habitId: Int
     ): Call<WeekHistoryResponse>
-//    @POST("goal_save.php")
-//    fun addGoal(
-//        @Body request: AddGoalRequest
-//    ): Call<AddGoalResponse>
+
+
+    @POST("create_task.php")
+    suspend fun createTask(
+        @Body request: CreateTaskRequest
+    ): CreateTaskResponse
+    @GET("get_tasks.php")
+    fun getTasks(): Call<TasksResponse>
+
+    @POST("update_task_status.php")
+    fun updateTaskStatus(
+        @Body request: UpdateTaskStatusRequest
+    ): Call<CreateTaskResponse>
+    @POST("delete_task.php")
+    fun deleteTask(
+        @Body request: DeleteTaskRequest
+    ): Call<CreateTaskResponse>
 
 
 }

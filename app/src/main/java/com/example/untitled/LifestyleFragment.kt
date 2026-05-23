@@ -13,18 +13,28 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.untitled.adapters.HabitsAdapter
+import com.example.untitled.adapters.SectionedTasksAdapter
+import com.example.untitled.models.Task
+import com.example.untitled.models.TaskSection
 import com.example.untitled.viewmodels.HabitsViewModel
+import com.example.untitled.viewmodels.TasksViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 class LifestyleFragment : Fragment() {
 
     private var _binding: FragmentLifestyleBinding? = null
     private val binding get() = _binding!!
-    private var progressAnimator: ObjectAnimator? = null
     private lateinit var habitsAdapter: HabitsAdapter
+    private var habitsProgress = 0
+
+    private var tasksProgress = 0
 
     private lateinit var habitsViewModel: HabitsViewModel
+    private lateinit var tasksViewModel:
+            TasksViewModel
 
+    private lateinit var tasksAdapter:
+            SectionedTasksAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -66,6 +76,7 @@ class LifestyleFragment : Fragment() {
                 }
             )
 
+
         binding.rvTodayHabits.layoutManager =
             LinearLayoutManager(context)
 
@@ -73,15 +84,6 @@ class LifestyleFragment : Fragment() {
             habitsAdapter
         habitsViewModel.fetchHabits()
 
-//        observeHabits()
-
-        // Animate the progress bar slowly
-        val progressBar = binding.pbDailyProgress
-        progressAnimator = ObjectAnimator.ofInt(progressBar, "progress", 0, 80).apply {
-            duration = 2000 // 2 seconds
-            interpolator = DecelerateInterpolator()
-            start()
-        }
 
         binding.cardHabits.setOnClickListener {
             if (isAdded) findNavController().navigate(R.id.action_lifestyleFragment_to_habitsFragment)
@@ -137,13 +139,88 @@ class LifestyleFragment : Fragment() {
             viewLifecycleOwner
         ) {
 
-            binding.pbDailyProgress.progress = it
+            habitsProgress = it
 
-            binding.tvProgressVal.text =
-                "$it%"
+            updateOverallProgress()
         }
         binding.tvViewAllTasks.setOnClickListener {
-             if (isAdded) findNavController().navigate(R.id.action_lifestyleFragment_to_tasksFragment)
+
+            val bundle = Bundle()
+
+            bundle.putString(
+                "filter",
+                "today"
+            )
+
+            if(isAdded) {
+
+                findNavController().navigate(
+                    R.id.action_lifestyleFragment_to_tasksFragment,
+                    bundle
+                )
+            }
+        }
+        tasksViewModel =
+            ViewModelProvider(this)
+                .get(TasksViewModel::class.java)
+
+        tasksAdapter =
+            SectionedTasksAdapter(
+                emptyList()
+            ) { task, checked ->
+
+                tasksViewModel.updateTaskStatus(
+                    task,
+                    checked
+                )
+            }
+        binding.rvTodayTasks.layoutManager =
+            LinearLayoutManager(context)
+
+        binding.rvTodayTasks.adapter =
+            tasksAdapter
+
+        tasksViewModel.sections.observe(
+            viewLifecycleOwner
+        ) { sections ->
+
+            val todaySection =
+                sections.find {
+                    it.title.startsWith("Today")
+                }
+
+            val previewTasks =
+                todaySection
+                    ?.tasks
+                    ?.take(3)
+                    ?: emptyList()
+            binding.tvTasksTitle.text =
+
+                if(previewTasks.isEmpty())
+                    "All today's tasks completed"
+                else
+                    "Today's Tasks"
+
+            tasksAdapter.updateSections(
+
+                listOf(
+                    TaskSection(
+                        "Today's Tasks",
+                        previewTasks
+                    )
+                )
+            )
+
+        }
+
+        tasksViewModel.fetchTasks()
+        tasksViewModel.progress.observe(
+            viewLifecycleOwner
+        ) { progress ->
+
+            tasksProgress = progress
+
+            updateOverallProgress()
         }
 
     }
@@ -168,10 +245,53 @@ class LifestyleFragment : Fragment() {
 //                    View.GONE
 //        }
 //    }
+private fun isToday(
+    date: String?
+): Boolean {
+
+    if(date == null)
+        return false
+
+    val today =
+        java.text.SimpleDateFormat(
+            "yyyy-MM-dd",
+            java.util.Locale.getDefault()
+        ).format(java.util.Date())
+
+    return date.startsWith(today)
+}
+    private fun updateOverallProgress() {
+
+        val overall =
+            (habitsProgress + tasksProgress) / 2
+
+
+        binding.tvProgressVal.text =
+            "$overall%"
+
+        binding.tvMotivation.text =
+
+            when {
+
+                overall >= 90 ->
+                    "Outstanding consistency today"
+
+                overall >= 70 ->
+                    "Great job! Keep up the momentum"
+
+                overall >= 40 ->
+                    "Good progress. Stay focused"
+
+                overall > 0 ->
+                    "Small steps still matter"
+
+                else ->
+                    "Start completing today's goals"
+            }
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        progressAnimator?.cancel()
         _binding = null
     }
 }

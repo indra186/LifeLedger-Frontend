@@ -185,67 +185,65 @@ class HabitDetailFragment : Fragment() {
 
         val habit = currentHabit ?: return
 
-
-
-        val formatter =
+        val inputFormat =
             java.text.SimpleDateFormat(
                 "yyyy-MM-dd",
                 java.util.Locale.getDefault()
             )
 
-        val completedDays =
-            weekHistoryData.map {
+        val calendar =
+            java.util.Calendar.getInstance()
 
-                val date =
-                    formatter.parse(it)
+        val todayDate =
+            inputFormat.format(calendar.time)
 
+        val completedDates =
+            weekHistoryData.toSet()
+
+        val dayViews = listOf(
+
+            binding.tvMon,
+            binding.tvTue,
+            binding.tvWed,
+            binding.tvThu,
+            binding.tvFri,
+            binding.tvSat,
+            binding.tvSun
+        )
+
+        /*
+            Move calendar to Monday
+         */
+
+        calendar.firstDayOfWeek =
+            java.util.Calendar.MONDAY
+
+        calendar.set(
+            java.util.Calendar.DAY_OF_WEEK,
+            java.util.Calendar.MONDAY
+        )
+
+        dayViews.forEachIndexed { index, view ->
+
+            val currentDate =
+                inputFormat.format(calendar.time)
+
+            val currentDay =
                 java.text.SimpleDateFormat(
                     "EEE",
                     java.util.Locale.getDefault()
-                ).format(date!!)
-            }
-
-        val today =
-            java.text.SimpleDateFormat(
-                "EEE",
-                java.util.Locale.getDefault()
-            ).format(java.util.Date())
-
-        val dayViews = mapOf(
-
-            "Mon" to binding.tvMon,
-            "Tue" to binding.tvTue,
-            "Wed" to binding.tvWed,
-            "Thu" to binding.tvThu,
-            "Fri" to binding.tvFri,
-            "Sat" to binding.tvSat,
-            "Sun" to binding.tvSun
-        )
-
-        val dayOrder =
-            listOf(
-                "Mon",
-                "Tue",
-                "Wed",
-                "Thu",
-                "Fri",
-                "Sat",
-                "Sun"
-            )
-
-        val todayIndex =
-            dayOrder.indexOf(today)
-
-        dayOrder.forEachIndexed { index, day ->
-
-            val view =
-                dayViews[day] ?: return@forEachIndexed
+                ).format(calendar.time)
 
             view.alpha = 1f
 
-            if (
+            /*
+                Custom frequency disabled days
+             */
+
+            if(
                 habit.frequency == "custom" &&
-                habit.selected_days?.contains(day) != true
+                habit.selected_days
+                    ?.contains(currentDay) != true
             ) {
 
                 setDayStatus(
@@ -253,12 +251,17 @@ class HabitDetailFragment : Fragment() {
                     "disabled"
                 )
 
+                calendar.add(
+                    java.util.Calendar.DAY_OF_MONTH,
+                    1
+                )
+
                 return@forEachIndexed
             }
 
             when {
 
-                completedDays.contains(day) -> {
+                completedDates.contains(currentDate) -> {
 
                     setDayStatus(
                         view,
@@ -266,7 +269,7 @@ class HabitDetailFragment : Fragment() {
                     )
                 }
 
-                index < todayIndex -> {
+                currentDate < todayDate -> {
 
                     setDayStatus(
                         view,
@@ -274,7 +277,7 @@ class HabitDetailFragment : Fragment() {
                     )
                 }
 
-                index == todayIndex -> {
+                currentDate == todayDate -> {
 
                     setDayStatus(
                         view,
@@ -290,6 +293,11 @@ class HabitDetailFragment : Fragment() {
                     )
                 }
             }
+
+            calendar.add(
+                java.util.Calendar.DAY_OF_MONTH,
+                1
+            )
         }
 
         binding.tvWeekLoading.visibility =
