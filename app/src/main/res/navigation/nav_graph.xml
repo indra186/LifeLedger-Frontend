@@ -184,7 +184,11 @@
 
     </fragment>
 
-
+    <fragment
+        android:id="@+id/todayHabitsFragment"
+        android:name="com.example.untitled.TodayHabitsFragment"
+        android:label="Today's Habits"
+        tools:layout="@layout/fragment_today_habits" />
     <fragment
         android:id="@+id/addTransactionFragment"
         android:name="com.example.untitled.AddTransactionFragment"
@@ -336,7 +340,11 @@
         android:id="@+id/habitDetailFragment"
         android:name="com.example.untitled.HabitDetailFragment"
         android:label="Habit Detail"
-        tools:layout="@layout/fragment_habit_detail" />
+        tools:layout="@layout/fragment_habit_detail">
+    <argument
+        android:name="habitId"
+        app:argType="integer" />
+    </fragment>
 
     <fragment
         android:id="@+id/habitProgressFragment"
@@ -361,7 +369,7 @@
         android:id="@+id/addTaskFragment"
         android:name="com.example.untitled.AddTaskFragment"
         android:label="Add Task"
-        tools:layout="@layout/fragment_add_task" />
+        tools:layout="@layout/fragment_task_add" />
 
     <fragment
         android:id="@+id/taskDetailFragment"

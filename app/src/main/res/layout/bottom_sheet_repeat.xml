@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <Button
+        android:id="@+id/btn_no_repeat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No Repeat"/>
+
+    <Button
+        android:id="@+id/btn_daily"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Daily"/>
+
+    <Button
+        android:id="@+id/btn_weekly"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Weekly"/>
+
+    <Button
+        android:id="@+id/btn_monthly"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Monthly"/>
+
+    <LinearLayout
+        android:id="@+id/layout_week_days"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:paddingTop="16dp">
+
+        <CheckBox
+            android:id="@+id/cb_mon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Monday"/>
+
+        <CheckBox
+            android:id="@+id/cb_tue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tuesday"/>
+
+        <CheckBox
+            android:id="@+id/cb_wed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Wednesday"/>
+
+        <CheckBox
+            android:id="@+id/cb_thu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thursday"/>
+
+        <CheckBox
+            android:id="@+id/cb_fri"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Friday"/>
+
+        <CheckBox
+            android:id="@+id/cb_sat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Saturday"/>
+
+        <CheckBox
+            android:id="@+id/cb_sun"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sunday"/>
+
+        <Button
+            android:id="@+id/btn_save_repeat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Save Weekly Repeat"
+            android:layout_marginTop="16dp"/>
+    </LinearLayout>
+
+</LinearLayout>

@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.untitled.models.TransactionItem
 import com.example.untitled.models.TransactionsResponse
 import com.example.untitled.network.RetrofitClient
+import com.example.untitled.utils.MonthUtils
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -29,8 +30,19 @@ class TransactionsApiViewModel(application: Application) : AndroidViewModel(appl
             return
         }
 
-        RetrofitClient.instance.getTransactions(userId)
-            .enqueue(object : Callback<TransactionsResponse> {
+        val calendar = java.util.Calendar.getInstance()
+
+        val month = calendar.get(java.util.Calendar.MONTH)
+        val year = calendar.get(java.util.Calendar.YEAR)
+
+        val (startDate, endDate) =
+            MonthUtils.getMonthDateRange(month, year)
+
+        RetrofitClient.instance.getTransactionsByMonth(
+            userId,
+            startDate,
+            endDate
+        ).enqueue(object : Callback<TransactionsResponse> {
 
                 override fun onResponse(
                     call: Call<TransactionsResponse>,

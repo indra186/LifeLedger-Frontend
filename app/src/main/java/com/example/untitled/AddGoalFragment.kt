@@ -59,7 +59,7 @@ class AddGoalFragment : Fragment() {
             val month = calendar.get(Calendar.MONTH)
             val day = calendar.get(Calendar.DAY_OF_MONTH)
 
-            DatePickerDialog(
+            val datePicker = DatePickerDialog(
                 requireContext(),
                 { _, selectedYear, selectedMonth, selectedDay ->
                     val formattedDate = String.format("%d-%02d-%02d", selectedYear, selectedMonth + 1, selectedDay)
@@ -68,7 +68,12 @@ class AddGoalFragment : Fragment() {
                 year,
                 month,
                 day
-            ).show()
+            )
+
+// 🔥 BLOCK PAST DATES
+            datePicker.datePicker.minDate = System.currentTimeMillis()
+
+            datePicker.show()
         }
 
         // Save Goal Button

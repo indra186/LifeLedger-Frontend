@@ -19,22 +19,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-//class GoalsViewModel(application: Application) : AndroidViewModel(application) {
-//    private val repository: GoalRepository
-//
-//    val goals: StateFlow<List<GoalEntity>>
-//
-//    init {
-//        val dao = AppDatabase.getDatabase(application).goalDao()
-//        repository = GoalRepository(dao)
-//
-//        goals = repository.allGoals.stateIn(
-//            scope = viewModelScope,
-//            started = SharingStarted.WhileSubscribed(5000),
-//            initialValue = emptyList()
-//        )
-//    }
-//}
 class GoalsViewModel(application: Application) : AndroidViewModel(application) {
 
     private val _goals = MutableStateFlow<List<Goal>>(emptyList())

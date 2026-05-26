@@ -1,6 +1,7 @@
 package com.example.untitled.network
 
 import com.example.untitled.models.*
+import okhttp3.Response
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.Body
@@ -42,26 +43,24 @@ interface ApiService {
     @POST("goal_delete.php")
     fun deleteGoal(@Body request: DeleteGoalRequest): Call<GenericResponse>
 
-    // Tasks
-    @GET("tasks_list.php")
-    fun getTasks(@Query("user_id") userId: String): Call<TasksResponse>
-
-    @POST("task_save.php")
-    fun addTask(@Body request: AddTaskRequest): Call<AddTaskResponse>
+//    // Tasks
+//    @GET("tasks_list.php")
+//    fun getTasks(@Query("user_id") userId: String): Call<TasksResponse>
+//
+//    @POST("task_save.php")
+//    fun addTask(@Body request: AddTaskRequest): Call<AddTaskResponse>
 
     // Habits
     @GET("habits_list.php")
     fun getHabits(@Query("user_id") userId: String): Call<HabitsResponse>
 
-    @POST("habit_save.php")
-    fun createHabit(@Body request: CreateHabitRequest): Call<CreateHabitResponse>
+//    @POST("habit_save.php")
+//    fun createHabit(@Body request: CreateHabitRequest): Call<CreateHabitResponse>
 
-    @POST("habit_check.php")
-    fun checkHabit(@Body request: CheckHabitRequest): Call<CheckHabitResponse>
 
     // Budgets
-    @GET("budgets_list.php")
-    fun getBudgets(): Call<BudgetsResponse>
+//    @GET("budgets_list.php")
+//    fun getBudgets(): Call<BudgetsResponse>
 //    @GET("budgets_list.php")
 //    fun getBudgets(): Call<ResponseBody>
 
@@ -72,10 +71,10 @@ interface ApiService {
     // Transactions
 
     // Transactions
-    @GET("transactions_get.php")
-    fun getTransactions(
-        @Query("user_id") userId: String
-    ): Call<TransactionsResponse>
+//    @GET("transactions_get.php")
+//    fun getTransactions(
+//        @Query("user_id") userId: String
+//    ): Call<TransactionsResponse>
 
     @POST("transaction_add.php")
     fun addTransaction(
@@ -112,17 +111,130 @@ interface ApiService {
     @POST("goal_add_progress.php")
     fun addGoalProgress(
         @Body request: AddGoalProgressRequest
-    ): Call<GenericResponse>
+    ): Call<GoalProgressResponse>
 
     @GET("goal_progress_list.php")
     fun getGoalHistory(
         @Query("goal_id") goalId: Int
     ): Call<GoalHistoryResponse>
 
-//    @POST("goal_save.php")
-//    fun addGoal(
-//        @Body request: AddGoalRequest
-//    ): Call<AddGoalResponse>
+
+    @POST("send_feedback.php")
+    fun sendFeedback(
+        @Body request: AgentFeedbackRequest
+    ): Call<GenericResponse>
+
+    @GET("get_strategy_score.php")
+    fun getStrategyScore(
+        @Query("strategy") strategy: String
+    ): Call<StrategyScoreResponse>
+
+
+    @POST("ai_agent.php")
+    fun getAIDecision(
+        @Body request: OpenAIRequest
+    ): Call<OpenAIResponse>
+
+    @GET("get_tasks.php")
+    fun getTasks(
+        @Query("goal_id") goalId: Int
+    ): Call<TaskResponse>
+
+    @GET("budgets_list.php")
+    fun getBudgetsByMonth(
+        @Query("month") month: Int,
+        @Query("year") year: Int
+    ): Call<BudgetsResponse>
+
+    @GET("budget_available_months.php")
+    fun getAvailableBudgetMonths():
+            Call<AvailableMonthsResponse>
+    @GET("budget_transactions.php")
+    fun getBudgetTransactions(
+        @Query("category") category: String,
+        @Query("month") month: Int,
+        @Query("year") year: Int
+    ): Call<BudgetTransactionResponse>
+    @GET("transactions_get.php")
+    fun getTransactionsByMonth(
+        @Query("user_id") userId: String,
+        @Query("start_date") startDate: String,
+        @Query("end_date") endDate: String
+    ): Call<TransactionsResponse>
+
+    @GET("available_transaction_months.php")
+    fun getAvailableTransactionMonths():
+            Call<AvailableMonthsResponse>
+
+    @POST("habit_create.php")
+    fun createHabit(
+        @Body request: CreateHabitRequest
+    ): Call<CreateHabitResponse>
+
+    @GET("habits_list.php")
+    fun getHabits(): Call<HabitsResponse>
+    @POST("habit_check.php")
+    fun checkHabit(
+        @Body request: CheckHabitRequest
+    ): Call<CheckHabitResponse>
+
+    @GET("habit_week_history.php")
+    fun getHabitWeekHistory(
+        @Query("habit_id") habitId: Int
+    ): Call<WeekHistoryResponse>
+    @POST("habit_delete.php")
+    fun deleteHabit(
+        @Body request: DeleteHabitRequest
+    ): Call<CreateHabitResponse>
+
+    @POST("create_task.php")
+    suspend fun createTask(
+        @Body request: CreateTaskRequest
+    ): CreateTaskResponse
+    @GET("get_tasks.php")
+    fun getTasks(): Call<TasksResponse>
+
+    @POST("update_task_status.php")
+    fun updateTaskStatus(
+        @Body request: UpdateTaskStatusRequest
+    ): Call<CreateTaskResponse>
+    @POST("delete_task.php")
+    fun deleteTask(
+        @Body request: DeleteTaskRequest
+    ): Call<CreateTaskResponse>
+    @GET("check_habit_completed_today.php")
+    fun checkHabitCompletedToday(
+
+        @Query("habit_id")
+        habitId: Int
+
+    ): Call<HabitCompletedResponse>
+    @GET("check_task_completed_today.php")
+    fun checkTaskCompletedToday(
+        @Query("task_id") taskId: Int
+    ): Call<TaskCompletedResponse>
+    @POST("save_notification.php")
+    fun saveNotification(
+        @Body request: CreateNotificationRequest
+    ): Call<BasicResponse>
+
+    @GET("get_notifications.php")
+    fun getNotifications():
+            Call<NotificationResponse>
+    @POST("delete_notification.php")
+    fun deleteNotification(
+
+        @Body request:
+        DeleteNotificationRequest
+
+    ): Call<GenericResponse>
+    @GET("get_monthly_report.php")
+    fun getMonthlyReport(
+
+        @Query("month") month: Int,
+        @Query("year") year: Int
+
+    ): Call<MonthlyReportResponse>
 
 
 }

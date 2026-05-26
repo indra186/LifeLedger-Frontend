@@ -3,20 +3,26 @@ package com.example.untitled.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.untitled.R
 import com.example.untitled.models.Budget
+import com.example.untitled.utils.CategoryIconHelper
 
 class BudgetsAdapter(
-    private var budgets: List<Budget>
+    private var budgets: List<Budget>,
+    private val onBudgetClick: (Budget) -> Unit
+
 ) : RecyclerView.Adapter<BudgetsAdapter.BudgetViewHolder>() {
 
     class BudgetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvCategoryName: TextView = itemView.findViewById(R.id.tv_category_name)
         val tvCategoryVal: TextView = itemView.findViewById(R.id.tv_category_val)
         val pbCategory: ProgressBar = itemView.findViewById(R.id.pb_category)
+        val ivIcon: ImageView =
+            itemView.findViewById(R.id.iv_category_icon)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BudgetViewHolder {
@@ -38,6 +44,13 @@ class BudgetsAdapter(
 
         val progress = if (limit > 0) ((spent / limit) * 100).toInt() else 0
         holder.pbCategory.progress = progress
+
+        holder.itemView.setOnClickListener {
+            onBudgetClick(budget)
+        }
+        holder.ivIcon.setImageResource(
+            CategoryIconHelper.getCategoryIcon(budget.category)
+        )
     }
 
     override fun getItemCount() = budgets.size

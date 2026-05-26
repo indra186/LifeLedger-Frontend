@@ -3,10 +3,12 @@ package com.example.untitled.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.untitled.R
 import com.example.untitled.models.TransactionItem
+import com.example.untitled.utils.CategoryIconHelper
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -19,6 +21,8 @@ class TransactionsAdapter(
         val tvTitle: TextView = itemView.findViewById(R.id.tv_transaction_title)
         val tvDate: TextView = itemView.findViewById(R.id.tv_transaction_date)
         val tvAmount: TextView = itemView.findViewById(R.id.tv_transaction_amount)
+        val ivTransactionIcon: ImageView =
+            itemView.findViewById(R.id.iv_transaction_icon)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransactionViewHolder {
@@ -48,6 +52,10 @@ class TransactionsAdapter(
             android.util.Log.d("TX_CLICK", "Clicked tx_id=${transaction.id}")
             onItemClick(transaction)
         }
+
+        holder.ivTransactionIcon.setImageResource(
+            CategoryIconHelper.getCategoryIcon(transaction.category)
+        )
 
     }
 

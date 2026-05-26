@@ -10,4 +10,6 @@ class HabitRepository(private val habitDao: HabitDao) {
     suspend fun insertHabit(habit: HabitEntity) {
         habitDao.insertHabit(habit)
     }
+    fun getTodayHabits(today: String) =
+        habitDao.getTodayHabits(today)
 }

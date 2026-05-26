@@ -14,18 +14,22 @@ class AddBudgetViewModel : ViewModel() {
     private val _saveState = MutableLiveData<UIState<Unit>>()
     val saveState: LiveData<UIState<Unit>> = _saveState
 
-    fun saveBudget(category: String, amount: Double) {
+    fun saveBudget(category: String, amount: Double,alertEnabled:Boolean,month: Int,
+                   year: Int) {
         if (amount <= 0) {
             _saveState.value = UIState.Error("Amount must be greater than 0")
             return
         }
+
 
         _saveState.value = UIState.Loading
 
         val request = CreateBudgetRequest(
             category = category,
             limit_amount = amount,
-            period = "monthly"
+            alert_enabled = alertEnabled,
+            month,
+            year
         )
 
         RetrofitClient.instance.createBudget(request)

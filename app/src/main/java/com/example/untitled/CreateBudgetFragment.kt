@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.untitled.databinding.FragmentCreateBudgetBinding
+import com.example.untitled.utils.FinanceState
 import com.example.untitled.viewmodels.AddBudgetViewModel
 import com.example.untitled.viewmodels.UIState
 
@@ -19,7 +20,17 @@ class CreateBudgetFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var viewModel: AddBudgetViewModel
-    private var selectedCategory = "Food & Dining"
+    private var selectedCategory = "Food"
+    private val categories = listOf(
+        "Food",
+        "Transport",
+        "Shopping",
+        "Entertainment",
+        "Healthcare",
+        "Education",
+        "Housing",
+        "Others"
+    )
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentCreateBudgetBinding.inflate(inflater, container, false)
@@ -31,20 +42,44 @@ class CreateBudgetFragment : Fragment() {
 
         viewModel = ViewModelProvider(this)[AddBudgetViewModel::class.java]
 
-
-        setupCategorySelection()
         setupObservers()
 
         binding.ivBack.setOnClickListener {
             findNavController().navigateUp()
         }
 
+
         binding.btnCreateBudget.setOnClickListener {
             val amount = binding.etLimit.text.toString().toDoubleOrNull() ?: 0.0
-            viewModel.saveBudget(selectedCategory, amount)
+            val alertEnabled = binding.cbAlert.isChecked
+            viewModel.saveBudget(
+                selectedCategory,
+                amount,
+                alertEnabled,
+                FinanceState.selectedMonth + 1,
+                FinanceState.selectedYear
+            )
+        }
+        binding.tvSelectedCategory.setOnClickListener {
+            showCategoryPicker()
         }
     }
+    private fun showCategoryPicker() {
 
+        val builder = android.app.AlertDialog.Builder(requireContext())
+
+        builder.setTitle("Select Category")
+
+        builder.setItems(categories.toTypedArray()) { _, which ->
+
+            selectedCategory = categories[which]
+
+            binding.tvSelectedCategory.text = selectedCategory
+
+        }
+
+        builder.show()
+    }
     private fun setupObservers() {
         viewModel.saveState.observe(viewLifecycleOwner) { state ->
             when (state) {
@@ -64,24 +99,6 @@ class CreateBudgetFragment : Fragment() {
         }
     }
 
-    private fun setupCategorySelection() {
-        val clickListener = View.OnClickListener { v ->
-            if (v is TextView) {
-                selectedCategory = v.text.toString()
-                Toast.makeText(context, "Selected: $selectedCategory", Toast.LENGTH_SHORT).show()
-            }
-        }
-
-        val grid = binding.categoryGrid
-        for (i in 0 until grid.childCount) {
-            val row = grid.getChildAt(i) as? android.widget.LinearLayout
-            row?.let {
-                for (j in 0 until it.childCount) {
-                    it.getChildAt(j).setOnClickListener(clickListener)
-                }
-            }
-        }
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

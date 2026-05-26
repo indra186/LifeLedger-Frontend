@@ -40,6 +40,14 @@
             app:tint="@color/text_primary_light" />
     </LinearLayout>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Current balances"
+        android:textColor="@color/gray"
+        android:textSize="12sp"
+        android:layout_marginBottom="12dp"/>
+
     <!-- Accounts List -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_accounts"

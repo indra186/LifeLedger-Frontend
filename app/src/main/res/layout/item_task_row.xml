@@ -18,8 +18,7 @@
         <CheckBox
             android:id="@+id/cb_task"
             android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:buttonTint="@color/brand_purple" />
+            android:layout_height="24dp"/>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -38,20 +37,82 @@
                 android:textSize="16sp" />
 
             <TextView
+                android:id="@+id/tv_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:textColor="@color/gray"
+                android:textSize="13sp"/>
+            <LinearLayout
+                android:id="@+id/layout_meta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <!-- PRIORITY -->
+
+                <TextView
+                    android:id="@+id/tv_priority"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="3dp"/>
+
+                <!-- REPEAT -->
+
+                <TextView
+                    android:id="@+id/tv_repeat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="11sp"
+                    android:textColor="@color/gray"
+                    android:layout_marginStart="8dp"/>
+
+                <!-- ATTACHMENT -->
+
+                <LinearLayout
+                    android:id="@+id/layout_attachment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginStart="8dp"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:id="@+id/iv_attachment"
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
+                        android:src="@android:drawable/ic_menu_add"
+                        app:tint="@color/brand_purple"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Attachment"
+                        android:textSize="11sp"
+                        android:textColor="@color/brand_purple"
+                        android:layout_marginStart="4dp"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
                 android:id="@+id/tv_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/team_meeting_time"
                 android:textColor="@color/gray"
                 android:textSize="14sp"/>
+
+
         </LinearLayout>
-        
-        <ImageView
-            android:id="@+id/iv_priority"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:src="@android:drawable/ic_menu_agenda"
-            app:tint="@color/expense_red"/>
             
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>
