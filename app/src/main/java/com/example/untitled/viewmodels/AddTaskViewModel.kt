@@ -9,6 +9,7 @@ import com.example.untitled.data.local.AppDatabase
 import com.example.untitled.data.local.entities.TaskEntity
 import com.example.untitled.data.repository.TaskRepository
 import com.example.untitled.models.CreateTaskRequest
+import com.example.untitled.models.Task
 import kotlinx.coroutines.launch
 import com.example.untitled.network.RetrofitClient
 
@@ -16,9 +17,12 @@ class AddTaskViewModel(application: Application) : AndroidViewModel(application)
     
 //    private val repository: TaskRepository
 //
-    
-    private val _saveTaskState = MutableLiveData<UIState<Unit>>()
-    val saveTaskState: LiveData<UIState<Unit>> = _saveTaskState
+
+    private val _saveTaskState =
+        MutableLiveData<UIState<Task>>()
+
+    val saveTaskState:
+            LiveData<UIState<Task>> = _saveTaskState
 
 //    init {
 //        val taskDao = AppDatabase.getDatabase(application).taskDao()
@@ -133,7 +137,9 @@ class AddTaskViewModel(application: Application) : AndroidViewModel(application)
                 if(response.success) {
 
                     _saveTaskState.value =
-                        UIState.Success(Unit)
+                        UIState.Success(
+                            response.data!!
+                        )
 
                 } else {
 

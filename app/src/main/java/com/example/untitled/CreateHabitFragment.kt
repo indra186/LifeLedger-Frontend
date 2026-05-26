@@ -17,6 +17,8 @@ import com.example.untitled.viewmodels.CreateHabitViewModel
 import com.example.untitled.viewmodels.UIState
 import java.util.Calendar
 import android.widget.ImageView
+import com.example.untitled.models.Habit
+import com.example.untitled.utils.HabitReminderScheduler
 
 class CreateHabitFragment : Fragment() {
 
@@ -312,6 +314,20 @@ class CreateHabitFragment : Fragment() {
                 is UIState.Success -> {
 
                     binding.btnCreateHabit.isEnabled = true
+
+                    val createdHabit =
+                        it.data
+
+                    if(
+                        !createdHabit.reminder_time.isNullOrEmpty()
+                    ) {
+
+                        HabitReminderScheduler
+                            .scheduleHabitReminder(
+                                requireContext(),
+                                createdHabit
+                            )
+                    }
 
                     Toast.makeText(
                         context,

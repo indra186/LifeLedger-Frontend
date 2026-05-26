@@ -182,7 +182,10 @@ interface ApiService {
     fun getHabitWeekHistory(
         @Query("habit_id") habitId: Int
     ): Call<WeekHistoryResponse>
-
+    @POST("habit_delete.php")
+    fun deleteHabit(
+        @Body request: DeleteHabitRequest
+    ): Call<CreateHabitResponse>
 
     @POST("create_task.php")
     suspend fun createTask(
@@ -199,6 +202,39 @@ interface ApiService {
     fun deleteTask(
         @Body request: DeleteTaskRequest
     ): Call<CreateTaskResponse>
+    @GET("check_habit_completed_today.php")
+    fun checkHabitCompletedToday(
+
+        @Query("habit_id")
+        habitId: Int
+
+    ): Call<HabitCompletedResponse>
+    @GET("check_task_completed_today.php")
+    fun checkTaskCompletedToday(
+        @Query("task_id") taskId: Int
+    ): Call<TaskCompletedResponse>
+    @POST("save_notification.php")
+    fun saveNotification(
+        @Body request: CreateNotificationRequest
+    ): Call<BasicResponse>
+
+    @GET("get_notifications.php")
+    fun getNotifications():
+            Call<NotificationResponse>
+    @POST("delete_notification.php")
+    fun deleteNotification(
+
+        @Body request:
+        DeleteNotificationRequest
+
+    ): Call<GenericResponse>
+    @GET("get_monthly_report.php")
+    fun getMonthlyReport(
+
+        @Query("month") month: Int,
+        @Query("year") year: Int
+
+    ): Call<MonthlyReportResponse>
 
 
 }

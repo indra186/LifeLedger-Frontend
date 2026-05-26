@@ -8,14 +8,11 @@ import android.widget.LinearLayout
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.untitled.adapters.SectionedTasksAdapter
-import com.example.untitled.adapters.TasksAdapter
 import com.example.untitled.databinding.FragmentTasksBinding
 import com.example.untitled.viewmodels.TasksViewModel
-import kotlinx.coroutines.launch
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 class TasksFragment : Fragment() {
@@ -223,6 +220,90 @@ class TasksFragment : Fragment() {
 
                         viewModel.deleteTask(item)
                     }
+                }
+
+                override fun onChildDraw(
+                    c: android.graphics.Canvas,
+                    recyclerView: RecyclerView,
+                    viewHolder: RecyclerView.ViewHolder,
+                    dX: Float,
+                    dY: Float,
+                    actionState: Int,
+                    isCurrentlyActive: Boolean
+                ) {
+
+                    val itemView =
+                        viewHolder.itemView
+
+                    val paint =
+                        android.graphics.Paint()
+
+                    /*
+                        RED BACKGROUND
+                     */
+
+                    paint.color =
+                        android.graphics.Color.parseColor(
+                            "#F44336"
+                        )
+
+                    val background = android.graphics.RectF(
+                        itemView.right + dX,
+                        itemView.top.toFloat(),
+                        itemView.right.toFloat(),
+                        itemView.bottom.toFloat()
+                    )
+
+                    c.drawRoundRect(
+                        background,
+                        24f,
+                        24f,
+                        paint
+                    )
+
+                    /*
+                        DELETE ICON
+                     */
+
+                    val icon =
+                        resources.getDrawable(
+                            R.drawable.ic_delete,
+                            null
+                        )
+
+                    val iconMargin =
+                        (itemView.height - icon.intrinsicHeight) / 2
+
+                    val iconTop =
+                        itemView.top + iconMargin
+
+                    val iconBottom =
+                        iconTop + icon.intrinsicHeight
+
+                    val iconLeft =
+                        itemView.right - iconMargin - icon.intrinsicWidth
+
+                    val iconRight =
+                        itemView.right - iconMargin
+
+                    icon.setBounds(
+                        iconLeft,
+                        iconTop,
+                        iconRight,
+                        iconBottom
+                    )
+
+                    icon.draw(c)
+
+                    super.onChildDraw(
+                        c,
+                        recyclerView,
+                        viewHolder,
+                        dX,
+                        dY,
+                        actionState,
+                        isCurrentlyActive
+                    )
                 }
             }
 

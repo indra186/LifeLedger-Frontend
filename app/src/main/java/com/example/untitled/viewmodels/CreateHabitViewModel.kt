@@ -15,6 +15,7 @@ import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import com.example.untitled.models.Habit
 
 class CreateHabitViewModel(
     application: Application
@@ -23,10 +24,10 @@ class CreateHabitViewModel(
     private val repository: HabitRepository
 
     private val _saveState =
-        MutableLiveData<UIState<Unit>>()
+        MutableLiveData<UIState<Habit>>()
 
     val saveState:
-            LiveData<UIState<Unit>> = _saveState
+            LiveData<UIState<Habit>> = _saveState
 
     init {
 
@@ -79,16 +80,34 @@ class CreateHabitViewModel(
                         response.body()?.success == true
                     ) {
 
-                        _saveState.value =
-                            UIState.Success(Unit)
+                        val createdHabit =
+                            response.body()?.data
+
+                        if(createdHabit != null) {
+
+                            _saveState.postValue(
+                                UIState.Success(
+                                    createdHabit
+                                )
+                            )
+
+                        } else {
+
+                            _saveState.postValue(
+                                UIState.Error(
+                                    "Invalid habit data"
+                                )
+                            )
+                        }
 
                     } else {
 
-                        _saveState.value =
+                        _saveState.postValue(
                             UIState.Error(
                                 response.body()?.message
                                     ?: "Failed"
                             )
+                        )
                     }
                 }
 

@@ -323,6 +323,19 @@ class AddTaskFragment : Fragment() {
 
                     binding.btnSaveTask.isEnabled =
                         true
+                    val createdTask =
+                        it.data
+
+                    if(createdTask.reminder_enabled == 1
+                    ) {
+
+                        com.example.untitled.utils
+                            .TaskReminderScheduler
+                            .scheduleTaskReminder(
+                                requireContext(),
+                                createdTask
+                            )
+                    }
 
                     Toast.makeText(
                         context,

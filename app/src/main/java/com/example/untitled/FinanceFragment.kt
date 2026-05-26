@@ -52,8 +52,9 @@ class FinanceFragment : Fragment() {
         }
 
         binding.btnReports.setOnClickListener {
+
             findNavController().navigate(
-                R.id.action_financeFragment_to_insightsFragment
+                R.id.action_financeFragment_to_monthlyReportFragment
             )
         }
 

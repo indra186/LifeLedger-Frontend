@@ -55,7 +55,8 @@ class TasksViewModel : ViewModel() {
                             val tasks =
                                 response.body()?.data
                                     ?: emptyList()
-
+                            scheduleTaskReminders(tasks)
+                            scheduleOverdueChecks(tasks)
                             createSections(tasks)
                         }
                     }
@@ -321,6 +322,81 @@ class TasksViewModel : ViewModel() {
 
                 task.date == today
             }
+        }
+    }
+    private fun scheduleTaskReminders(
+        tasks: List<Task>
+    ) {
+
+        val context =
+            com.example.untitled.MyApplication.instance
+
+        val formatter =
+            java.text.SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss",
+                java.util.Locale.getDefault()
+            )
+
+        tasks.forEach { task ->
+
+            if(
+                task.reminder_enabled != 1 ||
+                task.completed == 1
+            ) {
+                return@forEach
+            }
+
+            if(
+                task.date.isNullOrEmpty() ||
+                task.time.isNullOrEmpty()
+            ) {
+                return@forEach
+            }
+
+            try {
+
+                val dateTime =
+                    "${task.date} ${task.time}"
+
+//                val triggerMillis =
+//                    formatter.parse(dateTime)?.time
+//                        ?: return@forEach
+//
+//                com.example.untitled.utils
+//                    .ReminderScheduler
+//                    .scheduleReminder(
+//
+//                        context,
+//
+//                        "Task Reminder",
+//
+//                        task.title,
+//
+//                        triggerMillis
+//                    )
+
+            } catch (e: Exception) {
+
+                e.printStackTrace()
+            }
+        }
+    }
+    private fun scheduleOverdueChecks(
+        tasks: List<Task>
+    ) {
+
+        val context =
+            com.example.untitled.MyApplication.instance
+
+        tasks.forEach { task ->
+
+            com.example.untitled.utils
+                .OverdueTaskScheduler
+                .scheduleOverdueReminder(
+
+                    context,
+                    task
+                )
         }
     }
 

@@ -20,6 +20,8 @@ class DashboardFragment : Fragment() {
 
     private var _binding: FragmentDashboardBinding? = null
     private val binding get() = _binding!!
+    private var dashboardData:
+            com.example.untitled.models.DashboardData? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,6 +43,26 @@ class DashboardFragment : Fragment() {
         binding.tvViewAllGoals.setOnClickListener {
              if (isAdded) findNavController().navigate(R.id.action_dashboardFragment_to_goalsFragment)
         }
+        binding.cardGoal.setOnClickListener {
+
+            val goal =
+                dashboardData
+                    ?.goals
+                    ?.firstOrNull()
+                    ?: return@setOnClickListener
+
+            val bundle = Bundle()
+
+            bundle.putInt(
+                "goalId",
+                goal.id
+            )
+
+            findNavController().navigate(
+                R.id.goalDetailFragment,
+                bundle
+            )
+        }
 
         fetchDashboardData()
     }
@@ -57,20 +79,62 @@ class DashboardFragment : Fragment() {
 
                     if (response.isSuccessful && response.body()?.success == true) {
                         val data = response.body()!!.data
+                        dashboardData = data
                         Log.d("DASHBOARD", "User from API = ${data.name}")
 
                         // USER NAME
                         binding.tvUsername.text = data.name
                         // Total Balance
-                        binding.tvBalanceAmount.text = "₹${data.total_balance}"
+                        binding.tvBalanceAmount.text =
+                            "₹%,.0f".format(data.total_balance)
+                        val growthText =
 
+                            if(data.balance_change_positive) {
+
+                                " +₹%,.2f (%.1f%%) vs last month"
+                                    .format(
+                                        data.balance_change_amount,
+                                        data.balance_change_percent
+                                    )
+
+                            } else {
+
+                                " -₹%,.2f (%.1f%%) vs last month"
+                                    .format(
+                                        kotlin.math.abs(
+                                            data.balance_change_amount
+                                        ),
+                                        kotlin.math.abs(
+                                            data.balance_change_percent
+                                        )
+                                    )
+                            }
+
+                        binding.tvGrowth.text =
+                            growthText
+                        binding.tvGrowth.setTextColor(
+
+                            resources.getColor(
+
+                                if(data.balance_change_positive)
+                                    R.color.success
+                                else
+                                    R.color.expense_red,
+
+                                null
+                            )
+                        )
                         // Monthly spending = sum of expenses
-                        val expense = data.recent_transactions
-                            .filter { it.type == "expense" }
-                            .sumOf { it.amount }
+                        binding.tvExpenseVal.text =
+                            "₹%,.0f".format(
+                                data.monthly_expense
+                            )
 
-                        binding.tvExpenseVal.text = "₹$expense"
+                        binding.tvTransactionCount.text =
+                            "${data.monthly_transaction_count} txns"
 
+                        binding.tvHabitVal.text =
+                            "${data.today_habits_completed}/${data.today_habits_total}"
                         // Goal
                         if (data.goals.isNotEmpty()) {
                             val goal = data.goals[0]
@@ -83,8 +147,7 @@ class DashboardFragment : Fragment() {
                             binding.progressBarGoal.progress = percent
                             binding.tvGoalPercent.text = "$percent%"
                             binding.tvGoalProgress.text =
-                                "${goal.current_amount.toInt()} of ${goal.target_amount.toInt()}"
-
+                                "₹${goal.current_amount.toInt()} saved of ₹${goal.target_amount.toInt()}"
                         } else {
                             // 👇 THIS IS IMPORTANT
                             binding.cardGoal.visibility = View.GONE

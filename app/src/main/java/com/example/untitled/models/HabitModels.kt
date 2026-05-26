@@ -33,7 +33,7 @@ data class CreateHabitRequest(
 data class CreateHabitResponse(
     val success: Boolean,
     val message: String,
-    val data: HabitIdData?
+    val data: Habit?
 )
 
 data class HabitIdData(
@@ -56,4 +56,25 @@ data class WeekHistoryResponse(
     val message: String,
 
     val data: List<String>
+)
+data class DeleteHabitRequest(
+
+    val habit_id: Int
+)
+data class HabitCompletedResponse(
+
+    val success: Boolean,
+
+    val data: HabitCompletedData
+)
+
+data class HabitCompletedData(
+
+    val completed: Boolean
+)
+data class BasicResponse(
+
+    val success: Boolean,
+
+    val message: String
 )

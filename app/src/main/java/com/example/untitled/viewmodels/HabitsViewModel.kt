@@ -6,6 +6,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.untitled.models.CheckHabitRequest
 import com.example.untitled.models.CheckHabitResponse
+import com.example.untitled.models.CreateHabitResponse
+import com.example.untitled.models.DeleteHabitRequest
 import com.example.untitled.models.Habit
 import com.example.untitled.models.HabitsResponse
 import com.example.untitled.models.WeekHistoryResponse
@@ -206,5 +208,40 @@ class HabitsViewModel(
 
                 }
             })
+    }
+    fun deleteHabit(
+        habitId: Int
+    ) {
+
+        val request =
+            DeleteHabitRequest(
+                habitId
+            )
+
+        RetrofitClient
+            .instance
+            .deleteHabit(request)
+            .enqueue(
+
+                object :
+                    Callback<CreateHabitResponse> {
+
+                    override fun onResponse(
+                        call: Call<CreateHabitResponse>,
+                        response: Response<CreateHabitResponse>
+                    ) {
+
+                        fetchHabits()
+                    }
+
+                    override fun onFailure(
+                        call: Call<CreateHabitResponse>,
+                        t: Throwable
+                    ) {
+
+                        t.printStackTrace()
+                    }
+                }
+            )
     }
 }

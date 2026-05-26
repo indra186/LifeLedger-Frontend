@@ -58,6 +58,34 @@ class HabitDetailFragment : Fragment() {
 
             findNavController().navigateUp()
         }
+        binding.btnDelete.setOnClickListener {
+
+            android.app.AlertDialog.Builder(requireContext())
+                .setTitle("Delete Habit")
+                .setMessage(
+                    "Are you sure you want to delete this habit?"
+                )
+                .setPositiveButton(
+                    "Delete"
+                ) { _, _ ->
+
+                    viewModel.deleteHabit(
+                        habitId
+                    )
+                    androidx.work.WorkManager
+                            .getInstance(requireContext())
+                        .cancelUniqueWork(
+                            "habit_$habitId"
+                        )
+
+                    findNavController().navigateUp()
+                }
+                .setNegativeButton(
+                    "Cancel",
+                    null
+                )
+                .show()
+        }
         habitId =
             arguments?.getInt(
                 "habitId"

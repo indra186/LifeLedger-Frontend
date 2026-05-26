@@ -2,7 +2,7 @@ package com.example.untitled.models
 
 data class Task(
 
-    val id: String,
+    val id: Int,
 
     val title: String,
 
@@ -18,7 +18,7 @@ data class Task(
 
     val repeat_days: String?,
 
-    val reminder_enabled: Int?,
+    val reminder_enabled: Int,
 
     val attachment_uri: String?,
 
@@ -59,7 +59,9 @@ data class CreateTaskResponse(
 
     val success: Boolean,
 
-    val message: String
+    val message: String,
+
+    val data: Task?
 )
 data class TaskSection(
 
@@ -71,11 +73,22 @@ data class TaskSection(
 )
 data class UpdateTaskStatusRequest(
 
-    val task_id: String,
+    val task_id: Int,
 
     val completed: Int
 )
 data class DeleteTaskRequest(
 
-    val task_id: String
+    val task_id: Int
+)
+data class TaskCompletedResponse(
+
+    val success: Boolean,
+
+    val data: TaskCompletedData
+)
+
+data class TaskCompletedData(
+
+    val completed: Boolean
 )
