@@ -2,10 +2,11 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.devtools.ksp") // Using KSP instead of KAPT for Room
+    id("com.google.gms.google-services")
 }
 
 android {
-    namespace = "com.example.untitled"
+    namespace = "com.example.lifeledger"
     compileSdk = 34
     packaging {
         resources {
@@ -21,7 +22,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.example.untitled"
+        applicationId = "com.example.lifeledger"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -65,7 +66,7 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
-    
+
     // Networking
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
@@ -74,7 +75,17 @@ dependencies {
     //WORKMANAGER
     implementation("androidx.work:work-runtime-ktx:2.9.0")
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    // Google Credential Manager
+    implementation("androidx.credentials:credentials:1.3.0")
 
+    implementation("androidx.credentials:credentials-play-services-auth:1.3.0")
+
+    implementation("com.google.android.libraries.identity.googleid:googleid:1.1.0")
+
+// Firebase
+    implementation(platform("com.google.firebase:firebase-bom:33.1.2"))
+
+    implementation("com.google.firebase:firebase-auth-ktx")
     // Room
     val roomVersion = "2.6.1"
     implementation("androidx.room:room-runtime:$roomVersion")

@@ -7,12 +7,25 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:233757232148:android:e2c8b3f4775074f1e86b01",
+        "mobilesdk_app_id": "1:233757232148:android:54034be82a91932ee86b01",
         "android_client_info": {
-          "package_name": "com.simats.LifeLedger"
+          "package_name": "com.example.lifeledger"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "233757232148-lfk0ma7bbupap61pf90tccd3mvtm234r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.lifeledger",
+            "certificate_hash": "5aae093c60c46bc27a4330ace05ed36846599ec1"
+          }
+        },
+        {
+          "client_id": "233757232148-vqe808kbucg1p0e5rv4imgurhdlit1a1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyA9RjMyWzCrwYKx3JSk86VulmzrQHEgc3A"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "233757232148-vqe808kbucg1p0e5rv4imgurhdlit1a1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

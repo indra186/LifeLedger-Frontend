@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_light"
+    android:background="@color/white"
     android:padding="24dp">
 
     <ImageView
@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_back"
-        app:tint="@color/text_primary_light"
+        app:tint="@color/title_black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -23,7 +23,7 @@
         android:text="Add Account"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:textColor="@color/text_primary_light"
+        android:textColor="@color/black"
         app:layout_constraintTop_toTopOf="@id/iv_back"
         app:layout_constraintBottom_toBottomOf="@id/iv_back"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             app:cardCornerRadius="16dp"
             app:cardElevation="0dp"
-            app:cardBackgroundColor="@color/surface_light"
+            app:cardBackgroundColor="@color/white"
             app:strokeColor="@color/text_secondary_dark"
             app:strokeWidth="0dp"
             android:layout_marginBottom="16dp">
@@ -83,7 +83,7 @@
                         android:layout_height="wrap_content"
                         android:text="Bank Account"
                         android:textStyle="bold"
-                        android:textColor="@color/text_primary_light"/>
+                        android:textColor="@color/black"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -101,7 +101,7 @@
             android:layout_height="wrap_content"
             app:cardCornerRadius="16dp"
             app:cardElevation="0dp"
-            app:cardBackgroundColor="@color/surface_light"
+            app:cardBackgroundColor="@color/white"
             app:strokeColor="@color/text_secondary_dark"
             app:strokeWidth="0dp"
             android:layout_marginBottom="16dp">
@@ -130,7 +130,7 @@
                         android:layout_height="wrap_content"
                         android:text="Credit Card"
                         android:textStyle="bold"
-                        android:textColor="@color/text_primary_light"/>
+                        android:textColor="@color/black"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -148,7 +148,7 @@
             android:layout_height="wrap_content"
             app:cardCornerRadius="16dp"
             app:cardElevation="0dp"
-            app:cardBackgroundColor="@color/surface_light"
+            app:cardBackgroundColor="@color/white"
             app:strokeColor="@color/text_secondary_dark"
             app:strokeWidth="0dp"
             android:layout_marginBottom="16dp">
@@ -177,7 +177,7 @@
                         android:layout_height="wrap_content"
                         android:text="Cash/Wallet"
                         android:textStyle="bold"
-                        android:textColor="@color/text_primary_light"/>
+                        android:textColor="@color/black"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
