@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/background_light"
+    android:background="@color/white"
     android:padding="16dp">
 
     <!-- Header -->
@@ -20,7 +20,7 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/ic_arrow_back"
-            app:tint="@color/text_primary_light" />
+            app:tint="@color/title_black" />
 
         <TextView
             android:layout_width="0dp"
@@ -30,25 +30,17 @@
             android:text="My Accounts"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:textColor="@color/text_primary_light" />
+            android:textColor="@color/black" />
 
         <ImageView
             android:id="@+id/btn_add_new"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_add"
-            app:tint="@color/text_primary_light" />
+            app:tint="@color/title_black" />
     </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Current balances"
-        android:textColor="@color/gray"
-        android:textSize="12sp"
-        android:layout_marginBottom="12dp"/>
-
-    <!-- Accounts List -->
+   <!-- Accounts List -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_accounts"
         android:layout_width="match_parent"

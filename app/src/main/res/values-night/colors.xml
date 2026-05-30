@@ -6,6 +6,7 @@
     <!-- "black" is used as text, so it becomes light -->
     <color name="black">#FFFFFF</color>
     <color name="gray">#B0B0B0</color>
+    <color name="secondary_warm_light">#33FFE0B2</color>
 
     <!-- Backgrounds -->
     <color name="light_gray_bg">#1E1E1E</color>

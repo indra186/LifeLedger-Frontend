@@ -168,6 +168,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="changePasswordFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="12" />
+                            <option name="y" value="12" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="connectedAppsFragment">
                     <value>
                       <LayoutPositions>
@@ -230,6 +242,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="deleteAccountFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="12" />
+                            <option name="y" value="368" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="documentViewerFragment">
                     <value>
                       <LayoutPositions>
@@ -263,6 +287,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="editEmailFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="230" />
+                            <option name="y" value="12" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="feedbackFragment">
                     <value>
                       <LayoutPositions>
@@ -270,6 +306,18 @@
                           <Point>
                             <option name="x" value="1476" />
                             <option name="y" value="2148" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="forgotPasswordFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="12" />
+                            <option name="y" value="12" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -406,18 +454,6 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="insightsFragment">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="2696" />
-                            <option name="y" value="1792" />
-                          </Point>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
                   <entry key="introFragment">
                     <value>
                       <LayoutPositions>
@@ -547,11 +583,6 @@
                               </value>
                             </entry>
                             <entry key="action_financeFragment_to_cashflowTimelineFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                            <entry key="action_financeFragment_to_insightsFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
